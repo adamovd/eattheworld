@@ -12,6 +12,7 @@ export const POST = async (req: NextRequest) => {
     const role = (await prisma.user.findMany()).length === 0 ? "admin" : "user";
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectToDatabase();
+
     const user: User = await prisma.user.create({
       data: { email, firstname, lastname, hashedPassword, role },
     });

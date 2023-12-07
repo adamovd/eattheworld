@@ -5,10 +5,10 @@ export type User = {
   email: string;
   firstname: string;
   lastname: string;
-  hashedPassword?: string;
-  imageUrl?: string;
-  bio?: string;
-  nationality: string;
+  hashedPassword?: string | null;
+  imageUrl?: string | null;
+  bio?: string | null;
+  nationality: string | null;
   countries?: Country[];
   reviews?: Review[];
   recipes?: Recipe[];
