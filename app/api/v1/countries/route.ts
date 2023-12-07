@@ -44,18 +44,18 @@ export const GET = async () => {
   }
 };
 
-export const GET1 = async (name: string) => {
-  console.log(name);
+// export const GET = async (name: string) => {
+//   console.log(name);
 
-  try {
-    const country = await prisma.country.findUnique({ where: { name: name } });
-    return NextResponse.json(country);
-  } catch {
-    return NextResponse.json("error", {
-      status: 500,
-    });
-  }
-};
+//   try {
+//     const country = await prisma.country.findUnique({ where: { name: name } });
+//     return NextResponse.json(country);
+//   } catch {
+//     return NextResponse.json("error", {
+//       status: 500,
+//     });
+//   }
+// };
 
 export const DELETE = async (req: Request) => {
   const query = new URL(req.url).searchParams;
