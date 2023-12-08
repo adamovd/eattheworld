@@ -5,7 +5,7 @@ export type User = {
   email: string;
   firstname: string;
   lastname: string;
-  hashedPassword?: string | null;
+  password?: string | null;
   imageUrl?: string | null;
   bio?: string | null;
   nationality: string | null;
