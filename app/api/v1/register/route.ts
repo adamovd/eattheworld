@@ -8,17 +8,9 @@ const prisma = new PrismaClient();
 
 export const POST = async (request: NextRequest) => {
   try {
-    const {
-      firstname,
-      lastname,
-      username,
-      email,
-      password,
-      nationality,
-      imageUrl,
-      bio,
-    } = await request.json();
-    if (!firstname || !lastname || !username || !email || !password)
+    const { firstname, lastname, email, password, nationality, imageUrl, bio } =
+      await request.json();
+    if (!firstname || !lastname || !email || !password)
       return NextResponse.json(
         { message: "Required fields missing" },
         { status: 422 }
@@ -45,7 +37,6 @@ export const POST = async (request: NextRequest) => {
       data: {
         firstname,
         lastname,
-        username,
         email,
         hashedPassword,
         role,
