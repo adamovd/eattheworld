@@ -8,7 +8,7 @@ const prisma = new PrismaClient();
 
 export const POST = async (request: NextRequest) => {
   try {
-    const { firstname, lastname, email, password, nationality, imageUrl, bio } =
+    const { firstname, lastname, email, password, nationality, image, bio } =
       await request.json();
     if (!firstname || !lastname || !email || !password)
       return NextResponse.json(
@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
         hashedPassword,
         role,
         nationality,
-        imageUrl,
+        image,
         bio,
       },
     });

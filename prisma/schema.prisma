@@ -26,6 +26,24 @@ model Account {
   @@map("accounts")
 }
 
+model Session {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+model VerificationToken {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id             String    @id @default(auto()) @map("_id") @db.ObjectId
   createdAt      DateTime  @default(now())
@@ -34,14 +52,17 @@ model User {
   firstname      String
   lastname       String
   hashedPassword String
-  imageUrl       String?
+  image          String?
   bio            String?
   nationality    String?
   role           String
+  emailVerified DateTime?
+  accounts      Account[]
+  sessions      Session[]
   countries      Country[]
   reviews        Review[]
   recipes        Recipe[]
-  Account        Account[]
+  
 }
 
 model Country {
