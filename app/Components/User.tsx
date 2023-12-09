@@ -3,7 +3,9 @@ import { useSession } from "next-auth/react";
 
 const User = () => {
   const { data: session } = useSession();
-  return <pre>{JSON.stringify(session)}</pre>;
+  console.log(session);
+
+  return <h4>Hej {session?.user?.firstname}, välkommen hit!</h4>;
 };
 
 export default User;

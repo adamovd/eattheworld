@@ -40,7 +40,7 @@ const RegistrationForm = () => {
     const url = res.map((image) => {
       return image.url;
     });
-    setValue("imageUrl", url.toString());
+    setValue("image", url.toString());
     setUploading(false);
   };
 
