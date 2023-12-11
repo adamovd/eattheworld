@@ -1,34 +1,35 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth/next";
 import { CookiesOptions, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-// const cookies: Partial<CookiesOptions> = {
-//   sessionToken: {
-//     name: `next-auth.session-token`,
-//     options: {
-//       httpOnly: true,
-//       sameSite: "none",
-//       path: "/",
-//       domain: process.env.NEXT_PUBLIC_DOMAIN,
-//       secure: true,
-//     },
-//   },
-//   callbackUrl: {
-//     name: `next-auth.callback-url`,
-//     options: {},
-//   },
-//   csrfToken: {
-//     name: "next-auth.csrf-token",
-//     options: {},
-//   },
-// };
+const cookies: Partial<CookiesOptions> = {
+  sessionToken: {
+    name: `next-auth.session-token`,
+    options: {
+      httpOnly: true,
+      sameSite: "none",
+      path: "/",
+      domain: process.env.NEXT_PUBLIC_DOMAIN,
+      secure: true,
+    },
+  },
+  callbackUrl: {
+    name: `next-auth.callback-url`,
+    options: {},
+  },
+  csrfToken: {
+    name: "next-auth.csrf-token",
+    options: {},
+  },
+};
 
 const prisma = new PrismaClient();
 
 const authOptions: NextAuthOptions = {
+  adapter: PrismaAdapter(prisma),
   session: {
     strategy: "jwt",
   },
@@ -71,8 +72,6 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-
-  adapter: PrismaAdapter(prisma),
 
   callbacks: {
     session: ({ session, token }): Session => {

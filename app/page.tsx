@@ -1,6 +1,3 @@
-import { authOptions } from "./api/auth/[...nextauth]/route";
-import Link from "next/link";
-import { signOut } from "next-auth/react";
 import User from "./Components/User";
 import { LoginButton, LogoutButton } from "./Components/Auth";
 
