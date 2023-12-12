@@ -16,13 +16,11 @@ const SignInForm = () => {
   } = useForm<User>();
   const onSubmit = handleSubmit(async (data) => {
     try {
-      console.log(data);
       signIn("credentials", {
         ...data,
-        redirect: false,
+        redirect: true,
       });
       reset();
-      router.push("/");
     } catch (error) {
       console.error("Error while login in", error);
     }
