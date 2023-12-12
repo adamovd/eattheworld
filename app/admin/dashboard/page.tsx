@@ -6,11 +6,6 @@ import { useSession } from "next-auth/react";
 import { LogoutButton } from "../../Components/Auth";
 import React from "react";
 
-AdminDashboard.auth = {
-  role: "admin",
-  unauthorized: "/sign-in", // redirect to this url
-};
-
 export default function AdminDashboard() {
   const { data: session } = useSession({ required: true });
 
@@ -210,5 +205,3 @@ export default function AdminDashboard() {
     </>
   );
 }
-
-AdminDashboard.auth = true;
