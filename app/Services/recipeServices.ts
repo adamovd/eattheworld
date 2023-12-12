@@ -4,12 +4,12 @@ import { Recipe } from "../Models/dbTypes";
 const recipeUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/v1/recipes"
-    : "https://www.eattheworld.se/api/v1/recipes";
+    : "https://eattheworld.vercel.app/api/v1/recipes";
 
 const ingredientUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/v1/ingredients"
-    : "https://www.eattheworld.se/api/v1/ingredients";
+    : "https://eattheworld.vercel.app/api/v1/ingredients";
 
 export const createNewRecipe = async (data: Recipe) => {
   fetch(recipeUrl, {
