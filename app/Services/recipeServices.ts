@@ -1,5 +1,5 @@
-import { Ingredient } from "../Models/dbTypes";
 import { Recipe } from "../Models/dbTypes";
+import { Ingredient } from "../Models/dbTypes";
 
 const recipeUrl =
   process.env.NODE_ENV === "development"

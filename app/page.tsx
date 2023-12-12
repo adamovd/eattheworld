@@ -1,5 +1,6 @@
 import User from "./Components/User";
 import { LoginButton, LogoutButton } from "./Components/Auth";
+import React from "react";
 
 export default async function Home() {
   return (

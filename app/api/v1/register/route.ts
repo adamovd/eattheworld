@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
-import { connectToDatabase } from "@/helpers/server-helpers";
+import { connectToDatabase } from "../../../../helpers/server-helpers";
 import { Recipe, Review, Country } from "@prisma/client";
 
 const prisma = new PrismaClient();

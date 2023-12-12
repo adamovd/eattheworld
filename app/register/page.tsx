@@ -2,10 +2,11 @@
 import { useForm, Resolver } from "react-hook-form";
 import { User } from "../Models/dbTypes";
 import { ChangeEvent, useState } from "react";
-import { countryList } from "@/helpers/country-list";
-import { UploadButton } from "@/helpers/uploadthing";
+import { countryList } from "../../helpers/country-list";
+import { UploadButton } from "../../helpers/uploadthing";
 import { registerNewUser } from "../Services/userServices";
 import { useRouter } from "next/navigation";
+import React from "react";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");

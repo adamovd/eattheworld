@@ -1,5 +1,6 @@
-import { LoginButton } from "@/app/Components/Auth";
+import { LoginButton } from "../../Components/Auth";
 import Link from "next/link";
+import React from "react";
 
 const Custom403 = () => {
   return (

@@ -26,9 +26,6 @@ declare module "next-auth" {
     bio?: string | null;
     nationality: string | null;
     role: string;
-    countries?: Country[];
-    reviews?: Review[];
-    recipes?: Recipe[];
   }
 }
 

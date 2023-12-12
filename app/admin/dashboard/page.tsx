@@ -3,7 +3,8 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
-import { LogoutButton } from "@/app/Components/Auth";
+import { LogoutButton } from "../../Components/Auth";
+import React from "react";
 
 AdminDashboard.auth = {
   role: "admin",
