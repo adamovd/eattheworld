@@ -5,27 +5,6 @@ import { CookiesOptions, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
-// const cookies: Partial<CookiesOptions> = {
-//   sessionToken: {
-//     name: `next-auth.session-token`,
-//     options: {
-//       httpOnly: true,
-//       sameSite: "none",
-//       path: "/",
-//       domain: process.env.NEXT_PUBLIC_DOMAIN,
-//       secure: true,
-//     },
-//   },
-//   callbackUrl: {
-//     name: `next-auth.callback-url`,
-//     options: {},
-//   },
-//   csrfToken: {
-//     name: "next-auth.csrf-token",
-//     options: {},
-//   },
-// };
-
 const prisma = new PrismaClient();
 
 const authOptions: NextAuthOptions = {
@@ -80,7 +59,6 @@ const authOptions: NextAuthOptions = {
 
   callbacks: {
     session: ({ session, token }): Session => {
-      console.log("Session callback", { session, token });
       return {
         ...session,
         user: {
@@ -99,8 +77,6 @@ const authOptions: NextAuthOptions = {
       };
     },
     jwt: ({ token, user }) => {
-      console.log("JWT callback", { token: process.env.NEXTAUTH_SECRET, user });
-
       if (user) {
         const u = user as unknown as User;
         return {
