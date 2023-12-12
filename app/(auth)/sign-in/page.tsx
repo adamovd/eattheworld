@@ -18,7 +18,6 @@ const SignInForm = () => {
     try {
       signIn("credentials", {
         ...data,
-        redirect: true,
       });
       reset();
     } catch (error) {
