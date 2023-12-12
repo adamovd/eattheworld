@@ -72,6 +72,7 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  secret: process.env.NEXT_PUBLIC_SECRET,
 
   pages: {
     signIn: "(auth)/sign-in",
@@ -114,7 +115,6 @@ const authOptions: NextAuthOptions = {
     },
   },
   cookies: cookies,
-  secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
 };
 
