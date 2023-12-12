@@ -25,6 +25,7 @@ declare module "next-auth" {
     imageUrl?: string | null;
     bio?: string | null;
     nationality: string | null;
+    role: string;
     countries?: Country[];
     reviews?: Review[];
     recipes?: Recipe[];
