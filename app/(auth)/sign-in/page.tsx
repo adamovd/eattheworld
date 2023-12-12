@@ -18,10 +18,10 @@ const SignInForm = () => {
     try {
       signIn("credentials", {
         ...data,
-        redirect: true,
+        redirect: false,
       });
       reset();
-      router.push("/" || "admin/dashboard");
+      router.push("/");
     } catch (error) {
       console.error("Error while login in", error);
     }
