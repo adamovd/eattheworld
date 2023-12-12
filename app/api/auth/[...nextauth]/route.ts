@@ -1,9 +1,30 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import NextAuth from "next-auth/next";
-import { NextAuthOptions, Session, User } from "next-auth";
+import { CookiesOptions, NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+
+const cookies: Partial<CookiesOptions> = {
+  sessionToken: {
+    name: `next-auth.session-token`,
+    options: {
+      httpOnly: true,
+      sameSite: "none",
+      path: "/",
+      domain: process.env.NEXT_PUBLIC_DOMAIN,
+      secure: true,
+    },
+  },
+  callbackUrl: {
+    name: `next-auth.callback-url`,
+    options: {},
+  },
+  csrfToken: {
+    name: "next-auth.csrf-token",
+    options: {},
+  },
+};
 
 const prisma = new PrismaClient();
 
@@ -53,7 +74,7 @@ const authOptions: NextAuthOptions = {
   ],
 
   pages: {
-    signIn: "/sign-in",
+    signIn: "(auth)/sign-in",
   },
 
   callbacks: {
@@ -92,7 +113,7 @@ const authOptions: NextAuthOptions = {
       return token;
     },
   },
-
+  cookies: cookies,
   secret: process.env.NEXTAUTH_SECRET,
   debug: process.env.NODE_ENV === "development",
 };
