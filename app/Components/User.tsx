@@ -6,7 +6,7 @@ const User = () => {
   const { data: session } = useSession();
   console.log(session);
 
-  return <h4>Hej {session?.user?.firstname}, välkommen hit!</h4>;
+  return <h4>Hello {session?.user?.firstname} welcome to Eat the World!</h4>;
 };
 
 export default User;
