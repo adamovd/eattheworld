@@ -74,9 +74,9 @@ const authOptions: NextAuthOptions = {
   ],
   secret: process.env.NEXT_PUBLIC_SECRET,
 
-  pages: {
-    signIn: "(auth)/sign-in",
-  },
+  // pages: {
+  //   signIn: "(auth)/sign-in",
+  // },
 
   callbacks: {
     session: ({ session, token }): Session => {
