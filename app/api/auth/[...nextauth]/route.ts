@@ -72,6 +72,7 @@ const authOptions: NextAuthOptions = {
           password: token.password as string,
           nationality: token.nationality as string,
           image: token.image as string,
+          role: token.role as string,
         },
       };
     },
@@ -83,6 +84,9 @@ const authOptions: NextAuthOptions = {
           ...token,
           id: u.id,
           firstname: u.firstname,
+          lastname: u.lastname,
+          image: u.image,
+          role: u.role,
         };
       }
       return token;
