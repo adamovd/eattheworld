@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm, Resolver } from "react-hook-form";
 import React from "react";
-import { User } from "../Models/dbTypes";
+import { User } from "../../Models/dbTypes";
 
 const SignInForm = () => {
   const router = useRouter();
