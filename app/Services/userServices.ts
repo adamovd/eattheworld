@@ -3,7 +3,7 @@ import { User } from "../Models/dbTypes";
 const url =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/v1/register"
-    : "https://eattheworld.vercel.app/api/v1/register";
+    : "https://www.eattheworld.se/api/v1/register";
 
 export const registerNewUser = async (data: User) => {
   fetch(url, {
