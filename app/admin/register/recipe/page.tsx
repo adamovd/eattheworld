@@ -73,6 +73,7 @@ export default function RecipeForm() {
       return selectedCountryValue;
     });
     setValue("countryId", selectedCountry);
+    console.log(selectedCountry);
     console.log(session?.user?.id);
 
     await setValue("userId", session?.user?.id);
