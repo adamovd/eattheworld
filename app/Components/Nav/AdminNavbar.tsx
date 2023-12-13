@@ -16,9 +16,9 @@ export default function AdminNavbar() {
     imageUrl: session?.user?.image,
   };
   const navigation = [
-    { name: "Dashboard", href: "#", current: true },
+    { name: "Dashboard", href: "admin/dashboard", current: true },
     { name: "Add Country", href: "/admin/register/country", current: false },
-    { name: "Add Recipe", href: "#", current: false },
+    { name: "Add Recipe", href: "/admin/register/recipe", current: false },
   ];
   const userNavigation = [
     { name: "Your Profile", href: "#" },
