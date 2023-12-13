@@ -20,7 +20,7 @@ export const POST = async (request: NextRequest) => {
       where: { name: countryId },
     })
     .then((country) => {
-      console.log(country);
+      console.log(country?.id);
 
       return country?.id;
     });
