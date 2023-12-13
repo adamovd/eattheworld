@@ -10,6 +10,7 @@ const PresentCountries = () => {
   useEffect(() => {
     getAllCountries().then((response) => {
       setCountries(response);
+      console.log(response);
     });
   }, []);
   const deleteCountry = (id: string) => {};
