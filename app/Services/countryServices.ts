@@ -21,14 +21,4 @@ export const getAllCountries = async () => {
   return response.json();
 };
 
-export const findCountryByName = async (name: string) => {
-  const response = await fetch(url, {
-    method: "GET1",
-    headers: { "Content-Type": "application/json" },
-    cache: "reload",
-  });
-
-  return response.json();
-};
-
 export const deleteCountryById = async (id: string) => {};
