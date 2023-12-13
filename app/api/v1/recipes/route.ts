@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { Ingredient, PrismaClient } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
@@ -11,8 +11,17 @@ export const POST = async (request: NextRequest) => {
     imageUrl,
     ingredients,
     reviews,
+    userId,
     countryId,
   } = await request.json();
+
+  const findCountryId = await prisma.country
+    .findUnique({
+      where: { name: countryId },
+    })
+    .then((country) => {
+      return country?.id;
+    });
 
   const recipe = await prisma.recipe.create({
     data: {
@@ -20,23 +29,52 @@ export const POST = async (request: NextRequest) => {
       description,
       instructions,
       imageUrl,
-      ingredients,
       reviews,
-      countryId,
+      userId,
+      countryId: findCountryId,
     },
   });
 
-  return NextResponse.json({ message: "Recipe created succesfully", recipe });
+  const addedIngredients = await Promise.all(
+    ingredients.map(async (ingredient: Ingredient) => {
+      return prisma.ingredient.create({
+        data: {
+          name: ingredient.name,
+          value: ingredient.value,
+          unit: ingredient.unit,
+          recipe: {
+            connect: { id: recipe.id },
+          },
+        },
+      });
+    })
+  );
+
+  return NextResponse.json({
+    message: "Recipe created succesfully",
+    recipe,
+    addedIngredients,
+  });
 };
 
-export const GET = async () => {
+export const GET = async (request: NextRequest) => {
   try {
-    const recipes = await prisma.recipe.findMany();
-    return NextResponse.json(recipes.reverse());
-  } catch {
-    return NextResponse.json("error", {
-      status: 500,
+    const { id } = await request.json();
+    const recipe = await prisma.recipe.findUnique({
+      where: { id: id },
+      include: {
+        ingredients: true,
+      },
     });
+
+    if (!recipe) {
+      return NextResponse.json("Recipe not found", { status: 404 });
+    }
+
+    return NextResponse.json(recipe);
+  } catch (error) {
+    console.error("Error fetching recipe:", error);
+    return NextResponse.json("Error fetching recipe", { status: 500 });
   }
 };
 
