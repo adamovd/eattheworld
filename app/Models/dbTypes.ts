@@ -34,7 +34,7 @@ export type Recipe = {
   updatedAt: Date;
   title: string;
   description: string;
-  instructions: string;
+  instructions: string[];
   imageUrl: string;
   ingredients: [{ name: string; value: number; unit: string }];
   reviews: Review[];
@@ -42,17 +42,6 @@ export type Recipe = {
   userId?: string | null;
   Country?: Country | null;
   countryId?: string | null;
-};
-
-export type Ingredient = {
-  _id: string;
-  createdAt: Date;
-  updatedAt: Date;
-  name: string;
-  value: number;
-  unit: string;
-  Recipe?: Recipe | null;
-  recipeId?: string | null;
 };
 
 export type Review = {
