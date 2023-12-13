@@ -34,7 +34,13 @@ export const POST = async (request: NextRequest) => {
 export const GET = async () => {
   try {
     const countries = await prisma.country.findMany({
-      include: { recipes: true },
+      include: {
+        recipes: {
+          include: {
+            ingredients: true, // Include ingredients for each recipe
+          },
+        },
+      },
     });
     return NextResponse.json(countries.reverse());
   } catch {
@@ -43,19 +49,6 @@ export const GET = async () => {
     });
   }
 };
-
-// export const GET = async (name: string) => {
-//   console.log(name);
-
-//   try {
-//     const country = await prisma.country.findUnique({ where: { name: name } });
-//     return NextResponse.json(country);
-//   } catch {
-//     return NextResponse.json("error", {
-//       status: 500,
-//     });
-//   }
-// };
 
 export const DELETE = async (req: Request) => {
   const query = new URL(req.url).searchParams;
