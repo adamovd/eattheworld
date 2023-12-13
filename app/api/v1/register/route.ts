@@ -1,8 +1,7 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
-import { connectToDatabase } from "../../../../helpers/server-helpers";
-import { Recipe, Review, Country } from "@prisma/client";
+import { connectToDatabase } from "@/helpers/server-helpers";
 
 const prisma = new PrismaClient();
 
@@ -54,5 +53,26 @@ export const POST = async (request: NextRequest) => {
       { status: 500 }
     );
   } finally {
+  }
+};
+
+export const GET = async () => {
+  try {
+    // // Check if request is authorized
+    // const isAuthorized = authorize(request);
+    // if (!isAuthorized) {
+    //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    // }
+
+    // Fetch all users
+    const users = await prisma.user.findMany();
+
+    return NextResponse.json(users);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Error fetching users" },
+      { status: 500 }
+    );
   }
 };

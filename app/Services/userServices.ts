@@ -12,3 +12,11 @@ export const registerNewUser = async (data: User) => {
     body: JSON.stringify({ ...data }),
   });
 };
+
+export const getAllUsers = async () => {
+  const response = await fetch(url, {
+    cache: "reload",
+  });
+
+  return response.json();
+};
