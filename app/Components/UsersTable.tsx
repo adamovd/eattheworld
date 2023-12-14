@@ -14,8 +14,7 @@ const UsersTable = () => {
     });
   }, []);
   return (
-    <section className="my-10 mx-10">
-      <h2>Added users</h2>
+    <section className="my-5 mx-5 h-full overflow-y-scroll">
       <ul role="list" className="divide-y divide-gray-100 max-h-5">
         {users.map((user) => (
           <li key={user.id} className="flex justify-between gap-x-6 py-5">

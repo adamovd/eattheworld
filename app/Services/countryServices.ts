@@ -21,4 +21,14 @@ export const getAllCountries = async () => {
   return response.json();
 };
 
+export const getCountryById = async (id: string) => {
+  const response = await fetch(`${url}/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch country by ID");
+  }
+
+  return response.json();
+};
+
 export const deleteCountryById = async (id: string) => {};
