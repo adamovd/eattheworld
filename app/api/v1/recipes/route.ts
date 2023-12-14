@@ -20,9 +20,12 @@ export const POST = async (request: NextRequest) => {
       where: { name: countryId },
     })
     .then((country) => {
-      console.log(country?.id);
-
-      return country?.id;
+      console.log("The id of the country" + country?.id);
+      if (country) {
+        return country?.id;
+      } else {
+        console.error("No country");
+      }
     });
 
   const recipe = await prisma.recipe.create({
