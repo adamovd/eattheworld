@@ -6,6 +6,8 @@ import { UploadButton } from "../../../../helpers/uploadthing";
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { countryList } from "../../../../helpers/country-list";
+import { Button } from "@/app/Styles/Components/Buttons";
+import { InputField } from "@/app/Styles/Components/InputFields";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
@@ -21,6 +23,8 @@ export default function CountryForm() {
   } = useForm<Country>();
   const onSubmit = handleSubmit(async (data) => {
     try {
+      console.log(data);
+
       await createNewCountry(data);
       reset();
     } catch (error) {
@@ -39,14 +43,19 @@ export default function CountryForm() {
 
     try {
       const response = await axios.get(
-        `https://restcountries.com/v3.1/alpha/${country?.code}?fields=latlng,population`
+        `https://restcountries.com/v3.1/alpha/${country?.code}?fields=latlng,population,capital,continents,area,flags`
       );
 
       const countryInfo = response.data;
+      console.log(countryInfo);
 
       setValue("population", countryInfo.population);
       setValue("lat", countryInfo.latlng[0]);
       setValue("lng", countryInfo.latlng[1]);
+      setValue("area", countryInfo.area);
+      setValue("capital", countryInfo.capital[0]);
+      setValue("continent", countryInfo.continents[0]);
+      setValue("flag", countryInfo.flags.svg);
     } catch (error) {
       console.error("Error fetching country data:", error);
     }
@@ -123,11 +132,18 @@ export default function CountryForm() {
                 </label>
                 <div className="mt-2">
                   <div className="flex sm:max-w-md text-gray-800">
-                    <UploadButton
-                      endpoint="imageUploader"
-                      onClientUploadComplete={handleUploadComplete}
-                      onUploadError={handleUploadError}
-                    />
+                    <Button
+                      bgColor="--Yellow"
+                      textColor="--Dark"
+                      fontSize="1rem"
+                    >
+                      <UploadButton
+                        endpoint="imageUploader"
+                        onClientUploadComplete={handleUploadComplete}
+                        onUploadError={handleUploadError}
+                        className="pb-1"
+                      />
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -140,26 +156,28 @@ export default function CountryForm() {
                   Playlist
                 </label>
                 <div className="mt-2">
-                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                    <input
-                      {...register("playlistUrl")}
-                      placeholder="URL to playlist"
-                      id="playlistUrl"
-                      name="playlistUrl"
-                      className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    />
-                  </div>
+                  <InputField
+                    {...register("playlistUrl")}
+                    bgColor="--Light"
+                    textColor="--Dark"
+                    fontSize="1rem"
+                    placeholder="URL to playlist"
+                    id="playlistUrl"
+                    name="playlistUrl"
+                    className="mb-5"
+                  />
                 </div>
               </div>
-
-              <button
-                type="submit"
-                disabled={uploading}
-                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Save
-              </button>
             </div>
+            <Button
+              bgColor="--DarkGreen"
+              textColor="--Light"
+              fontSize="1rem"
+              type="submit"
+              disabled={uploading}
+            >
+              Save
+            </Button>
           </div>
         </div>
       </form>
