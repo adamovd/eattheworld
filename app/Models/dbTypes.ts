@@ -24,6 +24,10 @@ export type Country = {
   lat: number;
   lng: number;
   imageUrl: string;
+  flag?: string;
+  area?: number;
+  capital?: string;
+  continent?: string;
   recipes: Recipe[];
   playlistUrl: string;
 };
@@ -36,6 +40,8 @@ export type Recipe = {
   description: string;
   instructions: string[];
   imageUrl: string;
+  time?: string;
+  servings?: number;
   ingredients: [{ name: string; value: number; unit: string }];
   reviews: Review[];
   User?: User | null;

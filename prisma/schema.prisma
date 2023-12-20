@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -31,7 +29,7 @@ model Account {
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   sessionToken String   @unique
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -75,6 +73,10 @@ model Country {
   lat         Int
   lng         Int
   imageUrl    String
+  flag        String?
+  area        Int?
+  capital     String?
+  continent   String?
   playlistUrl String
   recipes     Recipe[]
   User        User?    @relation(fields: [userId], references: [id])
@@ -89,6 +91,8 @@ model Recipe {
   description  String
   instructions String[]
   imageUrl     String
+  time         String?
+  servings     Int?
   ingredients  Ingredient[]
   reviews      Review[]
   User         User?        @relation(fields: [userId], references: [id])
@@ -100,7 +104,7 @@ model Recipe {
 model Ingredient {
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   name     String
-  value    Int
+  value    Float
   unit     String
   recipe   Recipe @relation(fields: [recipeId], references: [id])
   recipeId String @db.ObjectId
