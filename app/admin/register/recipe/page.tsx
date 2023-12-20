@@ -12,6 +12,10 @@ export default function RecipeForm() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [uploading, setUploading] = useState(false);
   const defaultOption = "Select a country";
+  const defaultValues = {
+    instructions: "Step 1",
+    ingredients: [{ name: "", value: 0, unit: "" }],
+  };
   const {
     register,
     handleSubmit,
@@ -19,7 +23,7 @@ export default function RecipeForm() {
     setValue,
     reset,
     control,
-  } = useForm<Recipe>({});
+  } = useForm<Recipe>();
 
   // Create separate instances for instructions and ingredients
   const {
@@ -72,8 +76,7 @@ export default function RecipeForm() {
       setValue("countryId", selectedCountryValue);
       return selectedCountryValue;
     });
-    // console.log(selectedCountry);
-    // setValue("countryId", selectedCountry);
+
     console.log(session?.user?.id);
 
     await setValue("userId", session?.user?.id);
@@ -167,10 +170,10 @@ export default function RecipeForm() {
                 <button
                   type="button"
                   onClick={() =>
-                    appendInstruction({
+                    appendInstruction(
                       // @ts-ignore
-                      instruction: "New instruction content",
-                    })
+                      "New instruction"
+                    )
                   }
                 >
                   Add more instructions
