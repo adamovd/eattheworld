@@ -1,24 +1,29 @@
 "use client";
 import { signIn, signOut } from "next-auth/react";
 import React from "react";
+import { Button } from "../Styles/Components/Buttons";
 
 export const LoginButton = () => {
   return (
-    <button
+    <Button
+      bgColor="--DarkGreen"
+      textColor="--Light"
+      fontSize="1rem"
       onClick={() => signIn()}
-      className="flex w-50 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
     >
       Sign in
-    </button>
+    </Button>
   );
 };
 export const LogoutButton = () => {
   return (
-    <button
+    <Button
+      bgColor="--Red"
+      textColor="--Light"
+      fontSize="1rem"
       onClick={() => signOut({})}
-      className="flex w-50 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
     >
       Sign out
-    </button>
+    </Button>
   );
 };

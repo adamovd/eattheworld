@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Mono:ital,wght@0,200;0,300;0,400;1,100&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --Light: #f8f8e9;
+  --Dark: #06070a;
+  --Yellow: #f5da86;
+  --Red: #b44a35;
+  --Blue: #abdddd;
+  --LightGreen: #95a878;
+  --DarkGreen: #46684c;
+
+  --Heading: "Playfair Display", "Times", serif;
+  --Text: "Roboto Mono", "Arial", sans-serif;
+}
+
+body {
+  background-color: var(--Light);
+}
