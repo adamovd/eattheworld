@@ -5,9 +5,12 @@ import Link from "next/link";
 import { LogoutButton, LoginButton } from "../Auth";
 import { Button } from "@/app/Styles/Components/Buttons";
 import Logo from "@/public/logo.svg";
+import { usePathname } from "next/navigation";
+usePathname;
 
 const Navbar = () => {
   const { data: session } = useSession();
+  const pathname = usePathname();
   return (
     <Header>
       <section>
@@ -27,11 +30,21 @@ const Navbar = () => {
       <section>
         <h1>eat the world</h1>
       </section>
-      <section>
-        <Link href="#">About</Link>
-        <Link href="#">Contact</Link>
-        {session ? <LogoutButton /> : <LoginButton />}
-      </section>
+
+      {pathname.includes("/admin") ? (
+        <section>
+          {" "}
+          <Link href="/admin/register/country">Add country</Link>
+          <Link href="/admin/register/recipe">Add recipe</Link>
+          {session ? <LogoutButton /> : <LoginButton />}{" "}
+        </section>
+      ) : (
+        <section>
+          <Link href="#">About</Link>
+          <Link href="#">Contact</Link>
+          {session ? <LogoutButton /> : <LoginButton />}
+        </section>
+      )}
     </Header>
   );
 };
