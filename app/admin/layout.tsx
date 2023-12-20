@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "../globals.css";
+import "../Styles/globals.scss";
 import NextAuthProvider from "../Context/Providers";
 import AdminNavbar from "../Components/Nav/AdminNavbar";
 
