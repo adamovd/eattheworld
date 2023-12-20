@@ -33,10 +33,9 @@ const Navbar = () => {
 
       {pathname.includes("/admin") ? (
         <section>
-          {" "}
           <Link href="/admin/register/country">Add country</Link>
           <Link href="/admin/register/recipe">Add recipe</Link>
-          {session ? <LogoutButton /> : <LoginButton />}{" "}
+          {session ? <LogoutButton /> : <LoginButton />}
         </section>
       ) : (
         <section>
