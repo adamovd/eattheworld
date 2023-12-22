@@ -161,6 +161,7 @@ export default function CountryForm() {
                     bgColor="--Light"
                     textColor="--Dark"
                     fontSize="1rem"
+                    width="400px"
                     placeholder="URL to playlist"
                     id="playlistUrl"
                     name="playlistUrl"
