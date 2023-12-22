@@ -4,11 +4,13 @@ interface InputProps {
   bgColor: string;
   textColor: string;
   fontSize: string;
+  width: string;
 }
 
 export const InputField = styled.input<InputProps>`
   display: flex;
   height: 45px;
+  min-width: ${(props: InputProps) => props.width || "200px"};
   width: auto;
   padding: 0.5625rem 0.625rem 0.375rem 0.9375rem;
   align-items: flex-start;
