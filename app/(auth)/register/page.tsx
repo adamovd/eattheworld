@@ -7,6 +7,8 @@ import { UploadButton } from "../../../helpers/uploadthing";
 import { registerNewUser } from "../../Services/userServices";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { InputField } from "@/app/Styles/Components/InputFields";
+import { Button } from "@/app/Styles/Components/Buttons";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -67,8 +69,12 @@ const RegistrationForm = () => {
                 First name
               </label>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("firstname")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  width="350px"
+                  fontSize="1rem"
                   id="firstname"
                   name="firstname"
                   type="text"
@@ -85,8 +91,12 @@ const RegistrationForm = () => {
                 Last name
               </label>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("lastname")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  width="350px"
+                  fontSize="1rem"
                   id="lastname"
                   name="lastname"
                   type="text"
@@ -104,8 +114,12 @@ const RegistrationForm = () => {
                 Email address
               </label>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("email")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  width="350px"
+                  fontSize="1rem"
                   id="email"
                   name="email"
                   type="email"
@@ -126,8 +140,12 @@ const RegistrationForm = () => {
                 </label>
               </div>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("password")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  width="350px"
+                  fontSize="1rem"
                   id="password"
                   name="password"
                   type="password"
@@ -175,12 +193,14 @@ const RegistrationForm = () => {
               </label>
               <div className="mt-2">
                 <div className="flex sm:max-w-md">
-                  <UploadButton
-                    endpoint="imageUploader"
-                    onClientUploadComplete={handleUploadComplete}
-                    onUploadError={handleUploadError}
-                    onUploadProgress={() => setUploading(true)}
-                  />
+                  <Button bgColor="--Yellow" textColor="--Dark" fontSize="1rem">
+                    <UploadButton
+                      endpoint="imageUploader"
+                      onClientUploadComplete={handleUploadComplete}
+                      onUploadError={handleUploadError}
+                      onUploadProgress={() => setUploading(true)}
+                    />
+                  </Button>
                 </div>
               </div>
             </div>
@@ -205,12 +225,14 @@ const RegistrationForm = () => {
             </div>
 
             <div>
-              <button
+              <Button
+                bgColor="--DarkGreen"
+                textColor="--Light"
+                fontSize="1rem"
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Register
-              </button>
+              </Button>
             </div>
           </form>
         </div>

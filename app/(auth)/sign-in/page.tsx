@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useForm, Resolver } from "react-hook-form";
 import React from "react";
 import { User } from "../../Models/dbTypes";
+import { InputField } from "@/app/Styles/Components/InputFields";
+import { Button } from "@/app/Styles/Components/Buttons";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -46,8 +48,12 @@ const SignInForm = () => {
                 Email address
               </label>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("email")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  fontSize="1rem"
+                  width="350px"
                   id="email"
                   name="email"
                   type="email"
@@ -76,8 +82,12 @@ const SignInForm = () => {
                 </div>
               </div>
               <div className="mt-2">
-                <input
+                <InputField
                   {...register("password")}
+                  bgColor="--Light"
+                  textColor="--Dark"
+                  fontSize="1rem"
+                  width="350px"
                   id="password"
                   name="password"
                   type="password"
@@ -87,13 +97,15 @@ const SignInForm = () => {
                 />
               </div>
             </div>
-            <div>
-              <button
+            <div className="flex flex-end flex-row-reverse">
+              <Button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                bgColor="--DarkGreen"
+                textColor="--Light"
+                fontSize="1rem"
               >
                 Sign in
-              </button>
+              </Button>
             </div>
             <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
               <p className="mx-4 mb-0 text-center font-semibold dark:text-neutral-200">
@@ -101,7 +113,10 @@ const SignInForm = () => {
               </p>
             </div>
           </form>
-          <button
+          <Button
+            bgColor="--Light"
+            textColor="--Dark"
+            fontSize="1rem"
             className="flex w-full justify-center align-middle my-4 ml-6 bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
             onClick={() => signIn("google")}
           >
@@ -146,7 +161,7 @@ const SignInForm = () => {
               </g>
             </svg>
             <span>Continue with Google</span>
-          </button>
+          </Button>
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?{" "}
