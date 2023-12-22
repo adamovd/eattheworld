@@ -20,3 +20,22 @@
 body {
   background-color: var(--Light);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: var(--Heading);
+}
+
+p,
+span,
+small,
+label,
+a,
+:placeholder-shown {
+  font-family: var(--Text);
+}
