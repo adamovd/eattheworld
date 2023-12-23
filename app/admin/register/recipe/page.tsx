@@ -1,16 +1,30 @@
 "use client";
-import { Recipe } from "@/app/Models/dbTypes";
+import { Country, Recipe } from "@/app/Models/dbTypes";
 import { createNewRecipe } from "@/app/Services/recipeServices";
 import { countryList } from "@/helpers/country-list";
 import { UploadButton } from "@/helpers/uploadthing";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useSession } from "next-auth/react";
+import { InputField } from "@/app/Styles/Components/InputFields";
+import { Button } from "@/app/Styles/Components/Buttons";
+import {
+  DropdownOption,
+  DropdownSelect,
+} from "@/app/Styles/Components/Drowdown";
+import { getAllCountries } from "@/app/Services/countryServices";
 
 export default function RecipeForm() {
   const { data: session } = useSession();
+  const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [uploading, setUploading] = useState(false);
+  useEffect(() => {
+    getAllCountries().then((response) => {
+      setCountries(response);
+    });
+  }, []);
+
   const defaultOption = "Select a country";
   const defaultValues = {
     instructions: "Step 1",
@@ -25,7 +39,6 @@ export default function RecipeForm() {
     control,
   } = useForm<Recipe>();
 
-  // Create separate instances for instructions and ingredients
   const {
     fields: instructionFields,
     append: appendInstruction,
@@ -68,25 +81,11 @@ export default function RecipeForm() {
     alert(`ERROR! ${error.message}`);
   };
 
-  const handleCountryChange = async (e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedCountryValue = e.target.value;
-
-    setSelectedCountry((prevState) => {
-      console.log(selectedCountryValue);
-      setValue("countryId", selectedCountryValue);
-      return selectedCountryValue;
-    });
-
-    console.log(session?.user?.id);
-
-    await setValue("userId", session?.user?.id);
-  };
-
   return (
     <section className="flex my-10 mx-10">
       <form onSubmit={onSubmit}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
+          <div>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <div>
@@ -97,18 +96,56 @@ export default function RecipeForm() {
                     Name of recipe
                   </label>
                   <div className="mt-2">
-                    <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                      <input
+                    <div className="flex sm:max-w-md gap-3 mb-5">
+                      <InputField
                         {...register("title")}
+                        bgColor="--Light"
+                        textColor="--Dark"
+                        fontSize="1rem"
+                        width="350px"
                         placeholder="What's the name of the recipe"
                         id="title"
                         name="title"
-                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                       />
                     </div>
                   </div>
                 </div>
               </div>
+
+              <div className="sm:col-span-4">
+                <div>
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select a country
+                  </label>
+                  <DropdownSelect
+                    value={selectedCountry}
+                    onChange={(e) => {
+                      const selectedCountryValue = e.target.value;
+                      setSelectedCountry(selectedCountryValue);
+                      setValue("countryId", selectedCountryValue); // Update the hidden field value
+                    }}
+                    id="name"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  >
+                    <DropdownOption value="" disabled>
+                      {defaultOption}
+                    </DropdownOption>
+                    {countries.map((country, index) => (
+                      <DropdownOption key={index} value={country.name}>
+                        {country.name}
+                      </DropdownOption>
+                    ))}
+                  </DropdownSelect>
+                </div>
+              </div>
+              <input
+                type="hidden"
+                {...register("countryId")} // Register the field with react-hook-form
+                value={selectedCountry} // Assign the value of selectedCountry
+              />
 
               <div className="col-span-full">
                 <label
@@ -129,11 +166,56 @@ export default function RecipeForm() {
                   />
                 </div>
               </div>
-
+              <section className="flex sm:max-w-md gap-3">
+                <div>
+                  <label
+                    htmlFor="time"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Est. Time
+                  </label>
+                  <div className="mt-2">
+                    <div className="flex sm:max-w-md gap-3 mb-5">
+                      <InputField
+                        {...register("time")}
+                        bgColor="--Light"
+                        textColor="--Dark"
+                        fontSize="1rem"
+                        width="350px"
+                        placeholder="Time to make"
+                        id="time"
+                        name="time"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label
+                    htmlFor="servings"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    No of servings
+                  </label>
+                  <div className="mt-2">
+                    <div className="flex sm:max-w-md gap-3 mb-5">
+                      <InputField
+                        {...register("servings")}
+                        bgColor="--Light"
+                        textColor="--Dark"
+                        fontSize="1rem"
+                        width="350px"
+                        placeholder="No of portions"
+                        id="servings"
+                        name="servings"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </section>
               <div className="col-span-full">
                 <label
                   htmlFor="instructions"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 mb-3"
                 >
                   Instructions
                 </label>
@@ -141,33 +223,40 @@ export default function RecipeForm() {
                   return (
                     <div key={field.id}>
                       <section
-                        className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+                        className="flex sm:max-w-md gap-3"
                         key={field.id}
                       >
-                        <input
+                        <InputField
+                          bgColor="--Light"
+                          textColor="--Dark"
+                          fontSize="1rem"
+                          width="50vw"
                           placeholder="Instruction"
                           type="text"
                           {...register(`instructions.${index}` as const, {
                             required: true,
                           })}
                           className={
-                            errors?.instructions?.[index]
-                              ? "error"
-                              : "" +
-                                "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                            errors?.instructions?.[index] ? "error" : "mb-5"
                           }
                         />
-                        <button
+                        <Button
+                          bgColor="--Red"
+                          textColor="--Light"
+                          fontSize="1rem"
                           type="button"
                           onClick={() => removeInstruction(index)}
                         >
                           X
-                        </button>
+                        </Button>
                       </section>
                     </div>
                   );
                 })}
-                <button
+                <Button
+                  bgColor="--DarkGreen"
+                  textColor="--Light"
+                  fontSize="1rem"
                   type="button"
                   onClick={() =>
                     appendInstruction(
@@ -177,12 +266,12 @@ export default function RecipeForm() {
                   }
                 >
                   Add more instructions
-                </button>
+                </Button>
 
                 <div className="col-span-full">
                   <label
                     htmlFor="ingredients"
-                    className="block text-sm font-medium leading-6 text-gray-900"
+                    className="block text-sm font-medium leading-6 text-gray-900 mb-3"
                   >
                     Ingredients
                   </label>
@@ -190,10 +279,14 @@ export default function RecipeForm() {
                     return (
                       <div key={field.id}>
                         <section
-                          className="flex rounded-md shadow-sm gap-3 ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md"
+                          className="flex sm:max-w-md gap-2 mb-5"
                           key={field.id}
                         >
-                          <input
+                          <InputField
+                            bgColor="--Light"
+                            textColor="--Dark"
+                            fontSize="1rem"
+                            width="20vw"
                             placeholder="Name"
                             type="text"
                             //@ts-ignore
@@ -201,14 +294,15 @@ export default function RecipeForm() {
                               required: true,
                             })}
                             className={
-                              errors?.ingredients?.[index]?.name
-                                ? "error"
-                                : "" +
-                                  "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                              errors?.ingredients?.[index]?.name ? "error" : ""
                             }
                           />
 
-                          <input
+                          <InputField
+                            bgColor="--Light"
+                            textColor="--Dark"
+                            fontSize="1rem"
+                            width="5vw"
                             placeholder="Value"
                             type="number"
                             {...register(
@@ -220,14 +314,15 @@ export default function RecipeForm() {
                               }
                             )}
                             className={
-                              errors?.ingredients?.[index]?.value
-                                ? "error"
-                                : "" +
-                                  "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                              errors?.ingredients?.[index]?.value ? "error" : ""
                             }
                           />
 
-                          <input
+                          <InputField
+                            bgColor="--Light"
+                            textColor="--Dark"
+                            fontSize="1rem"
+                            width="5vw"
                             placeholder="unit"
                             type="text"
                             //@ts-ignore
@@ -235,31 +330,34 @@ export default function RecipeForm() {
                               required: true,
                             })}
                             className={
-                              errors?.ingredients?.[index]?.unit
-                                ? "error"
-                                : "" +
-                                  "block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                              errors?.ingredients?.[index]?.unit ? "error" : ""
                             }
                           />
+                          <Button
+                            bgColor="--Red"
+                            textColor="--Light"
+                            fontSize="1rem"
+                            type="button"
+                            onClick={() => removeIngredient(index)}
+                          >
+                            X
+                          </Button>
                         </section>
-                        <button
-                          type="button"
-                          onClick={() => removeIngredient(index)}
-                        >
-                          X
-                        </button>
                       </div>
                     );
                   })}
-                  <button
+                  <Button
+                    bgColor="--DarkGreen"
+                    textColor="--Light"
+                    fontSize="1rem"
                     type="button"
                     onClick={() =>
                       appendIngredient({ name: "", value: 0, unit: "" })
                     }
                   >
                     Add more ingredients
-                  </button>
-                  <div className="sm:col-span-4">
+                  </Button>
+                  <div className="sm:col-span-4 mt-5">
                     <label
                       htmlFor="imageUrl"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -267,50 +365,33 @@ export default function RecipeForm() {
                       Image
                     </label>
                     <div className="mt-2">
-                      <div className="flex sm:max-w-md">
-                        <UploadButton
-                          endpoint="imageUploader"
-                          onUploadBegin={() => setUploading(true)}
-                          onClientUploadComplete={handleUploadComplete}
-                          onUploadError={handleUploadError}
-                        />
+                      <div className="flex sm:max-w-md mb-5">
+                        <Button
+                          bgColor="--Yellow"
+                          textColor="--Light"
+                          fontSize="1rem"
+                        >
+                          <UploadButton
+                            endpoint="imageUploader"
+                            onUploadBegin={() => setUploading(true)}
+                            onClientUploadComplete={handleUploadComplete}
+                            onUploadError={handleUploadError}
+                          />
+                        </Button>
                       </div>
                     </div>
                   </div>
 
-                  <div className="sm:col-span-4">
-                    <div>
-                      <label
-                        htmlFor="name"
-                        className="block text-sm font-medium leading-6 text-gray-900"
-                      >
-                        Select a country
-                      </label>
-                      <select
-                        value={selectedCountry}
-                        onChange={handleCountryChange}
-                        id="name"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                      >
-                        <option value="" disabled>
-                          {defaultOption}
-                        </option>
-                        {countryList.map((country, index) => (
-                          <option key={index} value={country.name}>
-                            {country.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-
-                  <button
+                  <Button
+                    bgColor="--DarkGreen"
+                    textColor="--Light"
+                    fontSize="1rem"
                     type="submit"
                     disabled={uploading === true}
-                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="mt-5"
                   >
                     Save
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
