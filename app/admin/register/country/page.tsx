@@ -8,6 +8,10 @@ import { ChangeEvent, useState } from "react";
 import { countryList } from "../../../../helpers/country-list";
 import { Button } from "@/app/Styles/Components/Buttons";
 import { InputField } from "@/app/Styles/Components/InputFields";
+import {
+  DropdownOption,
+  DropdownSelect,
+} from "@/app/Styles/Components/Drowdown";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
@@ -76,7 +80,7 @@ export default function CountryForm() {
     <section className="flex my-10 mx-10">
       <form onSubmit={onSubmit}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
+          <div>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
                 <div>
@@ -86,21 +90,20 @@ export default function CountryForm() {
                   >
                     Select a country
                   </label>
-                  <select
+                  <DropdownSelect
                     value={selectedCountry}
                     onChange={handleCountryChange}
                     id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
-                    <option value="" disabled selected>
+                    <DropdownOption value="" disabled selected>
                       {defaultOption}
-                    </option>
+                    </DropdownOption>
                     {countryList.map((country, index) => (
-                      <option key={index} value={country.name}>
+                      <DropdownOption key={index} value={country.name}>
                         {country.name}
-                      </option>
+                      </DropdownOption>
                     ))}
-                  </select>
+                  </DropdownSelect>
                 </div>
               </div>
 
