@@ -16,6 +16,7 @@ const Footer = () => {
           bgColor="--Light"
           textColor="--Dark"
           fontSize="1rem"
+          width="300px"
           type="email"
           placeholder="Your email..."
         />
