@@ -9,6 +9,8 @@ export const POST = async (request: NextRequest) => {
     title,
     description,
     instructions,
+    time,
+    servings,
     imageUrl,
     ingredients,
     reviews,
@@ -16,6 +18,7 @@ export const POST = async (request: NextRequest) => {
     countryId,
   } = await request.json();
 
+  const servingsToInt = parseInt(servings, 10);
   const categoryEnumValue = await category.toUpperCase();
 
   const findCountryId = await prisma.country
@@ -37,6 +40,8 @@ export const POST = async (request: NextRequest) => {
       title,
       description,
       instructions,
+      time,
+      servings: servingsToInt,
       imageUrl,
       reviews,
       userId,
