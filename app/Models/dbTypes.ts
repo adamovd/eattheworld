@@ -36,6 +36,7 @@ export type Recipe = {
   _id: string;
   createdAt: Date;
   updatedAt: Date;
+  category: Diet;
   title: string;
   description: string;
   instructions: string[];
@@ -62,3 +63,9 @@ export type Review = {
   Recipe?: Recipe | null;
   recipeId?: string | null;
 };
+
+export enum Diet {
+  MEAT = "Meat",
+  FISH = "Fish",
+  VEGETARIAN = "Vegetarian",
+}

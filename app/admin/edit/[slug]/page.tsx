@@ -10,8 +10,6 @@ type params = { slug: string };
 const EditCountry = () => {
   const params: params = useParams();
   const [country, setCountry] = useState<Country>();
-  console.log("I EditCountry: " + params.slug);
-  console.log(country);
 
   useEffect(() => {
     getCountryById(params.slug).then((country) => setCountry(country));

@@ -1,19 +1,25 @@
-import { Ingredient, PrismaClient } from "@prisma/client";
+import { Diet, Ingredient, PrismaClient } from "@prisma/client";
 import { NextResponse, NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
 
 export const POST = async (request: NextRequest) => {
   const {
+    category,
     title,
     description,
     instructions,
+    time,
+    servings,
     imageUrl,
     ingredients,
     reviews,
     userId,
     countryId,
   } = await request.json();
+
+  const servingsToInt = parseInt(servings, 10);
+  const categoryEnumValue = await category.toUpperCase();
 
   const findCountryId = await prisma.country
     .findUnique({
@@ -30,9 +36,12 @@ export const POST = async (request: NextRequest) => {
 
   const recipe = await prisma.recipe.create({
     data: {
+      category: categoryEnumValue as Diet,
       title,
       description,
       instructions,
+      time,
+      servings: servingsToInt,
       imageUrl,
       reviews,
       userId,

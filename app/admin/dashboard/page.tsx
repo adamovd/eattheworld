@@ -8,10 +8,10 @@ const Dashboard = () => {
       <div className="overflow-hidden h-1/2">
         <CountriesTable />
       </div>
-      <h2>Added users</h2>
+      {/* <h2>Added users</h2>
       <div className="overflow-hidden h-1/2">
         <UsersTable />
-      </div>
+      </div> */}
     </section>
   );
 };

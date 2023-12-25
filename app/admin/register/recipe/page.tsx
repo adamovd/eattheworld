@@ -1,5 +1,5 @@
 "use client";
-import { Country, Recipe } from "@/app/Models/dbTypes";
+import { Country, Diet, Recipe } from "@/app/Models/dbTypes";
 import { createNewRecipe } from "@/app/Services/recipeServices";
 import { countryList } from "@/helpers/country-list";
 import { UploadButton } from "@/helpers/uploadthing";
@@ -15,9 +15,10 @@ import {
 import { getAllCountries } from "@/app/Services/countryServices";
 
 export default function RecipeForm() {
-  const { data: session } = useSession();
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
+  //@ts-ignore
+  const [selectedDiet, setSelectedDiet] = useState<Diet>("");
   const [uploading, setUploading] = useState(false);
   useEffect(() => {
     getAllCountries().then((response) => {
@@ -25,7 +26,6 @@ export default function RecipeForm() {
     });
   }, []);
 
-  const defaultOption = "Select a country";
   const defaultValues = {
     instructions: "Step 1",
     ingredients: [{ name: "", value: 0, unit: "" }],
@@ -125,13 +125,12 @@ export default function RecipeForm() {
                     onChange={(e) => {
                       const selectedCountryValue = e.target.value;
                       setSelectedCountry(selectedCountryValue);
-                      setValue("countryId", selectedCountryValue); // Update the hidden field value
+                      setValue("countryId", selectedCountryValue);
                     }}
                     id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   >
                     <DropdownOption value="" disabled>
-                      {defaultOption}
+                      -- Select a country --
                     </DropdownOption>
                     {countries.map((country, index) => (
                       <DropdownOption key={index} value={country.name}>
@@ -143,9 +142,39 @@ export default function RecipeForm() {
               </div>
               <input
                 type="hidden"
-                {...register("countryId")} // Register the field with react-hook-form
-                value={selectedCountry} // Assign the value of selectedCountry
+                {...register("countryId")}
+                value={selectedCountry}
               />
+
+              <div className="sm:col-span-4">
+                <div>
+                  <label
+                    htmlFor="category"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Select a diet
+                  </label>
+                  <DropdownSelect
+                    value={selectedDiet}
+                    onChange={(e) => {
+                      const selectedDietValue = e.target
+                        .value as unknown as Diet;
+                      setSelectedDiet(selectedDietValue);
+                      setValue("category", selectedDietValue);
+                    }}
+                    id="category"
+                  >
+                    <DropdownOption value="" disabled>
+                      -- Select a diet --
+                    </DropdownOption>
+                    {Object.values(Diet).map((diet) => (
+                      <DropdownOption key={diet} value={diet}>
+                        {diet}
+                      </DropdownOption>
+                    ))}
+                  </DropdownSelect>
+                </div>
+              </div>
 
               <div className="col-span-full">
                 <label
