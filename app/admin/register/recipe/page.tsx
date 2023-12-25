@@ -370,6 +370,7 @@ export default function RecipeForm() {
                           bgColor="--Yellow"
                           textColor="--Light"
                           fontSize="1rem"
+                          type="button"
                         >
                           <UploadButton
                             endpoint="imageUploader"
