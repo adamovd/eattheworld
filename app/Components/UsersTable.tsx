@@ -10,9 +10,9 @@ const UsersTable = () => {
   useEffect(() => {
     getAllUsers().then((response) => {
       setUsers(response);
-      console.log(response);
     });
   }, []);
+
   return (
     <section className="my-5 mx-5 h-full overflow-y-scroll">
       <ul role="list" className="divide-y divide-gray-100 max-h-5">
