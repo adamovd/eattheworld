@@ -54,7 +54,7 @@ model User {
   image          String?
   bio            String?
   nationality    String?
-  role           Role?     @default(USER)
+  role           String
   emailVerified  DateTime?
   accounts       Account[]
   sessions       Session[]
