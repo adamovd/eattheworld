@@ -15,6 +15,15 @@
 
   --Heading: "Playfair Display", "Times", serif;
   --Text: "Roboto Mono", "Arial", sans-serif;
+
+  --Mobile: 576px;
+  --Tablet: 768px;
+  --Laptop: 992px;
+  --Desktop: 1200px;
+}
+
+html {
+  background-color: var(--Yellow);
 }
 
 body {
