@@ -193,7 +193,12 @@ const RegistrationForm = () => {
               </label>
               <div className="mt-2">
                 <div className="flex sm:max-w-md">
-                  <Button bgColor="--Yellow" textColor="--Dark" fontSize="1rem">
+                  <Button
+                    bgColor="--Yellow"
+                    textColor="--Dark"
+                    fontSize="1rem"
+                    type="button"
+                  >
                     <UploadButton
                       endpoint="imageUploader"
                       onClientUploadComplete={handleUploadComplete}
