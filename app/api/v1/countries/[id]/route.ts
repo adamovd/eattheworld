@@ -5,9 +5,7 @@ export async function GET(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  console.log(params.id);
   const id = params.id;
-  console.log("ID in router:" + id);
 
   if (id) {
     try {

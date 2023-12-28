@@ -11,7 +11,7 @@ import { InputField } from "@/app/Styles/Components/InputFields";
 import {
   DropdownOption,
   DropdownSelect,
-} from "@/app/Styles/Components/Drowdown";
+} from "@/app/Styles/Components/Dropdown";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {

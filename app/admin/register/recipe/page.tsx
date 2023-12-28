@@ -11,7 +11,7 @@ import { Button } from "@/app/Styles/Components/Buttons";
 import {
   DropdownOption,
   DropdownSelect,
-} from "@/app/Styles/Components/Drowdown";
+} from "@/app/Styles/Components/Dropdown";
 import { getAllCountries } from "@/app/Services/countryServices";
 
 export default function RecipeForm() {

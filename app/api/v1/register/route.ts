@@ -7,8 +7,16 @@ const prisma = new PrismaClient();
 
 export const POST = async (request: NextRequest) => {
   try {
-    const { firstname, lastname, email, password, nationality, image, bio } =
-      await request.json();
+    const {
+      firstname,
+      lastname,
+      email,
+      password,
+      nationality,
+      image,
+      bio,
+      countryIDs,
+    } = await request.json();
     if (!firstname || !lastname || !email || !password)
       return NextResponse.json(
         { message: "Required fields missing" },
@@ -42,6 +50,7 @@ export const POST = async (request: NextRequest) => {
         nationality,
         image,
         bio,
+        countryIDs,
       },
     });
 
@@ -58,13 +67,6 @@ export const POST = async (request: NextRequest) => {
 
 export const GET = async () => {
   try {
-    // // Check if request is authorized
-    // const isAuthorized = authorize(request);
-    // if (!isAuthorized) {
-    //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    // }
-
-    // Fetch all users
     const users = await prisma.user.findMany();
 
     return NextResponse.json(users);
