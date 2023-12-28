@@ -42,9 +42,12 @@ const PresentCountry = () => {
           </p>
           <p>
             <b>Size:</b>{" "}
-            {country?.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
+            {country?.area
+              ? country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+              : "N/A"}{" "}
             km&sup2;
           </p>
+
           <p>
             <b>Continent:</b> {country?.continent}
           </p>
