@@ -9,7 +9,7 @@ export type User = {
   image?: string | null;
   bio?: string | null;
   nationality: string | null;
-  countries?: Country[];
+  countryIDs: String[];
   reviews?: Review[];
   recipes?: Recipe[];
 };
