@@ -12,6 +12,7 @@ import {
 } from "@/app/Styles/Components/Containers";
 import { Spotify } from "react-spotify-embed";
 import { NodeNextResponse } from "next/dist/server/base-http/node";
+import RecipeCard from "@/app/Components/RecipeCard";
 
 type params = { slug: string };
 
@@ -54,13 +55,18 @@ const PresentCountry = () => {
         </TextContainer>
       </InfoContainer>
 
-      {country?.playlistUrl && (
-        <Spotify
-          style={{ borderRadius: 0 }}
-          wide
-          link={country?.playlistUrl as string}
-        />
-      )}
+      {country?.recipes.map((recipe, index) => (
+        <RecipeCard key={index} {...recipe} />
+      ))}
+      <InfoContainer>
+        {country?.playlistUrl && (
+          <Spotify
+            style={{ borderRadius: 0 }}
+            wide
+            link={country?.playlistUrl as string}
+          />
+        )}
+      </InfoContainer>
     </>
   );
 };
