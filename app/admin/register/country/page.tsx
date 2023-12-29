@@ -12,11 +12,14 @@ import {
   DropdownOption,
   DropdownSelect,
 } from "@/app/Styles/Components/Dropdown";
+import Custom403 from "@/app/error/403/page";
+import { useSession } from "next-auth/react";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [uploading, setUploading] = useState(false);
+  const { data: session } = useSession();
   const defaultOption = "Select a country";
   const {
     register,
@@ -75,116 +78,119 @@ export default function CountryForm() {
   const handleUploadError = (error: Error) => {
     alert(`ERROR! ${error.message}`);
   };
+  if (session?.user?.role === "admin") {
+    return (
+      <section className="flex my-10 mx-10">
+        <form onSubmit={onSubmit}>
+          <div className="space-y-12">
+            <div>
+              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                <div className="sm:col-span-4">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium leading-6 text-gray-900"
+                    >
+                      Select a country
+                    </label>
+                    <DropdownSelect
+                      value={selectedCountry}
+                      onChange={handleCountryChange}
+                      id="name"
+                    >
+                      <DropdownOption value="" disabled selected>
+                        {defaultOption}
+                      </DropdownOption>
+                      {countryList.map((country, index) => (
+                        <DropdownOption key={index} value={country.name}>
+                          {country.name}
+                        </DropdownOption>
+                      ))}
+                    </DropdownSelect>
+                  </div>
+                </div>
 
-  return (
-    <section className="flex my-10 mx-10">
-      <form onSubmit={onSubmit}>
-        <div className="space-y-12">
-          <div>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-4">
-                <div>
+                <div className="col-span-full">
                   <label
-                    htmlFor="name"
+                    htmlFor="about"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Select a country
+                    Description
                   </label>
-                  <DropdownSelect
-                    value={selectedCountry}
-                    onChange={handleCountryChange}
-                    id="name"
+                  <div className="mt-2">
+                    <textarea
+                      {...register("description")}
+                      id="description"
+                      name="description"
+                      rows={3}
+                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      defaultValue={""}
+                      placeholder="Short description of the country's food culture"
+                    />
+                  </div>
+                </div>
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="imageUrl"
+                    className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    <DropdownOption value="" disabled selected>
-                      {defaultOption}
-                    </DropdownOption>
-                    {countryList.map((country, index) => (
-                      <DropdownOption key={index} value={country.name}>
-                        {country.name}
-                      </DropdownOption>
-                    ))}
-                  </DropdownSelect>
+                    Image
+                  </label>
+                  <div className="mt-2">
+                    <div className="flex sm:max-w-md text-gray-800">
+                      <Button
+                        bgColor="--Yellow"
+                        textColor="--Dark"
+                        fontSize="1rem"
+                      >
+                        <UploadButton
+                          endpoint="imageUploader"
+                          onClientUploadComplete={handleUploadComplete}
+                          onUploadError={handleUploadError}
+                          className="pb-1"
+                        />
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div className="col-span-full">
-                <label
-                  htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Description
-                </label>
-                <div className="mt-2">
-                  <textarea
-                    {...register("description")}
-                    id="description"
-                    name="description"
-                    rows={3}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
-                    placeholder="Short description of the country's food culture"
-                  />
-                </div>
-              </div>
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="imageUrl"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Image
-                </label>
-                <div className="mt-2">
-                  <div className="flex sm:max-w-md text-gray-800">
-                    <Button
-                      bgColor="--Yellow"
+                <div className="sm:col-span-4">
+                  <label
+                    htmlFor="playlistUrl"
+                    className="block text-sm font-medium leading-6 text-gray-900"
+                  >
+                    Playlist
+                  </label>
+                  <div className="mt-2">
+                    <InputField
+                      {...register("playlistUrl")}
+                      bgColor="--Light"
                       textColor="--Dark"
                       fontSize="1rem"
-                    >
-                      <UploadButton
-                        endpoint="imageUploader"
-                        onClientUploadComplete={handleUploadComplete}
-                        onUploadError={handleUploadError}
-                        className="pb-1"
-                      />
-                    </Button>
+                      width="400px"
+                      placeholder="URL to playlist"
+                      id="playlistUrl"
+                      name="playlistUrl"
+                      className="mb-5"
+                    />
                   </div>
                 </div>
               </div>
-
-              <div className="sm:col-span-4">
-                <label
-                  htmlFor="playlistUrl"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Playlist
-                </label>
-                <div className="mt-2">
-                  <InputField
-                    {...register("playlistUrl")}
-                    bgColor="--Light"
-                    textColor="--Dark"
-                    fontSize="1rem"
-                    width="400px"
-                    placeholder="URL to playlist"
-                    id="playlistUrl"
-                    name="playlistUrl"
-                    className="mb-5"
-                  />
-                </div>
-              </div>
+              <Button
+                bgColor="--DarkGreen"
+                textColor="--Light"
+                fontSize="1rem"
+                type="submit"
+                disabled={uploading}
+              >
+                Save
+              </Button>
             </div>
-            <Button
-              bgColor="--DarkGreen"
-              textColor="--Light"
-              fontSize="1rem"
-              type="submit"
-              disabled={uploading}
-            >
-              Save
-            </Button>
           </div>
-        </div>
-      </form>
-    </section>
-  );
+        </form>
+      </section>
+    );
+  } else {
+    return <Custom403 />;
+  }
 }
