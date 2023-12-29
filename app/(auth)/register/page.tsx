@@ -71,8 +71,8 @@ const RegistrationForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("firstname")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   width="350px"
                   fontSize="1rem"
                   id="firstname"
@@ -93,8 +93,8 @@ const RegistrationForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("lastname")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   width="350px"
                   fontSize="1rem"
                   id="lastname"
@@ -116,8 +116,8 @@ const RegistrationForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("email")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   width="350px"
                   fontSize="1rem"
                   id="email"
@@ -142,8 +142,8 @@ const RegistrationForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("password")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   width="350px"
                   fontSize="1rem"
                   id="password"
@@ -194,12 +194,13 @@ const RegistrationForm = () => {
               <div className="mt-2">
                 <div className="flex sm:max-w-md">
                   <Button
-                    bgColor="--Yellow"
-                    textColor="--Dark"
+                    bgcolor="--Yellow"
+                    textcolor="--Dark"
                     fontSize="1rem"
                     type="button"
                   >
                     <UploadButton
+                      className="uploadButton"
                       endpoint="imageUploader"
                       onClientUploadComplete={handleUploadComplete}
                       onUploadError={handleUploadError}
@@ -231,8 +232,8 @@ const RegistrationForm = () => {
 
             <div>
               <Button
-                bgColor="--DarkGreen"
-                textColor="--Light"
+                bgcolor="--DarkGreen"
+                textcolor="--Light"
                 fontSize="1rem"
                 type="submit"
               >

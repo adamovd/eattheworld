@@ -50,8 +50,8 @@ const SignInForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("email")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   fontSize="1rem"
                   width="350px"
                   id="email"
@@ -84,8 +84,8 @@ const SignInForm = () => {
               <div className="mt-2">
                 <InputField
                   {...register("password")}
-                  bgColor="--Light"
-                  textColor="--Dark"
+                  bgcolor="--Light"
+                  textcolor="--Dark"
                   fontSize="1rem"
                   width="350px"
                   id="password"
@@ -100,8 +100,8 @@ const SignInForm = () => {
             <div className="flex flex-end flex-row-reverse">
               <Button
                 type="submit"
-                bgColor="--DarkGreen"
-                textColor="--Light"
+                bgcolor="--DarkGreen"
+                textcolor="--Light"
                 fontSize="1rem"
               >
                 Sign in
@@ -114,8 +114,8 @@ const SignInForm = () => {
             </div>
           </form>
           <Button
-            bgColor="--Light"
-            textColor="--Dark"
+            bgcolor="--Light"
+            textcolor="--Dark"
             fontSize="1rem"
             className="flex w-full justify-center align-middle my-4 ml-6 bg-white border border-gray-300 rounded-lg shadow-md max-w-xs px-6 py-2 text-sm font-medium text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
             onClick={() => signIn("google")}
