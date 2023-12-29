@@ -98,3 +98,18 @@ export const RecipeTextContainer = styled.article`
     width: 70%;
   }
 `;
+
+export const ButtonContainer = styled.section`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  position: absolute;
+  top: -5px;
+  right: 30px;
+
+  @media ${devices.tablet} {
+    top: -15px;
+    right: 10px;
+    gap: 1rem;
+  }
+`;
