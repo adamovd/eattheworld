@@ -6,8 +6,8 @@ import { Button } from "../Styles/Components/Buttons";
 export const LoginButton = () => {
   return (
     <Button
-      bgColor="--DarkGreen"
-      textColor="--Light"
+      bgcolor="--DarkGreen"
+      textcolor="--Light"
       fontSize="1rem"
       onClick={() => signIn()}
     >
@@ -18,8 +18,8 @@ export const LoginButton = () => {
 export const LogoutButton = () => {
   return (
     <Button
-      bgColor="--Red"
-      textColor="--Light"
+      bgcolor="--Red"
+      textcolor="--Light"
       fontSize="1rem"
       onClick={() => signOut({})}
     >
