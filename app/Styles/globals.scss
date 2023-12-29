@@ -12,6 +12,7 @@
   --Blue: #abdddd;
   --LightGreen: #95a878;
   --DarkGreen: #46684c;
+  --BodyColor: var(--Light);
 
   --Heading: "Playfair Display", "Times", serif;
   --Text: "Roboto Mono", "Arial", sans-serif;
@@ -27,7 +28,7 @@ html {
 }
 
 body {
-  background-color: var(--Light);
+  background-color: var(--BodyColor);
 }
 
 h1,
@@ -45,6 +46,7 @@ span,
 small,
 label,
 a,
+li,
 :placeholder-shown {
   font-family: var(--Text);
 }
