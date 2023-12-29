@@ -67,3 +67,34 @@ export const TextContainer = styled.article`
     }
   }
 `;
+
+export const RecipeImageContainer = styled.article<ImageProps>`
+  width: 100%;
+  height: 40vh;
+  background-image: url(${(props: ImageProps) => props.url});
+  background-size: cover;
+  object-fit: fill;
+  overflow: hidden;
+  border-bottom: 1px solid var(--Dark);
+  @media ${devices.tablet} {
+    width: 30%;
+    height: auto;
+    border-bottom: none;
+    border-right: 1px solid var(--Dark);
+  }
+`;
+
+export const RecipeTextContainer = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem;
+  gap: 1rem;
+  > h2 {
+    font-size: 2rem;
+  }
+  @media ${devices.tablet} {
+    width: 70%;
+  }
+`;
