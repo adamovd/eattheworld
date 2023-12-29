@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./Styles/globals.scss";
 import NextAuthProvider from "./Context/Providers";
-import Navbar from "./Components/Nav/Navbar";
+import Navbar from "./Components/Navbar";
 import { Container } from "./Styles/Components/Containers";
 import Footer from "./Components/Footer";
 import { Suspense } from "react";
