@@ -4,8 +4,6 @@ interface ButtonProps {
   bgColor: string;
   textColor: string;
   fontSize: string;
-  isDropdown?: boolean;
-  hasArrow?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -13,10 +11,10 @@ export const Button = styled.button<ButtonProps>`
   color: var(${(props: ButtonProps) => props.textColor || "--Dark"});
   font-size: ${(props: ButtonProps) => props.fontSize || "1rem"};
   display: flex;
-  padding: 0.625rem 1.25rem;
+  padding: 0.5rem 1rem;
   align-items: flex-start;
   gap: 0.625rem;
-  height: 45px;
+  height: 40px;
   width: auto;
   border-radius: 3.125rem;
   box-shadow: 3px 3px 0px 0px var(--Dark);

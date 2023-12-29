@@ -384,7 +384,7 @@ export const countryList = [
     name: "Venezuela (Bolivarian Republic of)",
     number: "862",
   },
-  { code: "VN", code3: "VNM", name: "Viet Nam", number: "704" },
+  { code: "VN", code3: "VNM", name: "Vietnam", number: "704" },
   { code: "VG", code3: "VGB", name: "Virgin Islands (British)", number: "092" },
   { code: "VI", code3: "VIR", name: "Virgin Islands (U.S.)", number: "850" },
   { code: "WF", code3: "WLF", name: "Wallis and Futuna", number: "876" },

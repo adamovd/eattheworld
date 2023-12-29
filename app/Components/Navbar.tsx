@@ -2,7 +2,7 @@
 import { Header } from "@/app/Styles/Components/Header";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { LogoutButton, LoginButton } from "../Auth";
+import { LogoutButton, LoginButton } from "./Auth";
 import { Button } from "@/app/Styles/Components/Buttons";
 import Logo from "@/public/logo.svg";
 import { usePathname } from "next/navigation";
@@ -15,12 +15,7 @@ const Navbar = () => {
     <Header>
       <section>
         {session?.user?.role === "admin" ? (
-          <Button
-            bgColor="--Yellow"
-            textColor="--Dark"
-            fontSize="1rem"
-            hasArrow
-          >
+          <Button bgColor="--Yellow" textColor="--Dark" fontSize="1rem">
             <Link href="/admin/dashboard">Dashboard</Link>
           </Button>
         ) : (

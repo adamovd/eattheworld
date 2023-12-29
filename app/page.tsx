@@ -1,7 +1,5 @@
 "use client";
 
-import PresentCountries from "./Components/PresentCountries";
-
 import { useSession } from "next-auth/react";
 import RandomizeButton from "./Components/RandomizeButton";
 
