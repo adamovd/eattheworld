@@ -1,27 +1,87 @@
 "use client";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { Country } from "@/app/Models/dbTypes";
+import { Country, Recipe } from "@/app/Models/dbTypes";
 import { getCountryById } from "@/app/Services/countryServices";
-import Image from "next/image";
 import { TitleCard } from "@/app/Styles/Components/TitleCard";
 import {
+  ButtonContainer,
   ImageContainer,
   InfoContainer,
   TextContainer,
 } from "@/app/Styles/Components/Containers";
 import { Spotify } from "react-spotify-embed";
-import { NodeNextResponse } from "next/dist/server/base-http/node";
 import RecipeCard from "@/app/Components/RecipeCard";
+import RadioButton from "@/app/Components/RadioButton";
 
 type params = { slug: string };
 
 const PresentCountry = () => {
   const params: params = useParams();
   const [country, setCountry] = useState<Country>();
+  const [recipeId, setRecipeId] = useState("");
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
+  const categories = [
+    {
+      label: "Meat",
+      value: "MEAT",
+    },
+    {
+      label: "Fish",
+      value: "FISH",
+    },
+    {
+      label: "Vegetarian",
+      value: "VEGETARIAN",
+    },
+  ];
+
+  const handleOptionSelect = (value: string | null) => {
+    setSelectedOption(value);
+  };
+
   useEffect(() => {
     getCountryById(params.slug).then((country) => setCountry(country));
   }, []);
+
+  useEffect(() => {
+    if (selectedOption && country) {
+      const filtered = country.recipes.find(
+        (recipe) => recipe.category === selectedOption
+      );
+      setFilteredRecipe(filtered || null);
+    } else {
+      setFilteredRecipe(null);
+    }
+  }, [country, selectedOption]);
+
+  useEffect(() => {
+    if (!selectedOption && categories.length > 0) {
+      const randomCategory =
+        categories[Math.floor(Math.random() * categories.length)].value;
+      setSelectedOption(randomCategory);
+    }
+  }, [categories, selectedOption]);
+
+  useMemo(async () => {
+    await country?.recipes.map((recipe) => {
+      //@ts-ignore
+      setRecipeId(recipe.id);
+    });
+  }, [country]);
+
+  const filteredRecipes = useMemo(() => {
+    if (!selectedOption) {
+      return country?.recipes || [];
+    }
+
+    return (
+      country?.recipes.filter((recipe) => {
+        return recipe.category === selectedOption;
+      }) || []
+    );
+  }, [country, selectedOption]);
 
   return (
     <>
@@ -54,10 +114,11 @@ const PresentCountry = () => {
           </p>
         </TextContainer>
       </InfoContainer>
+      <InfoContainer style={{ position: "relative" }}>
+        <RadioButton options={categories} onSelect={handleOptionSelect} />
 
-      {country?.recipes.map((recipe, index) => (
-        <RecipeCard key={index} {...recipe} />
-      ))}
+        {filteredRecipe && <RecipeCard {...filteredRecipe} />}
+      </InfoContainer>
       <InfoContainer>
         {country?.playlistUrl && (
           <Spotify

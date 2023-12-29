@@ -45,7 +45,7 @@ export const GET = async () => {
       include: {
         recipes: {
           include: {
-            ingredients: true, // Include ingredients for each recipe
+            ingredients: true,
           },
         },
       },

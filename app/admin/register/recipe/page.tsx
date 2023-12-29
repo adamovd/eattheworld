@@ -102,8 +102,8 @@ export default function RecipeForm() {
                       <div className="flex sm:max-w-md gap-3 mb-5">
                         <InputField
                           {...register("title")}
-                          bgColor="--Light"
-                          textColor="--Dark"
+                          bgcolor="--Light"
+                          textcolor="--Dark"
                           fontSize="1rem"
                           width="350px"
                           placeholder="What's the name of the recipe"
@@ -210,8 +210,8 @@ export default function RecipeForm() {
                       <div className="flex sm:max-w-md gap-3 mb-5">
                         <InputField
                           {...register("time")}
-                          bgColor="--Light"
-                          textColor="--Dark"
+                          bgcolor="--Light"
+                          textcolor="--Dark"
                           fontSize="1rem"
                           width="350px"
                           placeholder="Time to make"
@@ -232,8 +232,8 @@ export default function RecipeForm() {
                       <div className="flex sm:max-w-md gap-3 mb-5">
                         <InputField
                           {...register("servings")}
-                          bgColor="--Light"
-                          textColor="--Dark"
+                          bgcolor="--Light"
+                          textcolor="--Dark"
                           fontSize="1rem"
                           width="350px"
                           placeholder="No of portions"
@@ -259,8 +259,8 @@ export default function RecipeForm() {
                           key={field.id}
                         >
                           <InputField
-                            bgColor="--Light"
-                            textColor="--Dark"
+                            bgcolor="--Light"
+                            textcolor="--Dark"
                             fontSize="1rem"
                             width="50vw"
                             placeholder="Instruction"
@@ -273,8 +273,8 @@ export default function RecipeForm() {
                             }
                           />
                           <Button
-                            bgColor="--Red"
-                            textColor="--Light"
+                            bgcolor="--Red"
+                            textcolor="--Light"
                             fontSize="1rem"
                             type="button"
                             onClick={() => removeInstruction(index)}
@@ -286,8 +286,8 @@ export default function RecipeForm() {
                     );
                   })}
                   <Button
-                    bgColor="--DarkGreen"
-                    textColor="--Light"
+                    bgcolor="--DarkGreen"
+                    textcolor="--Light"
                     fontSize="1rem"
                     type="button"
                     onClick={() =>
@@ -315,8 +315,8 @@ export default function RecipeForm() {
                             key={field.id}
                           >
                             <InputField
-                              bgColor="--Light"
-                              textColor="--Dark"
+                              bgcolor="--Light"
+                              textcolor="--Dark"
                               fontSize="1rem"
                               width="20vw"
                               placeholder="Name"
@@ -336,8 +336,8 @@ export default function RecipeForm() {
                             />
 
                             <InputField
-                              bgColor="--Light"
-                              textColor="--Dark"
+                              bgcolor="--Light"
+                              textcolor="--Dark"
                               fontSize="1rem"
                               width="5vw"
                               placeholder="Value"
@@ -358,8 +358,8 @@ export default function RecipeForm() {
                             />
 
                             <InputField
-                              bgColor="--Light"
-                              textColor="--Dark"
+                              bgcolor="--Light"
+                              textcolor="--Dark"
                               fontSize="1rem"
                               width="5vw"
                               placeholder="unit"
@@ -378,8 +378,8 @@ export default function RecipeForm() {
                               }
                             />
                             <Button
-                              bgColor="--Red"
-                              textColor="--Light"
+                              bgcolor="--Red"
+                              textcolor="--Light"
                               fontSize="1rem"
                               type="button"
                               onClick={() => removeIngredient(index)}
@@ -391,12 +391,18 @@ export default function RecipeForm() {
                       );
                     })}
                     <Button
-                      bgColor="--DarkGreen"
-                      textColor="--Light"
+                      bgcolor="--DarkGreen"
+                      textcolor="--Light"
                       fontSize="1rem"
                       type="button"
                       onClick={() =>
-                        appendIngredient({ name: "", value: 0, unit: "" })
+                        appendIngredient({
+                          name: "",
+                          value: 0,
+                          unit: "",
+                          id: "",
+                          recipeId: "",
+                        })
                       }
                     >
                       Add more ingredients
@@ -411,8 +417,8 @@ export default function RecipeForm() {
                       <div className="mt-2">
                         <div className="flex sm:max-w-md mb-5">
                           <Button
-                            bgColor="--Yellow"
-                            textColor="--Light"
+                            bgcolor="--Yellow"
+                            textcolor="--Light"
                             fontSize="1rem"
                             type="button"
                           >
@@ -428,8 +434,8 @@ export default function RecipeForm() {
                     </div>
 
                     <Button
-                      bgColor="--DarkGreen"
-                      textColor="--Light"
+                      bgcolor="--DarkGreen"
+                      textcolor="--Light"
                       fontSize="1rem"
                       type="submit"
                       disabled={uploading === true}

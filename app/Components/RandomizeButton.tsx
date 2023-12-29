@@ -25,7 +25,6 @@ const RandomizeButton = () => {
   useEffect(() => {
     if (country) {
       addCountryToUser(session?.user?.id as string, country.id);
-      getAllUsers().then((response) => console.log(response));
 
       router.push(`/country/${country.id}`);
     }
@@ -33,8 +32,8 @@ const RandomizeButton = () => {
 
   return (
     <Button
-      bgColor="--Yellow"
-      textColor="--Dark"
+      bgcolor="--Yellow"
+      textcolor="--Dark"
       fontSize="1rem"
       onClick={randomizeCountry}
     >

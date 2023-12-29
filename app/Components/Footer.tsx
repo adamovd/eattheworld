@@ -13,8 +13,8 @@ const Footer = () => {
       <section>
         Join our newsletter:
         <InputField
-          bgColor="--Light"
-          textColor="--Dark"
+          bgcolor="--Light"
+          textcolor="--Dark"
           fontSize="1rem"
           width="300px"
           type="email"

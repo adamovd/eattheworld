@@ -139,8 +139,8 @@ export default function CountryForm() {
                   <div className="mt-2">
                     <div className="flex sm:max-w-md text-gray-800">
                       <Button
-                        bgColor="--Yellow"
-                        textColor="--Dark"
+                        bgcolor="--Yellow"
+                        textcolor="--Dark"
                         fontSize="1rem"
                       >
                         <UploadButton
@@ -164,8 +164,8 @@ export default function CountryForm() {
                   <div className="mt-2">
                     <InputField
                       {...register("playlistUrl")}
-                      bgColor="--Light"
-                      textColor="--Dark"
+                      bgcolor="--Light"
+                      textcolor="--Dark"
                       fontSize="1rem"
                       width="400px"
                       placeholder="URL to playlist"
@@ -177,8 +177,8 @@ export default function CountryForm() {
                 </div>
               </div>
               <Button
-                bgColor="--DarkGreen"
-                textColor="--Light"
+                bgcolor="--DarkGreen"
+                textcolor="--Light"
                 fontSize="1rem"
                 type="submit"
                 disabled={uploading}

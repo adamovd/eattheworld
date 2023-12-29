@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 interface InputProps {
-  bgColor: string;
-  textColor: string;
+  bgcolor: string;
+  textcolor: string;
   fontSize: string;
   width: string;
 }
@@ -16,8 +16,8 @@ export const InputField = styled.input<InputProps>`
   align-items: flex-start;
   gap: 0.625rem;
   border-radius: 1.25rem;
-  background: var(${(props: InputProps) => props.bgColor || "--Light"});
-  color: var(${(props: InputProps) => props.textColor || "--Dark"});
+  background: var(${(props: InputProps) => props.bgcolor || "--Light"});
+  color: var(${(props: InputProps) => props.textcolor || "--Dark"});
   font-family: var(--Heading);
   font-size: ${(props: InputProps) => props.fontSize || "1rem"};
   border: 1px solid var(--Dark);

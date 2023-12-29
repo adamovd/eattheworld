@@ -11,6 +11,8 @@ export const POST = async (request: NextRequest) => {
     instructions,
     time,
     servings,
+    from,
+    link,
     imageUrl,
     ingredients,
     reviews,
@@ -42,6 +44,8 @@ export const POST = async (request: NextRequest) => {
       instructions,
       time,
       servings: servingsToInt,
+      from,
+      link,
       imageUrl,
       reviews,
       userId,
@@ -73,9 +77,16 @@ export const POST = async (request: NextRequest) => {
 
 export const GET = async (request: NextRequest) => {
   try {
-    const { id } = await request.json();
+    const url = new URL(request.url);
+    const searchParams = url.searchParams;
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json("ID parameter missing", { status: 400 });
+    }
+
     const recipe = await prisma.recipe.findUnique({
-      where: { id: id },
+      where: { id: String(id) },
       include: {
         ingredients: true,
       },

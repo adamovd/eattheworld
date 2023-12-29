@@ -15,7 +15,7 @@ const Navbar = () => {
     <Header>
       <section>
         {session?.user?.role === "admin" ? (
-          <Button bgColor="--Yellow" textColor="--Dark" fontSize="1rem">
+          <Button bgcolor="--Yellow" textcolor="--Dark" fontSize="1rem">
             <Link href="/admin/dashboard">Dashboard</Link>
           </Button>
         ) : (
