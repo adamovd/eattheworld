@@ -43,7 +43,15 @@ export type Recipe = {
   imageUrl: string;
   time?: string;
   servings?: number;
-  ingredients: [{ name: string; value: number; unit: string }];
+  from?: string;
+  link?: string;
+  ingredients: {
+    id: string;
+    name: string;
+    value: number;
+    unit: string;
+    recipeId: string;
+  }[];
   reviews: Review[];
   User?: User | null;
   userId?: string | null;

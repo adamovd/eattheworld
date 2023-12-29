@@ -92,6 +92,8 @@ model Recipe {
   imageUrl     String
   time         String?
   servings     Int?
+  from         String?
+  link         String?
   ingredients  Ingredient[]
   reviews      Review[]
   User         User?        @relation(fields: [userId], references: [id])
