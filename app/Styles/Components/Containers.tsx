@@ -42,6 +42,27 @@ export const InfoContainer = styled.section`
   }
 `;
 
+export const SingleContainer = styled.section`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6rem;
+`;
+
+export const TileContainer = styled.section`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  @media ${devices.tablet} {
+    flex-direction: row;
+  }
+`;
+
 export const TextContainer = styled.article`
   display: flex;
   flex-direction: column;
@@ -111,5 +132,16 @@ export const ButtonContainer = styled.section`
     top: -15px;
     right: 10px;
     gap: 1rem;
+  }
+`;
+
+export const MapContainer = styled.section`
+  width: 100%;
+  height: 70vh;
+  overflow: hidden;
+  border-bottom: 1px solid var(--Dark);
+
+  @media ${devices.tablet} {
+    height: 50vh;
   }
 `;

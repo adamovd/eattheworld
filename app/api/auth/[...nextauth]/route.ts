@@ -55,6 +55,7 @@ const authOptions: NextAuthOptions = {
 
   pages: {
     signIn: "/sign-in",
+    signOut: "/",
   },
 
   callbacks: {
@@ -73,6 +74,7 @@ const authOptions: NextAuthOptions = {
           nationality: token.nationality as string,
           image: token.image as string,
           role: token.role as string,
+          countryIDs: token.countryIDs as [],
         },
       };
     },
@@ -86,6 +88,7 @@ const authOptions: NextAuthOptions = {
           lastname: u.lastname,
           image: u.image,
           role: u.role,
+          countryIDs: u.countryIDs,
         };
       }
       return token;

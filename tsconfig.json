@@ -27,7 +27,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/context/Providers.jsx"
+    "app/context/Providers.jsx",
+    "app/Components/UserMap.tsx",
+    "app/Components/UserMap.tsx",
+    "app/Components/UserMap.tsx"
   ],
   "exclude": ["node_modules"]
 }

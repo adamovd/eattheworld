@@ -44,3 +44,18 @@ export const addCountryToUser = async (userId: string, countryId: string) => {
     throw new Error(`Could not associate country with user`);
   }
 };
+
+export const getUserById = async (id: string) => {
+  const url =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/api/v1/users"
+      : "https://www.eattheworld.se/api/v1/users";
+
+  const response = await fetch(`${url}/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch user by ID");
+  }
+
+  return response.json();
+};

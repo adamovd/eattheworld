@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "../Styles/Components/Buttons";
 import { getAllCountries } from "../Services/countryServices";
 import { useRouter } from "next/navigation";
-import { Country } from "@prisma/client";
+import { Country, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { addCountryToUser, getAllUsers } from "../Services/userServices";
+import { addCountryToUser, getUserById } from "../Services/userServices";
 
 const RandomizeButton = () => {
   const [countries, setCountries] = useState<Country[]>([]);
+  const [userCountries, setUserCountries] = useState<Country[]>([]);
   const [country, setCountry] = useState<Country>();
+  const [user, setUser] = useState<User>();
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -18,14 +20,38 @@ const RandomizeButton = () => {
     });
   }, []);
 
+  useMemo(() => {
+    if (session) {
+      getUserById(session?.user?.id as string).then((response) => {
+        setUser(response);
+      });
+    }
+  }, [session]);
+
+  useMemo(() => {
+    if (user?.countryIDs && user.countryIDs.length > 0) {
+      const filteredCountries = countries.filter(
+        (country) => !user.countryIDs.includes(country.id)
+      );
+      setUserCountries(filteredCountries);
+    } else {
+      setUserCountries(countries);
+    }
+  }, [user, session]);
+
   const randomizeCountry = () => {
-    setCountry(countries[Math.floor(Math.random() * countries.length)]);
+    if (session) {
+      setCountry(
+        userCountries[Math.floor(Math.random() * userCountries.length)]
+      );
+    } else {
+      setCountry(countries[Math.floor(Math.random() * countries.length)]);
+    }
   };
 
   useEffect(() => {
     if (country) {
       addCountryToUser(session?.user?.id as string, country.id);
-
       router.push(`/country/${country.id}`);
     }
   }, [country, router]);

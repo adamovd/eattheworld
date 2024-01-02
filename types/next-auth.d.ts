@@ -26,6 +26,7 @@ declare module "next-auth" {
     bio?: string | null;
     nationality: string | null;
     role: string;
+    countryIDs: string[] | null;
   }
 }
 

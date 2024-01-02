@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { InputField } from "@/app/Styles/Components/InputFields";
 import { Button } from "@/app/Styles/Components/Buttons";
+import axios from "axios";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -37,6 +38,25 @@ const RegistrationForm = () => {
     const selectedCountryValue = e.target.value;
     setSelectedCountry(selectedCountryValue);
     setValue("nationality", selectedCountryValue);
+    const country = countryList.find(
+      (country) => country.name === selectedCountryValue
+    );
+    console.log(country?.code);
+
+    try {
+      const response = await axios.get(
+        `https://restcountries.com/v3.1/alpha/${country?.code}?fields=latlng,flags`
+      );
+
+      const countryInfo = response.data;
+      console.log(countryInfo);
+
+      setValue("lat", countryInfo.latlng[0]);
+      setValue("lng", countryInfo.latlng[1]);
+      setValue("flag", countryInfo.flags.svg);
+    } catch (error) {
+      console.error("Error fetching country data:", error);
+    }
   };
 
   const handleUploadComplete = (res: any[]) => {
