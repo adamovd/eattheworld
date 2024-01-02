@@ -9,6 +9,9 @@ export type User = {
   image?: string | null;
   bio?: string | null;
   nationality: string | null;
+  lat?: number | null;
+  lng?: number | null;
+  flag: string | null;
   countryIDs: String[];
   reviews?: Review[];
   recipes?: Recipe[];
