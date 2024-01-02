@@ -2,6 +2,7 @@
 import { signIn, signOut } from "next-auth/react";
 import React from "react";
 import { Button } from "../Styles/Components/Buttons";
+import { useRouter } from "next/navigation";
 
 export const LoginButton = () => {
   return (
@@ -16,12 +17,18 @@ export const LoginButton = () => {
   );
 };
 export const LogoutButton = () => {
+  const router = useRouter();
+  const signOutToHome = () => {
+    router.push("/");
+    signOut();
+  };
+
   return (
     <Button
       bgcolor="--Red"
       textcolor="--Light"
       fontSize="1rem"
-      onClick={() => signOut({})}
+      onClick={() => signOutToHome()}
     >
       Sign out
     </Button>
