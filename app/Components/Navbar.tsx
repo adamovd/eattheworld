@@ -61,7 +61,7 @@ const Navbar = () => {
                     />
                   </NavbarLink>
                 ) : (
-                  <LoginButton />
+                  <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
                 )}
               </>
             ) : (
@@ -83,7 +83,7 @@ const Navbar = () => {
                     />
                   </NavbarLink>
                 ) : (
-                  <LoginButton />
+                  <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
                 )}
               </>
             )}

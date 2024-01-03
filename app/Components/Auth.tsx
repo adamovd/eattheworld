@@ -4,11 +4,17 @@ import React from "react";
 import { Button } from "../Styles/Components/Buttons";
 import { useRouter } from "next/navigation";
 
-export const LoginButton = () => {
+export const LoginButton = ({
+  bgcolor,
+  textcolor,
+}: {
+  bgcolor: string;
+  textcolor: string;
+}) => {
   return (
     <Button
-      bgcolor="--DarkGreen"
-      textcolor="--Light"
+      bgcolor={bgcolor}
+      textcolor={textcolor}
       fontSize="1rem"
       onClick={() => signIn()}
     >
