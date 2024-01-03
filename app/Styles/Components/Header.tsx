@@ -14,6 +14,7 @@ export const NavbarContainer = styled.nav<NavProps>`
   background: var(--Light);
   display: flex;
   flex-direction: column;
+  position: fixed;
 
   @media ${devices.tablet} {
     height: 4rem;
@@ -37,6 +38,9 @@ export const RightContainer = styled.article`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  @media ${devices.tablet} {
+    padding-right: 4vw;
+  }
 `;
 
 export const NavbarInnerContainer = styled.section`
