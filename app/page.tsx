@@ -1,11 +1,22 @@
 "use client";
 
-import RandomizeButton from "./Components/RandomizeButton";
+import { useEffect } from "react";
+import LandingPage from "./Components/LandingPage";
+import DescriptionPage from "./Components/Description";
 
-export default function Home() {
+const Home = () => {
+  useEffect(() => {
+    (async () => {
+      const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      const locomotiveScroll = new LocomotiveScroll();
+    })();
+  });
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <RandomizeButton />
+    <main style={{ minHeight: "100vh", width: "92vw" }}>
+      <LandingPage />
+      <DescriptionPage />
     </main>
   );
-}
+};
+
+export default Home;
