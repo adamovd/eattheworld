@@ -11,7 +11,7 @@ const Custom403 = () => {
             <h1 className="text-2xl">Access Denied</h1>
             <p className="py-4">Please login as Admin</p>
           </div>
-          <LoginButton />
+          <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
         </div>
       </div>
     </div>

@@ -15,6 +15,7 @@ export const NavbarContainer = styled.nav<NavProps>`
   display: flex;
   flex-direction: column;
   position: fixed;
+  z-index: 999;
 
   @media ${devices.tablet} {
     height: 4rem;
