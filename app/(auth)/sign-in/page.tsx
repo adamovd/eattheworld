@@ -13,6 +13,7 @@ import {
 import { Button } from "@/app/Styles/Components/Buttons";
 import { FormContainer } from "@/app/Styles/Components/Containers";
 import { FormRegisterLink, FormTitle } from "@/app/Styles/Components/Fonts";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 const SignInForm = () => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const SignInForm = () => {
   });
 
   return (
-    <>
+    <PageWrapper>
       <FormContainer>
         <FormTitle>Sign in to your account</FormTitle>
 
@@ -155,7 +156,7 @@ const SignInForm = () => {
           Not a member? <Link href="/register">Create an account today!</Link>
         </FormRegisterLink>
       </FormContainer>
-    </>
+    </PageWrapper>
   );
 };
 

@@ -22,6 +22,7 @@ import {
 import getDistanceFromLatLonInKm from "@/helpers/calculate-distance";
 import { TileTitle } from "@/app/Styles/Components/Fonts";
 import { url } from "inspector";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 const UserPage = () => {
   const { data: session } = useSession();
@@ -76,7 +77,7 @@ const UserPage = () => {
   }, [visitedCountries, user]);
 
   return (
-    <>
+    <PageWrapper>
       {session?.user?.id === params.slug ? (
         <>
           <SingleContainer>
@@ -119,7 +120,7 @@ const UserPage = () => {
           <LogoutButton />
         </>
       ) : null}
-    </>
+    </PageWrapper>
   );
 };
 

@@ -12,6 +12,7 @@ import {
 import { Spotify } from "react-spotify-embed";
 import RecipeCard from "@/app/Components/RecipeCard";
 import RadioButton from "@/app/Components/RadioButton";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 type params = { slug: string };
 
@@ -83,7 +84,7 @@ const PresentCountry = () => {
   }, [country, selectedOption]);
 
   return (
-    <>
+    <PageWrapper>
       <ImageContainer url={country?.imageUrl as string}></ImageContainer>
       <InfoContainer>
         <TitleCard>{`Welcome to ${country?.name}`}</TitleCard>
@@ -127,7 +128,7 @@ const PresentCountry = () => {
           />
         )}
       </InfoContainer>
-    </>
+    </PageWrapper>
   );
 };
 
