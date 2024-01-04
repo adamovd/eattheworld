@@ -12,6 +12,7 @@ import { getRecipe } from "@/app/Services/recipeServices";
 import RecipeInstructions from "@/app/Components/RecipeInstructions";
 import RecipeIngredients from "@/app/Components/RecipeIngredients";
 import Link from "next/link";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 type params = { id: string };
 
@@ -23,7 +24,7 @@ const PresentRecipe = () => {
   }, []);
 
   return (
-    <>
+    <PageWrapper>
       <ImageContainer url={recipe?.imageUrl as string}></ImageContainer>
       <InfoContainer>
         <TitleCard>{recipe?.title}</TitleCard>
@@ -51,7 +52,7 @@ const PresentRecipe = () => {
         <h4>Ingredients</h4>
         <RecipeIngredients ingredients={recipe?.ingredients || []} />
       </InfoContainer>
-    </>
+    </PageWrapper>
   );
 };
 

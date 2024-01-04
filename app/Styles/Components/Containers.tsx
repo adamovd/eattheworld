@@ -1,12 +1,13 @@
 "use client";
 import styled from "styled-components";
 import { devices } from "../breakpoints";
+import { motion } from "framer-motion";
 
 interface ImageProps {
   url: string;
 }
 
-export const Container = styled.section`
+export const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,7 +19,7 @@ export const Container = styled.section`
   background-color: var(--Light);
 `;
 
-export const ImageContainer = styled.article<ImageProps>`
+export const ImageContainer = styled(motion.div)<ImageProps>`
   position: relative;
   width: 100%;
   height: 50vh;
@@ -63,7 +64,7 @@ export const TileContainer = styled.section`
   }
 `;
 
-export const TextContainer = styled.article`
+export const TextContainer = styled(motion.section)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { devices } from "../breakpoints";
-export const TitleCard = styled.section`
+import { motion } from "framer-motion";
+export const TitleCard = styled(motion.section)`
   position: absolute;
   top: -10vh;
   left: 2rem;
   display: flex;
   width: fit-content;
   height: 15vh;
-  padding: 2.5rem 1.75rem 2.5rem 2rem;
+  padding: 1rem 1.5rem 1rem 1.5rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
@@ -16,9 +17,14 @@ export const TitleCard = styled.section`
   background: var(--Light);
   box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   font-family: var(--Heading);
-  font-size: 2rem;
+  font-size: 1.5rem;
   @media ${devices.tablet} {
+    font-size: 2rem;
+    padding: 1.5 1.5rem 1.5 2rem;
+  }
+  @media ${devices.laptop} {
     font-size: 3rem;
+    padding: 2.5rem 1.75rem 2.5rem 2rem;
   }
 `;
 

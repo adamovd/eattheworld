@@ -21,6 +21,7 @@ import Custom403 from "@/app/error/403/page";
 import { useSession } from "next-auth/react";
 import { FormContainer } from "@/app/Styles/Components/Containers";
 import { FormTitle } from "@/app/Styles/Components/Fonts";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
@@ -87,100 +88,79 @@ export default function CountryForm() {
   };
   if (session?.user?.role === "admin") {
     return (
-      <FormContainer>
-        <FormTitle>Register Country</FormTitle>
-        <form onSubmit={onSubmit}>
-          <InputContainer>
-            <InputLabel
-              htmlFor="name"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Select a country
-            </InputLabel>
-            <DropdownSelect
-              value={selectedCountry}
-              onChange={handleCountryChange}
-              id="name"
-            >
-              <DropdownOption value="" disabled selected>
-                {defaultOption}
-              </DropdownOption>
-              {countryList.map((country, index) => (
-                <DropdownOption key={index} value={country.name}>
-                  {country.name}
+      <PageWrapper>
+        <FormContainer>
+          <FormTitle>Register Country</FormTitle>
+          <form onSubmit={onSubmit}>
+            <InputContainer>
+              <InputLabel htmlFor="name">Select a country</InputLabel>
+              <DropdownSelect
+                value={selectedCountry}
+                onChange={handleCountryChange}
+                id="name"
+              >
+                <DropdownOption value="" disabled selected>
+                  {defaultOption}
                 </DropdownOption>
-              ))}
-            </DropdownSelect>
-          </InputContainer>
+                {countryList.map((country, index) => (
+                  <DropdownOption key={index} value={country.name}>
+                    {country.name}
+                  </DropdownOption>
+                ))}
+              </DropdownSelect>
+            </InputContainer>
 
-          <InputContainer>
-            <InputLabel
-              htmlFor="about"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Description
-            </InputLabel>
+            <InputContainer>
+              <InputLabel htmlFor="about">Description</InputLabel>
 
-            <TextArea
-              {...register("description")}
-              id="description"
-              name="description"
-              rows={3}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              defaultValue={""}
-              placeholder="Short description of the country's food culture"
-            />
-          </InputContainer>
-          <InputContainer>
-            <InputLabel
-              htmlFor="imageUrl"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Image
-            </InputLabel>
-
-            <Button bgcolor="--Yellow" textcolor="--Dark" fontSize="1rem">
-              <UploadButton
-                endpoint="imageUploader"
-                onClientUploadComplete={handleUploadComplete}
-                onUploadError={handleUploadError}
-                className="pb-1"
+              <TextArea
+                {...register("description")}
+                id="description"
+                name="description"
+                rows={3}
+                defaultValue={""}
+                placeholder="Short description of the country's food culture"
               />
-            </Button>
-          </InputContainer>
+            </InputContainer>
+            <InputContainer>
+              <InputLabel htmlFor="imageUrl">Image</InputLabel>
 
-          <InputContainer>
-            <InputLabel
-              htmlFor="playlistUrl"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Playlist
-            </InputLabel>
+              <Button bgcolor="--Yellow" textcolor="--Dark" fontSize="1rem">
+                <UploadButton
+                  endpoint="imageUploader"
+                  onClientUploadComplete={handleUploadComplete}
+                  onUploadError={handleUploadError}
+                />
+              </Button>
+            </InputContainer>
 
-            <InputField
-              {...register("playlistUrl")}
-              bgcolor="--Light"
-              textcolor="--Dark"
-              fontSize="1rem"
-              placeholder="URL to playlist"
-              id="playlistUrl"
-              name="playlistUrl"
-              className="mb-5"
-            />
-          </InputContainer>
-          <InputContainer>
-            <Button
-              bgcolor="--DarkGreen"
-              textcolor="--Light"
-              fontSize="1rem"
-              type="submit"
-              disabled={(uploading = true)}
-            >
-              Save
-            </Button>
-          </InputContainer>
-        </form>
-      </FormContainer>
+            <InputContainer>
+              <InputLabel htmlFor="playlistUrl">Playlist</InputLabel>
+
+              <InputField
+                {...register("playlistUrl")}
+                bgcolor="--Light"
+                textcolor="--Dark"
+                fontSize="1rem"
+                placeholder="URL to playlist"
+                id="playlistUrl"
+                name="playlistUrl"
+              />
+            </InputContainer>
+            <InputContainer>
+              <Button
+                bgcolor="--DarkGreen"
+                textcolor="--Light"
+                fontSize="1rem"
+                type="submit"
+                disabled={(uploading = true)}
+              >
+                Save
+              </Button>
+            </InputContainer>
+          </form>
+        </FormContainer>
+      </PageWrapper>
     );
   } else {
     return <Custom403 />;

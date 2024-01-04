@@ -21,6 +21,7 @@ import {
   DropdownOption,
   DropdownSelect,
 } from "@/app/Styles/Components/Dropdown";
+import PageWrapper from "@/app/Components/PageWrapper";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -83,7 +84,7 @@ const RegistrationForm = () => {
     alert(`ERROR! ${error.message}`);
   };
   return (
-    <>
+    <PageWrapper>
       <FormContainer>
         <FormTitle>Register</FormTitle>
 
@@ -254,7 +255,7 @@ const RegistrationForm = () => {
           </InputContainer>
         </form>
       </FormContainer>
-    </>
+    </PageWrapper>
   );
 };
 

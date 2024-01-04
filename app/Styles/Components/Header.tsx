@@ -34,7 +34,7 @@ export const LeftContainer = styled.article`
   }
 `;
 
-export const RightContainer = styled.article`
+export const RightContainer = styled.ul`
   flex: 70%;
   display: flex;
   justify-content: flex-end;
@@ -50,16 +50,17 @@ export const NavbarInnerContainer = styled.section`
   display: flex;
 `;
 
-export const NavbarLinkContainer = styled.section`
+export const NavbarLinkContainer = styled.li`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
 `;
 
 export const NavbarLink = styled(Link)`
+  position: relative;
   color: var(--Dark);
   font-size: 1rem;
-  font-family: var(--Text);
+  font-family: var(--Heading);
   text-decoration: none;
   margin: 10px;
 

@@ -4,6 +4,11 @@ import React from "react";
 import { Button } from "../Styles/Components/Buttons";
 import { useRouter } from "next/navigation";
 
+const url =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://www.eattheworld.se";
+
 export const LoginButton = ({
   bgcolor,
   textcolor,
@@ -24,17 +29,13 @@ export const LoginButton = ({
 };
 export const LogoutButton = () => {
   const router = useRouter();
-  const signOutToHome = () => {
-    router.push("/");
-    signOut();
-  };
 
   return (
     <Button
       bgcolor="--Red"
       textcolor="--Light"
       fontSize="1rem"
-      onClick={() => signOutToHome()}
+      onClick={() => signOut({ callbackUrl: url })}
     >
       Sign out
     </Button>

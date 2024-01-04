@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import LandingPage from "./Components/LandingPage";
 import DescriptionPage from "./Components/Description";
+import PageWrapper from "./Components/PageWrapper";
 
 const Home = () => {
   useEffect(() => {
@@ -12,10 +13,10 @@ const Home = () => {
     })();
   });
   return (
-    <main style={{ minHeight: "100vh", width: "92vw" }}>
+    <PageWrapper>
       <LandingPage />
       <DescriptionPage />
-    </main>
+    </PageWrapper>
   );
 };
 
