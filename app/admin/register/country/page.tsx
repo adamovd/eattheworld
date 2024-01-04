@@ -7,18 +7,25 @@ import axios from "axios";
 import { ChangeEvent, useState } from "react";
 import { countryList } from "../../../../helpers/country-list";
 import { Button } from "@/app/Styles/Components/Buttons";
-import { InputField } from "@/app/Styles/Components/InputFields";
+import {
+  InputContainer,
+  InputField,
+  InputLabel,
+  TextArea,
+} from "@/app/Styles/Components/InputFields";
 import {
   DropdownOption,
   DropdownSelect,
 } from "@/app/Styles/Components/Dropdown";
 import Custom403 from "@/app/error/403/page";
 import { useSession } from "next-auth/react";
+import { FormContainer } from "@/app/Styles/Components/Containers";
+import { FormTitle } from "@/app/Styles/Components/Fonts";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [uploading, setUploading] = useState(false);
+  let [uploading, setUploading] = useState(false);
   const { data: session } = useSession();
   const defaultOption = "Select a country";
   const {
@@ -80,115 +87,100 @@ export default function CountryForm() {
   };
   if (session?.user?.role === "admin") {
     return (
-      <section className="flex my-10 mx-10">
+      <FormContainer>
+        <FormTitle>Register Country</FormTitle>
         <form onSubmit={onSubmit}>
-          <div className="space-y-12">
-            <div>
-              <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-                <div className="sm:col-span-4">
-                  <div>
-                    <label
-                      htmlFor="name"
-                      className="block text-sm font-medium leading-6 text-gray-900"
-                    >
-                      Select a country
-                    </label>
-                    <DropdownSelect
-                      value={selectedCountry}
-                      onChange={handleCountryChange}
-                      id="name"
-                    >
-                      <DropdownOption value="" disabled selected>
-                        {defaultOption}
-                      </DropdownOption>
-                      {countryList.map((country, index) => (
-                        <DropdownOption key={index} value={country.name}>
-                          {country.name}
-                        </DropdownOption>
-                      ))}
-                    </DropdownSelect>
-                  </div>
-                </div>
+          <InputContainer>
+            <InputLabel
+              htmlFor="name"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Select a country
+            </InputLabel>
+            <DropdownSelect
+              value={selectedCountry}
+              onChange={handleCountryChange}
+              id="name"
+            >
+              <DropdownOption value="" disabled selected>
+                {defaultOption}
+              </DropdownOption>
+              {countryList.map((country, index) => (
+                <DropdownOption key={index} value={country.name}>
+                  {country.name}
+                </DropdownOption>
+              ))}
+            </DropdownSelect>
+          </InputContainer>
 
-                <div className="col-span-full">
-                  <label
-                    htmlFor="about"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Description
-                  </label>
-                  <div className="mt-2">
-                    <textarea
-                      {...register("description")}
-                      id="description"
-                      name="description"
-                      rows={3}
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      defaultValue={""}
-                      placeholder="Short description of the country's food culture"
-                    />
-                  </div>
-                </div>
-                <div className="sm:col-span-4">
-                  <label
-                    htmlFor="imageUrl"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Image
-                  </label>
-                  <div className="mt-2">
-                    <div className="flex sm:max-w-md text-gray-800">
-                      <Button
-                        bgcolor="--Yellow"
-                        textcolor="--Dark"
-                        fontSize="1rem"
-                      >
-                        <UploadButton
-                          endpoint="imageUploader"
-                          onClientUploadComplete={handleUploadComplete}
-                          onUploadError={handleUploadError}
-                          className="pb-1"
-                        />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
+          <InputContainer>
+            <InputLabel
+              htmlFor="about"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Description
+            </InputLabel>
 
-                <div className="sm:col-span-4">
-                  <label
-                    htmlFor="playlistUrl"
-                    className="block text-sm font-medium leading-6 text-gray-900"
-                  >
-                    Playlist
-                  </label>
-                  <div className="mt-2">
-                    <InputField
-                      {...register("playlistUrl")}
-                      bgcolor="--Light"
-                      textcolor="--Dark"
-                      fontSize="1rem"
-                      width="400px"
-                      placeholder="URL to playlist"
-                      id="playlistUrl"
-                      name="playlistUrl"
-                      className="mb-5"
-                    />
-                  </div>
-                </div>
-              </div>
-              <Button
-                bgcolor="--DarkGreen"
-                textcolor="--Light"
-                fontSize="1rem"
-                type="submit"
-                disabled={uploading}
-              >
-                Save
-              </Button>
-            </div>
-          </div>
+            <TextArea
+              {...register("description")}
+              id="description"
+              name="description"
+              rows={3}
+              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              defaultValue={""}
+              placeholder="Short description of the country's food culture"
+            />
+          </InputContainer>
+          <InputContainer>
+            <InputLabel
+              htmlFor="imageUrl"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Image
+            </InputLabel>
+
+            <Button bgcolor="--Yellow" textcolor="--Dark" fontSize="1rem">
+              <UploadButton
+                endpoint="imageUploader"
+                onClientUploadComplete={handleUploadComplete}
+                onUploadError={handleUploadError}
+                className="pb-1"
+              />
+            </Button>
+          </InputContainer>
+
+          <InputContainer>
+            <InputLabel
+              htmlFor="playlistUrl"
+              className="block text-sm font-medium leading-6 text-gray-900"
+            >
+              Playlist
+            </InputLabel>
+
+            <InputField
+              {...register("playlistUrl")}
+              bgcolor="--Light"
+              textcolor="--Dark"
+              fontSize="1rem"
+              placeholder="URL to playlist"
+              id="playlistUrl"
+              name="playlistUrl"
+              className="mb-5"
+            />
+          </InputContainer>
+          <InputContainer>
+            <Button
+              bgcolor="--DarkGreen"
+              textcolor="--Light"
+              fontSize="1rem"
+              type="submit"
+              disabled={(uploading = true)}
+            >
+              Save
+            </Button>
+          </InputContainer>
         </form>
-      </section>
+      </FormContainer>
     );
   } else {
     return <Custom403 />;

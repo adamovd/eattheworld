@@ -22,6 +22,12 @@ export const Button = styled.button<ButtonProps>`
   &:hover {
     box-shadow: 5px 5px 0px 0px var(--Dark);
   }
+  svg {
+    padding-top: 4px;
+  }
+  div {
+    line-height: 2rem;
+  }
 `;
 
 export const CategoryButton = styled.input`

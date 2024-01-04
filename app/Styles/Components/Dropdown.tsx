@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { devices } from "../breakpoints";
 
 export const DropdownSelect = styled.select`
   appearance: none;
@@ -6,8 +7,7 @@ export const DropdownSelect = styled.select`
   grid-template-areas: "select";
   align-items: center;
   position: relative;
-  min-width: 15ch;
-  max-width: 30ch;
+  width: 250px;
   border-radius: 0.25em;
   padding: 0.25em 0.5em;
   font-size: 1.25rem;
@@ -32,6 +32,12 @@ export const DropdownSelect = styled.select`
   select,
   &::after {
     grid-area: select;
+  }
+  @media ${devices.tablet} {
+    width: 350px;
+  }
+  @media ${devices.laptop} {
+    width: 400px;
   }
 `;
 

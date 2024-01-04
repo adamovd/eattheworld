@@ -145,3 +145,14 @@ export const MapContainer = styled.section`
     height: 50vh;
   }
 `;
+
+export const FormContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem, 1.5rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+`;
