@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import {
   NavbarContainer,
   LeftContainer,
@@ -16,15 +17,41 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { LoginButton } from "./Auth";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faXmark } from "@fortawesome/free-solid-svg-icons";
 import logo from "../../public/logo.png";
+import open from "../../public/menu.svg";
+import close from "../../public/close.svg";
 
+type Link = {
+  href: string;
+  label: string;
+};
 const Navbar = () => {
   const { data: session } = useSession();
-  const pathname = usePathname();
+  const path = usePathname();
   const [extendNavbar, setExtendNavbar] = useState(false);
+  let links: Link[];
+
+  if (session) {
+    links = [
+      { href: "/about", label: "about" },
+      { href: "/contact", label: "contact" },
+      { href: `/user/${session?.user?.id as string}`, label: "my pages" },
+    ];
+    if (session?.user?.role === "admin") {
+      links = [
+        { href: "/admin/dashboard", label: "dashboard" },
+        { href: "/admin/register/country", label: "add country" },
+        { href: "/admin/register/recipe", label: "add recipe" },
+        { href: `/user/${session?.user?.id as string}`, label: "my pages" },
+      ];
+    }
+  } else {
+    links = [
+      { href: "/about", label: "about" },
+      { href: "/contact", label: "contact" },
+      { href: "/sign-in", label: "sign in" },
+    ];
+  }
 
   return (
     <NavbarContainer extendnavbar={extendNavbar}>
@@ -35,158 +62,59 @@ const Navbar = () => {
           </Link>
         </LeftContainer>
         <RightContainer>
-          <NavbarLinkContainer>
-            {session?.user?.role === "admin" ? (
-              <>
-                <NavbarLink href="/admin/dashboard"> Dashboard</NavbarLink>
-                <NavbarLink href="/admin/register/country">
-                  {" "}
-                  Add country
-                </NavbarLink>
-                <NavbarLink href="/admin/register/recipe">
-                  Add recipe
-                </NavbarLink>
-                {session ? (
-                  <NavbarLink href={`/user/${session?.user?.id as string}`}>
-                    <Image
-                      style={{
-                        borderRadius: 50,
-                        maxHeight: 50,
-                        objectFit: "cover",
-                      }}
-                      src={session?.user?.image as string}
-                      width={50}
-                      height={50}
-                      alt={session?.user?.firstname as string}
-                    />
-                  </NavbarLink>
-                ) : (
-                  <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
+          {links.map((link, index) => (
+            <NavbarLinkContainer key={index}>
+              <NavbarLink href={link.href}>
+                {link.href === path && (
+                  <motion.span
+                    layoutId="underline"
+                    className={`absolute left-0 top-full block h-[1px] w-full ${
+                      link.label !== "my pages" ? "bg-black" : ""
+                    }`}
+                  />
                 )}
-              </>
+                {link.label === "my pages" ? (
+                  <Image
+                    style={{
+                      borderRadius: 50,
+                      maxHeight: 50,
+                      objectFit: "cover",
+                    }}
+                    src={session?.user?.image as string}
+                    width={50}
+                    height={50}
+                    alt={session?.user?.firstname as string}
+                  />
+                ) : (
+                  link.label
+                )}
+              </NavbarLink>
+            </NavbarLinkContainer>
+          ))}
+          <OpenLinksButton
+            onClick={() => {
+              setExtendNavbar((curr) => !curr);
+            }}
+          >
+            {extendNavbar ? (
+              <Image src={close} alt="Close menu" width={50} height={50} />
             ) : (
-              <>
-                <NavbarLink href="/contact"> Contact</NavbarLink>
-                <NavbarLink href="/about"> About</NavbarLink>
-                {session ? (
-                  <NavbarLink href={`/user/${session?.user?.id as string}`}>
-                    <Image
-                      style={{
-                        borderRadius: 50,
-                        maxHeight: 50,
-                        objectFit: "cover",
-                      }}
-                      src={session?.user?.image as string}
-                      width={50}
-                      height={50}
-                      alt={session?.user?.firstname as string}
-                    />
-                  </NavbarLink>
-                ) : (
-                  <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
-                )}
-              </>
+              <Image src={open} alt="Open menu" width={50} height={50} />
             )}
-
-            <OpenLinksButton
-              onClick={() => {
-                setExtendNavbar((curr) => !curr);
-              }}
-            >
-              {extendNavbar ? (
-                <FontAwesomeIcon fontSize="2rem" icon={faXmark} />
-              ) : (
-                <FontAwesomeIcon fontSize="2rem" icon={faBars} />
-              )}
-            </OpenLinksButton>
-          </NavbarLinkContainer>
+          </OpenLinksButton>
         </RightContainer>
       </NavbarInnerContainer>
-      <NavbarExtendedContainer>
-        {extendNavbar && (
-          <>
-            {session?.user?.role === "admin" ? (
-              <>
-                <NavbarLinkExtended
-                  href="/admin/dashboard"
-                  onClick={() => {
-                    setExtendNavbar((curr) => !curr);
-                  }}
-                >
-                  {" "}
-                  Dashboard
-                </NavbarLinkExtended>
-                <NavbarLinkExtended
-                  href="/admin/register/country"
-                  onClick={() => {
-                    setExtendNavbar((curr) => !curr);
-                  }}
-                >
-                  {" "}
-                  Add country
-                </NavbarLinkExtended>
-                <NavbarLinkExtended
-                  href="/admin/register/recipe"
-                  onClick={() => {
-                    setExtendNavbar((curr) => !curr);
-                  }}
-                >
-                  Add recipe
-                </NavbarLinkExtended>
-                {session ? (
-                  <NavbarLinkExtended
-                    href={`/user/${session?.user?.id as string}`}
-                    onClick={() => {
-                      setExtendNavbar((curr) => !curr);
-                    }}
-                  >
-                    My pages
-                  </NavbarLinkExtended>
-                ) : (
-                  <NavbarLinkExtended href="/sign-in">
-                    Sign in
-                  </NavbarLinkExtended>
-                )}
-              </>
-            ) : (
-              <>
-                <NavbarLinkExtended
-                  href="/contact"
-                  onClick={() => {
-                    setExtendNavbar((curr) => !curr);
-                  }}
-                >
-                  {" "}
-                  Contact
-                </NavbarLinkExtended>
-                <NavbarLinkExtended
-                  href="/about"
-                  onClick={() => {
-                    setExtendNavbar((curr) => !curr);
-                  }}
-                >
-                  {" "}
-                  About
-                </NavbarLinkExtended>
-                {session ? (
-                  <NavbarLinkExtended
-                    href={`/user/${session?.user?.id as string}`}
-                    onClick={() => {
-                      setExtendNavbar((curr) => !curr);
-                    }}
-                  >
-                    My pages
-                  </NavbarLinkExtended>
-                ) : (
-                  <NavbarLinkExtended href="/sign-in">
-                    Sign in
-                  </NavbarLinkExtended>
-                )}
-              </>
-            )}
-          </>
-        )}
-      </NavbarExtendedContainer>
+      {links.map((link, index) => (
+        <NavbarExtendedContainer key={index}>
+          {extendNavbar && (
+            <>
+              <NavbarLinkExtended href={link.href}>
+                {link.label}
+              </NavbarLinkExtended>
+            </>
+          )}
+        </NavbarExtendedContainer>
+      ))}
     </NavbarContainer>
   );
 };
