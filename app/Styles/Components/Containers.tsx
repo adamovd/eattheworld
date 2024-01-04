@@ -19,7 +19,7 @@ export const Container = styled(motion.div)`
   background-color: var(--Light);
 `;
 
-export const ImageContainer = styled.article<ImageProps>`
+export const ImageContainer = styled(motion.div)<ImageProps>`
   position: relative;
   width: 100%;
   height: 50vh;
@@ -64,7 +64,7 @@ export const TileContainer = styled.section`
   }
 `;
 
-export const TextContainer = styled.article`
+export const TextContainer = styled(motion.section)`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

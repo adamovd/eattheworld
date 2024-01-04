@@ -85,13 +85,30 @@ const PresentCountry = () => {
 
   return (
     <PageWrapper>
-      <ImageContainer url={country?.imageUrl as string}></ImageContainer>
+      <ImageContainer
+        url={country?.imageUrl as string}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
+        exit={{ opacity: 0, x: 20 }}
+      ></ImageContainer>
       <InfoContainer>
-        <TitleCard>{`Welcome to ${country?.name}`}</TitleCard>
-        <TextContainer>
+        <TitleCard
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
+          exit={{ opacity: 0, x: -20 }}
+        >{`Welcome to ${country?.name}`}</TitleCard>
+        <TextContainer
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+          exit={{ opacity: 0, y: 20 }}
+        >
           <span>{country?.description}</span>
         </TextContainer>
-        <TextContainer>
+        <TextContainer
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+          exit={{ opacity: 0, y: -20 }}
+        >
           <p>
             <b>Capital:</b> {country?.capital}
           </p>
