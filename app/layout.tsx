@@ -22,9 +22,7 @@ export default function RootLayout({
       <body className="h-full flex-col justify-evenly">
         <NextAuthProvider>
           <Navbar />
-          <Suspense fallback={<Loading />}>
-            <Container>{children}</Container>
-          </Suspense>
+          {children}
           <Footer />
         </NextAuthProvider>
       </body>
