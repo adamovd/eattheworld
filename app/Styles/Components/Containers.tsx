@@ -1,12 +1,13 @@
 "use client";
 import styled from "styled-components";
 import { devices } from "../breakpoints";
+import { motion } from "framer-motion";
 
 interface ImageProps {
   url: string;
 }
 
-export const Container = styled.section`
+export const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;
