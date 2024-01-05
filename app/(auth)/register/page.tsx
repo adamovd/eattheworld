@@ -3,7 +3,6 @@ import { useForm, Resolver } from "react-hook-form";
 import { User } from "../../Models/dbTypes";
 import { ChangeEvent, useRef, useState } from "react";
 import { countryList } from "../../../helpers/country-list";
-import { UploadButton } from "../../../helpers/uploadthing";
 import { registerNewUser } from "../../Services/userServices";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -29,7 +28,7 @@ const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   let [uploadingProgress, setUploadingProgress] = useState(0);
   const router = useRouter();
-  const button = useRef(null);
+
   const defaultOption = "Select a country";
   const {
     register,
@@ -40,7 +39,6 @@ const RegistrationForm = () => {
   } = useForm<User>();
   const onSubmit = handleSubmit(async (data) => {
     try {
-      console.log(data);
       registerNewUser(data);
       reset();
       setValue("nationality", defaultOption);
@@ -170,7 +168,7 @@ const RegistrationForm = () => {
           </InputContainer>
           <InputContainer>
             <InputLabel htmlFor="profilepicture">Profile picture</InputLabel>
-            {/*// @ts-ignore */}
+            {/*// @ts-expect-error */}
             <UploadDropzone<OurFileRouter>
               endpoint="imageUploader"
               onClientUploadComplete={handleUploadComplete}
