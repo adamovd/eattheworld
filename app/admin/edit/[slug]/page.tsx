@@ -27,7 +27,7 @@ const EditCountry = () => {
       <h3>Recipes</h3>
       {country?.recipes.map((recipe) => {
         return (
-          <article key={recipe._id}>
+          <article key={recipe.id}>
             <Image
               src={recipe?.imageUrl as string}
               alt={"An image of" + recipe?.title}
