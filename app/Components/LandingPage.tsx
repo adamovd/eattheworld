@@ -29,6 +29,7 @@ const LandingPage = () => {
       isPortrait ? "/images/background_mobile.webp" : "/images/background.jpg",
     [isPortrait]
   );
+
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       gsap.registerPlugin(ScrollTrigger);
@@ -43,7 +44,7 @@ const LandingPage = () => {
       });
 
       timeline.from(background.current, {
-        clipPath: "inset(15%)",
+        clipPath: `inset(35%)`,
       });
     });
     return () => ctx.revert();
@@ -57,8 +58,7 @@ const LandingPage = () => {
       <BackgroundImage ref={background}>
         <Image
           src={imageUrl}
-          alt="
-        Background image"
+          alt="Image of fruits on a market"
           priority={true}
           fill={true}
         />
