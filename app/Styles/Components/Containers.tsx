@@ -9,10 +9,12 @@ interface ImageProps {
 
 export const Container = styled(motion.div)`
   display: flex;
+  position: relative;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 92vw;
+  min-height: 96vh;
   margin-left: 4vw;
   border-left: 1px solid var(--Dark);
   border-right: 1px solid var(--Dark);
@@ -25,6 +27,7 @@ export const ImageContainer = styled(motion.div)<ImageProps>`
   height: 50vh;
   background-image: url(${(props: ImageProps) => props.url});
   background-size: cover;
+  background-position: center;
   object-fit: fill;
   overflow: hidden;
   border-bottom: 1px solid var(--Dark);
@@ -33,13 +36,30 @@ export const ImageContainer = styled(motion.div)<ImageProps>`
   }
 `;
 
-export const InfoContainer = styled.section`
+export const InfoContainer = styled(motion.section)`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-bottom: 1px solid var(--Dark);
+  font-size: 0.8rem;
+
   @media ${devices.tablet} {
     flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    font-size: 1rem;
+    ol,
+    ul {
+      width: 50%;
+    }
+    ol {
+      @media ${devices.tablet} {
+        border-top: none;
+        border-left: 1px solid var(--Dark);
+      }
+    }
   }
 `;
 
@@ -71,6 +91,13 @@ export const TextContainer = styled(motion.section)`
   align-items: flex-start;
   padding: 2rem;
   padding-top: 4rem;
+  font-size: 0.8rem;
+  a {
+    color: var(--DarkGreen);
+    &:hover {
+      color: var(--LightGreen);
+    }
+  }
   &:nth-child(2) {
     border-bottom: 1px solid var(--Dark);
   }
@@ -78,6 +105,7 @@ export const TextContainer = styled(motion.section)`
     padding-top: 2rem;
   }
   @media ${devices.tablet} {
+    font-size: 1rem;
     &:nth-child(2) {
       border-right: 1px solid var(--Dark);
       width: 60%;
@@ -95,14 +123,15 @@ export const RecipeImageContainer = styled.article<ImageProps>`
   height: 40vh;
   background-image: url(${(props: ImageProps) => props.url});
   background-size: cover;
+  background-position: center;
   object-fit: fill;
   overflow: hidden;
   border-bottom: 1px solid var(--Dark);
   @media ${devices.tablet} {
-    width: 30%;
-    height: auto;
     border-bottom: none;
     border-right: 1px solid var(--Dark);
+    width: 50%;
+    height: 60vh;
   }
 `;
 
@@ -126,8 +155,8 @@ export const ButtonContainer = styled.section`
   flex-direction: row;
   gap: 0.5rem;
   position: absolute;
-  top: -5px;
-  right: 30px;
+  top: -10px;
+  right: 40px;
 
   @media ${devices.tablet} {
     top: -15px;
