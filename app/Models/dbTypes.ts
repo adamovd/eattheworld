@@ -36,7 +36,7 @@ export type Country = {
 };
 
 export type Recipe = {
-  _id: string;
+  id: string;
   createdAt: Date;
   updatedAt: Date;
   category: Diet;
@@ -66,7 +66,6 @@ export type Review = {
   _id: string;
   createdAt: Date;
   updatedAt: Date;
-  title: string;
   summary: string;
   rating: number;
   User?: User | null;
