@@ -3393,6 +3393,11 @@ split-string@^3.0.1:
   dependencies:
     extend-shallow "^3.0.0"
 
+stars-rating-react-hooks@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/stars-rating-react-hooks/-/stars-rating-react-hooks-0.2.4.tgz#1fde77f897b9c3e323a03318f0af6b5dd0bb4346"
+  integrity sha512-iubQyp83pINfXiNnGyseawUw79N651Lhu+iapRtFuBCAoRfflThgp+VgRNyLBnxnddNPJp+dapAC0hXKbpEmHw==
+
 streamsearch@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/streamsearch/-/streamsearch-1.1.0.tgz"
