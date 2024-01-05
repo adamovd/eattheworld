@@ -20,6 +20,7 @@ import { useState } from "react";
 import logo from "../../public/logo.png";
 import open from "../../public/menu.svg";
 import close from "../../public/close.svg";
+import { LoginButton } from "./Auth";
 
 type Link = {
   href: string;
@@ -33,12 +34,14 @@ const Navbar = () => {
 
   if (session) {
     links = [
+      { href: "/", label: "home" },
       { href: "/about", label: "about" },
       { href: "/contact", label: "contact" },
       { href: `/user/${session?.user?.id as string}`, label: "my pages" },
     ];
     if (session?.user?.role === "admin") {
       links = [
+        { href: "/", label: "home" },
         { href: "/admin/dashboard", label: "dashboard" },
         { href: "/admin/register/country", label: "add country" },
         { href: "/admin/register/recipe", label: "add recipe" },
@@ -47,6 +50,7 @@ const Navbar = () => {
     }
   } else {
     links = [
+      { href: "/", label: "home" },
       { href: "/about", label: "about" },
       { href: "/contact", label: "contact" },
       { href: "/sign-in", label: "sign in" },
@@ -64,31 +68,35 @@ const Navbar = () => {
         <RightContainer>
           {links.map((link, index) => (
             <NavbarLinkContainer key={index}>
-              <NavbarLink href={link.href}>
-                {link.href === path && (
-                  <motion.span
-                    layoutId="underline"
-                    className={`absolute left-0 top-full block h-[1px] w-full ${
-                      link.label !== "my pages" ? "bg-black" : ""
-                    }`}
-                  />
-                )}
-                {link.label === "my pages" ? (
-                  <Image
-                    style={{
-                      borderRadius: 50,
-                      maxHeight: 50,
-                      objectFit: "cover",
-                    }}
-                    src={session?.user?.image as string}
-                    width={50}
-                    height={50}
-                    alt={session?.user?.firstname as string}
-                  />
-                ) : (
-                  link.label
-                )}
-              </NavbarLink>
+              {link.label === "sign in" ? (
+                <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
+              ) : (
+                <NavbarLink href={link.href}>
+                  {link.href === path && (
+                    <motion.span
+                      layoutId="underline"
+                      className={`absolute left-0 top-full block h-[1px] w-full ${
+                        link.label !== "my pages" ? "bg-black" : ""
+                      }`}
+                    />
+                  )}
+                  {link.label === "my pages" ? (
+                    <Image
+                      style={{
+                        borderRadius: 50,
+                        maxHeight: 50,
+                        objectFit: "cover",
+                      }}
+                      src={session?.user?.image as string}
+                      width={50}
+                      height={50}
+                      alt={session?.user?.firstname as string}
+                    />
+                  ) : (
+                    link.label
+                  )}
+                </NavbarLink>
+              )}
             </NavbarLinkContainer>
           ))}
           <OpenLinksButton

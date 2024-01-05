@@ -22,10 +22,12 @@ import {
   DropdownSelect,
 } from "@/app/Styles/Components/Dropdown";
 import PageWrapper from "@/app/Components/PageWrapper";
+import { UploadDropzone } from "@uploadthing/react";
+import { OurFileRouter } from "@/app/api/uploadthing/core";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
-  let [uploading, setUploading] = useState(false);
+  let [uploadingProgress, setUploadingProgress] = useState(0);
   const router = useRouter();
   const button = useRef(null);
   const defaultOption = "Select a country";
@@ -76,8 +78,8 @@ const RegistrationForm = () => {
     const url = res.map((image) => {
       return image.url;
     });
+
     setValue("image", url.toString());
-    setUploading(false);
   };
 
   const handleUploadError = (error: Error) => {
@@ -90,105 +92,71 @@ const RegistrationForm = () => {
 
         <form onSubmit={onSubmit}>
           <InputContainer>
-            <InputLabel
-              htmlFor="firstname"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              First name
-            </InputLabel>
+            <InputLabel htmlFor="firstname">First name</InputLabel>
 
             <InputField
               {...register("firstname")}
               bgcolor="--Light"
               textcolor="--Dark"
-              width="350px"
               fontSize="1rem"
               id="firstname"
               name="firstname"
               type="text"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
           <InputContainer>
-            <InputLabel
-              htmlFor="lastname"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Last name
-            </InputLabel>
+            <InputLabel htmlFor="lastname">Last name</InputLabel>
 
             <InputField
               {...register("lastname")}
               bgcolor="--Light"
               textcolor="--Dark"
-              width="350px"
               fontSize="1rem"
               id="lastname"
               name="lastname"
               type="text"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
 
           <InputContainer>
-            <InputLabel
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email address
-            </InputLabel>
+            <InputLabel htmlFor="email">Email address</InputLabel>
 
             <InputField
               {...register("email")}
               bgcolor="--Light"
               textcolor="--Dark"
-              width="350px"
               fontSize="1rem"
               id="email"
               name="email"
               type="email"
               autoComplete="email"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
 
           <InputContainer>
-            <InputLabel
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Password
-            </InputLabel>
+            <InputLabel htmlFor="password">Password</InputLabel>
 
             <InputField
               {...register("password")}
               bgcolor="--Light"
               textcolor="--Dark"
-              width="350px"
               fontSize="1rem"
               id="password"
               name="password"
               type="password"
               autoComplete="current-password"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
           <InputContainer>
-            <InputLabel
-              htmlFor="nationality"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Where do you live?
-            </InputLabel>
+            <InputLabel htmlFor="nationality">Where do you live?</InputLabel>
             <DropdownSelect
               value={selectedCountry}
               onChange={handleCountryChange}
               id="name"
-              className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             >
               <DropdownOption value="" disabled selected>
                 {defaultOption}
@@ -201,43 +169,29 @@ const RegistrationForm = () => {
             </DropdownSelect>
           </InputContainer>
           <InputContainer>
-            <InputLabel
-              htmlFor="profilepicture"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Profile picture
-            </InputLabel>
-
-            <Button
-              bgcolor="--Yellow"
-              textcolor="--Dark"
-              fontSize="1rem"
-              type="button"
-              style={{ gap: "2rem" }}
-            >
-              <UploadButton
-                className="uploadButton"
-                endpoint="imageUploader"
-                onClientUploadComplete={handleUploadComplete}
-                onUploadError={handleUploadError}
-                onUploadProgress={() => setUploading}
-              />
-            </Button>
+            <InputLabel htmlFor="profilepicture">Profile picture</InputLabel>
+            {/*// @ts-ignore */}
+            <UploadDropzone<OurFileRouter>
+              endpoint="imageUploader"
+              onClientUploadComplete={handleUploadComplete}
+              onUploadError={handleUploadError}
+              config={{ mode: "auto" }}
+              onUploadProgress={(number) => setUploadingProgress(number)}
+            />
+            {uploadingProgress < 100 ? (
+              <small>{uploadingProgress} %</small>
+            ) : (
+              <small>done!</small>
+            )}
           </InputContainer>
           <InputContainer>
-            <InputLabel
-              htmlFor="bio"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Biography
-            </InputLabel>
+            <InputLabel htmlFor="bio">Biography</InputLabel>
 
             <TextArea
               {...register("bio")}
               id="bio"
               name="bio"
               rows={3}
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               defaultValue={""}
               placeholder="Short description of yourself and your food and travel..."
             />
@@ -248,7 +202,7 @@ const RegistrationForm = () => {
               textcolor="--Light"
               fontSize="1rem"
               type="submit"
-              disabled={uploading ? true : false}
+              disabled={uploadingProgress < 100}
             >
               Register
             </Button>

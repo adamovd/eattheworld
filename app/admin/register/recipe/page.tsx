@@ -26,13 +26,14 @@ import { FormTitle } from "@/app/Styles/Components/Fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faX } from "@fortawesome/free-solid-svg-icons";
 import PageWrapper from "@/app/Components/PageWrapper";
+import { UploadDropzone } from "@uploadthing/react";
 
 export default function RecipeForm() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("");
   //@ts-ignore
   const [selectedDiet, setSelectedDiet] = useState<Diet>("");
-  const [uploading, setUploading] = useState(false);
+  let [uploadingProgress, setUploadingProgress] = useState(0);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -89,7 +90,6 @@ export default function RecipeForm() {
       return image.url;
     });
     setValue("imageUrl", url.toString());
-    setUploading(false);
   };
 
   const handleUploadError = (error: Error) => {
@@ -332,20 +332,21 @@ export default function RecipeForm() {
             </InputContainer>
             <InputContainer>
               <InputLabel htmlFor="imageUrl">Image</InputLabel>
-
-              <Button
-                bgcolor="--Yellow"
-                textcolor="--Dark"
-                fontSize="1rem"
-                type="button"
-              >
-                <UploadButton
-                  endpoint="imageUploader"
-                  onUploadBegin={() => setUploading(true)}
-                  onClientUploadComplete={handleUploadComplete}
-                  onUploadError={handleUploadError}
-                />
-              </Button>
+              {/*// @ts-ignore */}
+              <UploadDropzone<OurFileRouter>
+                endpoint="imageUploader"
+                onClientUploadComplete={handleUploadComplete}
+                onUploadError={handleUploadError}
+                config={{ mode: "auto" }}
+                onUploadProgress={(number: number) =>
+                  setUploadingProgress(number)
+                }
+              />
+              {uploadingProgress < 100 ? (
+                <small>{uploadingProgress} %</small>
+              ) : (
+                <small>done!</small>
+              )}
             </InputContainer>
             <InputContainer>
               <Button
@@ -353,7 +354,7 @@ export default function RecipeForm() {
                 textcolor="--Light"
                 fontSize="1rem"
                 type="submit"
-                disabled={uploading === true}
+                disabled={uploadingProgress < 100}
               >
                 Save
               </Button>

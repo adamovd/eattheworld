@@ -28,7 +28,6 @@ export const POST = async (request: NextRequest) => {
       where: { name: countryId },
     })
     .then((country) => {
-      console.log("The id of the country" + country?.id);
       if (country) {
         return country?.id;
       } else {
@@ -89,6 +88,7 @@ export const GET = async (request: NextRequest) => {
       where: { id: String(id) },
       include: {
         ingredients: true,
+        reviews: true,
       },
     });
 

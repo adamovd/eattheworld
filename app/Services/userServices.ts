@@ -38,8 +38,6 @@ export const addCountryToUser = async (userId: string, countryId: string) => {
       const data = await response.json();
       return data;
     }
-
-    throw new Error("Failed to associate country with user");
   } catch (error) {
     throw new Error(`Could not associate country with user`);
   }

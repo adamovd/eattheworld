@@ -13,6 +13,10 @@ import RecipeInstructions from "@/app/Components/RecipeInstructions";
 import RecipeIngredients from "@/app/Components/RecipeIngredients";
 import Link from "next/link";
 import PageWrapper from "@/app/Components/PageWrapper";
+import { StyledBody } from "@/app/Styles/Components/Body";
+import { Button } from "@/app/Styles/Components/Buttons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 
 type params = { id: string };
 
@@ -24,35 +28,59 @@ const PresentRecipe = () => {
   }, []);
 
   return (
-    <PageWrapper>
-      <ImageContainer url={recipe?.imageUrl as string}></ImageContainer>
-      <InfoContainer>
-        <TitleCard>{recipe?.title}</TitleCard>
-        <TextContainer>
-          <span>{recipe?.description}</span>
-        </TextContainer>
-        <TextContainer>
-          <p>
-            <b>Cooking time:</b> {recipe?.time}
-          </p>
-          <p>
-            <b>Servings:</b> {recipe?.servings}
-          </p>
-          <p>
-            <b>Category:</b> {recipe?.category}
-          </p>
-          {/* <Link href={recipe?.link as string}>{recipe?.from as string}</Link> */}
-        </TextContainer>
-      </InfoContainer>
-      <InfoContainer className="flex-col">
-        <h4>Instructions</h4>
-        <RecipeInstructions instructions={recipe?.instructions || []} />
-      </InfoContainer>
-      <InfoContainer>
-        <h4>Ingredients</h4>
-        <RecipeIngredients ingredients={recipe?.ingredients || []} />
-      </InfoContainer>
-    </PageWrapper>
+    <>
+      {recipe && (
+        <StyledBody
+          bgcolor={
+            //@ts-ignore
+            recipe.category === "MEAT"
+              ? "--Red"
+              : //@ts-ignore
+              recipe.category === "FISH"
+              ? "--Blue"
+              : "--DarkGreen"
+          }
+        >
+          <PageWrapper>
+            <ImageContainer url={recipe?.imageUrl as string}></ImageContainer>
+            <InfoContainer>
+              <TitleCard>{recipe?.title}</TitleCard>
+              <TextContainer>
+                <span>{recipe?.description}</span>
+              </TextContainer>
+              <TextContainer>
+                <p>
+                  <b>Cooking time:</b> {recipe?.time}
+                </p>
+                <p>
+                  <b>Servings:</b> {recipe?.servings}
+                </p>
+                <p>
+                  <b>Recipe from:</b>{" "}
+                  {recipe?.link && (
+                    <Link href={recipe?.link as string} target="_blank">
+                      {recipe?.from as string}
+                    </Link>
+                  )}
+                </p>
+                <Button
+                  bgcolor="--LightGreen"
+                  textcolor="--Light"
+                  fontSize="1rem"
+                >
+                  Save Recipe <FontAwesomeIcon icon={faHeart} />
+                </Button>
+              </TextContainer>
+            </InfoContainer>
+            <InfoContainer>
+              <RecipeIngredients ingredients={recipe?.ingredients || []} />
+
+              <RecipeInstructions instructions={recipe?.instructions || []} />
+            </InfoContainer>
+          </PageWrapper>
+        </StyledBody>
+      )}
+    </>
   );
 };
 
