@@ -14,8 +14,6 @@ export const createNewRecipe = async (data: Recipe) => {
 };
 
 export const getRecipe = async (id: string) => {
-  console.log("service id:" + id);
-
   const url = `${recipeUrl}?id=${encodeURIComponent(id)}`;
   const response = await fetch(url, {
     method: "GET",
