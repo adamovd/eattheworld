@@ -22,11 +22,12 @@ import { useSession } from "next-auth/react";
 import { FormContainer } from "@/app/Styles/Components/Containers";
 import { FormTitle } from "@/app/Styles/Components/Fonts";
 import PageWrapper from "@/app/Components/PageWrapper";
+import { UploadDropzone } from "@uploadthing/react";
 
 // eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
   const [selectedCountry, setSelectedCountry] = useState("");
-  let [uploading, setUploading] = useState(false);
+  let [uploadingProgress, setUploadingProgress] = useState(0);
   const { data: session } = useSession();
   const defaultOption = "Select a country";
   const {
@@ -124,14 +125,21 @@ export default function CountryForm() {
             </InputContainer>
             <InputContainer>
               <InputLabel htmlFor="imageUrl">Image</InputLabel>
-
-              <Button bgcolor="--Yellow" textcolor="--Dark" fontSize="1rem">
-                <UploadButton
-                  endpoint="imageUploader"
-                  onClientUploadComplete={handleUploadComplete}
-                  onUploadError={handleUploadError}
-                />
-              </Button>
+              {/*// @ts-ignore */}
+              <UploadDropzone<OurFileRouter>
+                endpoint="imageUploader"
+                onClientUploadComplete={handleUploadComplete}
+                onUploadError={handleUploadError}
+                config={{ mode: "auto" }}
+                onUploadProgress={(number: number) =>
+                  setUploadingProgress(number)
+                }
+              />
+              {uploadingProgress < 100 ? (
+                <small>{uploadingProgress} %</small>
+              ) : (
+                <small>done!</small>
+              )}
             </InputContainer>
 
             <InputContainer>
@@ -153,7 +161,7 @@ export default function CountryForm() {
                 textcolor="--Light"
                 fontSize="1rem"
                 type="submit"
-                disabled={(uploading = true)}
+                disabled={uploadingProgress < 100}
               >
                 Save
               </Button>
