@@ -84,68 +84,79 @@ const PresentCountry = () => {
   }, [country, selectedOption]);
 
   return (
-    <PageWrapper>
-      <ImageContainer
-        url={country?.imageUrl as string}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
-        exit={{ opacity: 0, x: 20 }}
-      ></ImageContainer>
-      <InfoContainer>
-        <TitleCard
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
-          exit={{ opacity: 0, x: -20 }}
-        >{`Welcome to ${country?.name}`}</TitleCard>
-        <TextContainer
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
-          exit={{ opacity: 0, y: 20 }}
-        >
-          <span>{country?.description}</span>
-        </TextContainer>
-        <TextContainer
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <p>
-            <b>Capital:</b> {country?.capital}
-          </p>
-          <p>
-            <b>Population:</b>{" "}
-            {country?.population
-              .toString()
-              .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
-          </p>
-          <p>
-            <b>Size:</b>{" "}
-            {country?.area
-              ? country.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-              : "N/A"}{" "}
-            km&sup2;
-          </p>
+    <>
+      {country && (
+        <PageWrapper>
+          <ImageContainer
+            url={country?.imageUrl as string}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
+            exit={{ opacity: 0, x: 20 }}
+          ></ImageContainer>
+          <InfoContainer>
+            <TitleCard
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
+              exit={{ opacity: 0, x: -20 }}
+            >{`Welcome to ${country?.name}`}</TitleCard>
+            <TextContainer
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+              exit={{ opacity: 0, y: 20 }}
+            >
+              <span>{country?.description}</span>
+            </TextContainer>
+            <TextContainer
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <p>
+                <b>Capital:</b> {country?.capital}
+              </p>
+              <p>
+                <b>Population:</b>{" "}
+                {country?.population
+                  .toString()
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+              </p>
+              <p>
+                <b>Size:</b>{" "}
+                {country?.area
+                  ? country.area
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                  : "N/A"}{" "}
+                km&sup2;
+              </p>
 
-          <p>
-            <b>Continent:</b> {country?.continent}
-          </p>
-        </TextContainer>
-      </InfoContainer>
-      <InfoContainer style={{ position: "relative" }}>
-        <RadioButton options={categories} onSelect={handleOptionSelect} />
+              <p>
+                <b>Continent:</b> {country?.continent}
+              </p>
+            </TextContainer>
+          </InfoContainer>
+          <InfoContainer
+            style={{ position: "relative" }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: 3 } }}
+            exit={{ opacity: 0, y: 30 }}
+          >
+            <RadioButton options={categories} onSelect={handleOptionSelect} />
 
-        {filteredRecipe && <RecipeCard {...filteredRecipe} />}
-      </InfoContainer>
-      <InfoContainer>
-        {country?.playlistUrl && (
-          <Spotify
-            style={{ borderRadius: 0 }}
-            wide
-            link={country?.playlistUrl as string}
-          />
-        )}
-      </InfoContainer>
-    </PageWrapper>
+            {filteredRecipe && <RecipeCard {...filteredRecipe} />}
+          </InfoContainer>
+          <InfoContainer>
+            {country?.playlistUrl && (
+              <Spotify
+                style={{ borderRadius: 0 }}
+                wide
+                link={country?.playlistUrl as string}
+              />
+            )}
+          </InfoContainer>
+        </PageWrapper>
+      )}
+    </>
   );
 };
 

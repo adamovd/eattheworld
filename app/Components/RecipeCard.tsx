@@ -1,11 +1,9 @@
-import { Diet, Recipe } from "../Models/dbTypes";
+import { Recipe } from "../Models/dbTypes";
 import { Button } from "../Styles/Components/Buttons";
 import {
-  InfoContainer,
   RecipeImageContainer,
   RecipeTextContainer,
 } from "../Styles/Components/Containers";
-import { RecipeCategoryCard } from "../Styles/Components/TitleCard";
 import { useRouter } from "next/navigation";
 
 const RecipeCard = ({
