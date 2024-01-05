@@ -1,5 +1,5 @@
 import { Review } from "../Models/dbTypes";
-const url =
+const reviewUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/v1/reviews"
     : "https://www.eattheworld.se/api/v1/reviews";
@@ -10,7 +10,7 @@ export const createNewReview = async (
   recipeId: string
 ) => {
   try {
-    const response = await fetch(url, {
+    const response = await fetch(reviewUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...data, userId, recipeId }),
@@ -22,4 +22,14 @@ export const createNewReview = async (
   } catch (error) {
     throw new Error(`Could not create new review`);
   }
+};
+
+export const getReviewsOnRecipe = async (id: string) => {
+  const url = `${reviewUrl}?id=${encodeURIComponent(id)}`;
+  const response = await fetch(url, {
+    method: "GET",
+    cache: "reload",
+  });
+
+  return response.json();
 };
