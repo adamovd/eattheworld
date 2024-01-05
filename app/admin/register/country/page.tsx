@@ -125,7 +125,7 @@ export default function CountryForm() {
             </InputContainer>
             <InputContainer>
               <InputLabel htmlFor="imageUrl">Image</InputLabel>
-              {/*// @ts-ignore */}
+              {/*// @ts-expect-error */}
               <UploadDropzone<OurFileRouter>
                 endpoint="imageUploader"
                 onClientUploadComplete={handleUploadComplete}

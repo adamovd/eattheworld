@@ -17,12 +17,16 @@ import { StyledBody } from "@/app/Styles/Components/Body";
 import { Button } from "@/app/Styles/Components/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import ReviewForm from "@/app/Components/ReviewForm";
+import { useSession } from "next-auth/react";
+import PresentReviews from "@/app/Components/PresentReviews";
 
 type params = { id: string };
 
 const PresentRecipe = () => {
   const params: params = useParams();
   const [recipe, setRecipe] = useState<Recipe>();
+  const { data: session } = useSession();
   useEffect(() => {
     getRecipe(params.id).then((recipe) => setRecipe(recipe));
   }, []);
@@ -77,6 +81,15 @@ const PresentRecipe = () => {
 
               <RecipeInstructions instructions={recipe?.instructions || []} />
             </InfoContainer>
+            <PresentReviews recipeId={recipe.id} />
+            {session ? (
+              <ReviewForm
+                userId={session?.user?.id as string}
+                recipeId={recipe.id}
+              />
+            ) : (
+              <div>Log in to write a review</div>
+            )}
           </PageWrapper>
         </StyledBody>
       )}

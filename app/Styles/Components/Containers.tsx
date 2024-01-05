@@ -186,3 +186,28 @@ export const FormContainer = styled.section`
   margin-top: 5rem;
   margin-bottom: 2rem;
 `;
+
+export const PostReviewContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: fit-content;
+  justify-content: space-around;
+  align-items: center;
+  button {
+    margin-top: 0;
+  }
+`;
+
+export const PostReviewSection = styled.article`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  justify-content: space-around;
+  align-items: center;
+  @media ${devices.tablet} {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+`;

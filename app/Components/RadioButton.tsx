@@ -6,8 +6,8 @@ const RadioButton = ({
   options,
   onSelect,
 }: {
-  options: { label: string; value: string }[];
-  onSelect: (value: string | null) => void;
+  options: { label: any; value: any }[];
+  onSelect: (value: any | null) => void;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
