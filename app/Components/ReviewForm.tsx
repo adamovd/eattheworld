@@ -2,26 +2,25 @@ import { useForm, Resolver } from "react-hook-form";
 import { Review } from "../Models/dbTypes";
 import { createNewReview } from "../Services/reviewServices";
 import {
-  FormContainer,
   PostReviewContainer,
   PostReviewSection,
 } from "../Styles/Components/Containers";
 import {
   InputContainer,
   InputLabel,
-  InputField,
   TextArea,
 } from "../Styles/Components/InputFields";
 import { Button } from "../Styles/Components/Buttons";
 import { useStars } from "stars-rating-react-hooks";
-import { useState } from "react";
 
 const ReviewForm = ({
   userId,
   recipeId,
+  onReviewSubmit,
 }: {
   userId: string;
   recipeId: string;
+  onReviewSubmit: () => void;
 }) => {
   const {
     register,
@@ -32,7 +31,7 @@ const ReviewForm = ({
   } = useForm<Review>();
   const config = {
     totalStars: 5,
-    initialSelectedValue: 2,
+    initialSelectedValue: 3,
     renderFull: "★",
     renderEmpty: "☆",
   };
@@ -42,15 +41,15 @@ const ReviewForm = ({
     getStarProps,
     getStarWrapperProps,
     isSelecting,
-    // selectingValue and selectedValue are same after user rates
     selectingValue,
     selectedValue,
   } = useStars(config);
 
   const onSubmit = handleSubmit(async (data) => {
     try {
-      createNewReview(data, userId, recipeId);
+      await createNewReview(data, userId, recipeId);
       reset();
+      onReviewSubmit();
     } catch (error) {
       console.error("Error while register", error);
     }
@@ -86,7 +85,7 @@ const ReviewForm = ({
                   {...getStarProps(i, {
                     style: {
                       fontSize: "50px",
-                      color: "gold",
+                      color: "#f5da86",
                     },
                     onClick: (event: HTMLInputElement, ratedValue: number) => {
                       setValue("rating", ratedValue);

@@ -24,7 +24,7 @@ import Custom403 from "@/app/error/403/page";
 import { FormContainer } from "@/app/Styles/Components/Containers";
 import { FormTitle } from "@/app/Styles/Components/Fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrash, faX } from "@fortawesome/free-solid-svg-icons";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { UploadDropzone } from "@uploadthing/react";
 

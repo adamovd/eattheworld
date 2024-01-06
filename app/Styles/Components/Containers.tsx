@@ -194,9 +194,6 @@ export const PostReviewContainer = styled.section`
   height: fit-content;
   justify-content: space-around;
   align-items: center;
-  button {
-    margin-top: 0;
-  }
 `;
 
 export const PostReviewSection = styled.article`
@@ -210,4 +207,58 @@ export const PostReviewSection = styled.article`
     flex-direction: row;
     align-items: flex-start;
   }
+`;
+
+export const ReviewContainer = styled(motion.section)`
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  margin-top: 1rem;
+  width: 80vw;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 1.5rem;
+  border: 1px solid var(--Dark);
+  background: var(--Light);
+  box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
+  margin-bottom: 1rem;
+  @media ${devices.tablet} {
+    width: 70vw;
+  }
+  @media ${devices.laptop} {
+    width: 40vw;
+  }
+`;
+
+export const ReviewTopSection = styled.article`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: fit-content;
+  justify-content: start;
+  align-items: center;
+  border-bottom: 1px dashed var(--Dark);
+  padding-bottom: 0.5rem;
+
+  p {
+    font-weight: 900;
+  }
+
+  @media ${devices.tablet} {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+`;
+
+export const ReviewBottomSection = styled.article`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: fit-content;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 0.5rem;
 `;

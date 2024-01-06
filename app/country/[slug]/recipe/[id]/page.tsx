@@ -16,7 +16,7 @@ import PageWrapper from "@/app/Components/PageWrapper";
 import { StyledBody } from "@/app/Styles/Components/Body";
 import { Button } from "@/app/Styles/Components/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import ReviewForm from "@/app/Components/ReviewForm";
 import { useSession } from "next-auth/react";
 import PresentReviews from "@/app/Components/PresentReviews";
@@ -27,9 +27,19 @@ const PresentRecipe = () => {
   const params: params = useParams();
   const [recipe, setRecipe] = useState<Recipe>();
   const { data: session } = useSession();
+  const [updateReviews, setReviewUpdate] = useState(false);
+
   useEffect(() => {
     getRecipe(params.id).then((recipe) => setRecipe(recipe));
   }, []);
+  const handleSubmittedReview = () => {
+    setReviewUpdate((prev) => !prev);
+  };
+  const ratings = recipe?.reviews.map((review) => review.rating) || [];
+  const averageRating =
+    ratings.length > 0
+      ? ratings.reduce((total, rating) => total + rating, 0) / ratings.length
+      : 0;
 
   return (
     <>
@@ -67,13 +77,11 @@ const PresentRecipe = () => {
                     </Link>
                   )}
                 </p>
-                <Button
-                  bgcolor="--LightGreen"
-                  textcolor="--Light"
-                  fontSize="1rem"
-                >
-                  Save Recipe <FontAwesomeIcon icon={faHeart} />
-                </Button>
+                <p>
+                  <b>Rating:</b> {averageRating}{" "}
+                  <FontAwesomeIcon icon={faStar} />
+                  <small>({ratings.length})</small>
+                </p>
               </TextContainer>
             </InfoContainer>
             <InfoContainer>
@@ -81,15 +89,19 @@ const PresentRecipe = () => {
 
               <RecipeInstructions instructions={recipe?.instructions || []} />
             </InfoContainer>
-            <PresentReviews recipeId={recipe.id} />
             {session ? (
               <ReviewForm
                 userId={session?.user?.id as string}
                 recipeId={recipe.id}
+                onReviewSubmit={handleSubmittedReview}
               />
             ) : (
               <div>Log in to write a review</div>
             )}
+            <PresentReviews
+              recipeId={recipe.id}
+              updateReviews={updateReviews}
+            />
           </PageWrapper>
         </StyledBody>
       )}
