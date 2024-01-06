@@ -127,7 +127,12 @@ const Navbar = () => {
         <NavbarExtendedContainer key={index}>
           {extendNavbar && (
             <>
-              <NavbarLinkExtended href={link.href}>
+              <NavbarLinkExtended
+                href={link.href}
+                onClick={() => {
+                  setExtendNavbar((curr) => !curr);
+                }}
+              >
                 {link.label}
               </NavbarLinkExtended>
             </>
