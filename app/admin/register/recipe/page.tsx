@@ -1,8 +1,6 @@
 "use client";
 import { Country, Diet, Recipe } from "@/app/Models/dbTypes";
 import { createNewRecipe } from "@/app/Services/recipeServices";
-import { countryList } from "@/helpers/country-list";
-import { UploadButton } from "@/helpers/uploadthing";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useSession } from "next-auth/react";
@@ -26,7 +24,7 @@ import { FormTitle } from "@/app/Styles/Components/Fonts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import PageWrapper from "@/app/Components/PageWrapper";
-import { UploadDropzone } from "@uploadthing/react";
+import { UploadButton } from "@/helpers/uploadthing";
 
 export default function RecipeForm() {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -332,21 +330,14 @@ export default function RecipeForm() {
             </InputContainer>
             <InputContainer>
               <InputLabel htmlFor="imageUrl">Image</InputLabel>
-              {/*// @ts-expect-error */}
-              <UploadDropzone<OurFileRouter>
+              <UploadButton
                 endpoint="imageUploader"
                 onClientUploadComplete={handleUploadComplete}
                 onUploadError={handleUploadError}
-                config={{ mode: "auto" }}
                 onUploadProgress={(number: number) =>
                   setUploadingProgress(number)
                 }
               />
-              {uploadingProgress < 100 ? (
-                <small>{uploadingProgress} %</small>
-              ) : (
-                <small>done!</small>
-              )}
             </InputContainer>
             <InputContainer>
               <Button

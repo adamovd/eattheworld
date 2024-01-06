@@ -1,9 +1,9 @@
 "use client";
 import { useForm, Resolver } from "react-hook-form";
-import { User } from "../../Models/dbTypes";
-import { ChangeEvent, useRef, useState } from "react";
-import { countryList } from "../../../helpers/country-list";
-import { registerNewUser } from "../../Services/userServices";
+import { User } from "@/app/Models/dbTypes";
+import { ChangeEvent, useState } from "react";
+import { countryList } from "@/helpers/country-list";
+import { registerNewUser } from "@/app/Services/userServices";
 import { useRouter } from "next/navigation";
 import React from "react";
 import {
@@ -21,8 +21,7 @@ import {
   DropdownSelect,
 } from "@/app/Styles/Components/Dropdown";
 import PageWrapper from "@/app/Components/PageWrapper";
-import { UploadDropzone } from "@uploadthing/react";
-import { OurFileRouter } from "@/app/api/uploadthing/core";
+import { UploadButton } from "@/helpers/uploadthing";
 
 const RegistrationForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -168,19 +167,14 @@ const RegistrationForm = () => {
           </InputContainer>
           <InputContainer>
             <InputLabel htmlFor="profilepicture">Profile picture</InputLabel>
-            {/*// @ts-expect-error */}
-            <UploadDropzone<OurFileRouter>
+            <UploadButton
               endpoint="imageUploader"
               onClientUploadComplete={handleUploadComplete}
               onUploadError={handleUploadError}
-              config={{ mode: "auto" }}
-              onUploadProgress={(number) => setUploadingProgress(number)}
+              onUploadProgress={(number: number) =>
+                setUploadingProgress(number)
+              }
             />
-            {uploadingProgress < 100 ? (
-              <small>{uploadingProgress} %</small>
-            ) : (
-              <small>done!</small>
-            )}
           </InputContainer>
           <InputContainer>
             <InputLabel htmlFor="bio">Biography</InputLabel>

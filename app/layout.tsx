@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./Styles/globals.scss";
+import "@uploadthing/react/styles.css";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
+import { extractRouterConfig } from "uploadthing/server";
+import { ourFileRouter } from "@/app/api/uploadthing/core";
 import NextAuthProvider from "./Context/Providers";
 import Navbar from "./Components/Navbar";
-import { Container } from "./Styles/Components/Containers";
 import Footer from "./Components/Footer";
-import { Suspense } from "react";
-import Loading from "./loading";
 
 export const metadata: Metadata = {
   title: "Eat The World",
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body className="h-full flex-col justify-evenly">
+        <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <NextAuthProvider>
           <Navbar />
           {children}

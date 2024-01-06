@@ -1,11 +1,11 @@
 "use client";
 import { useForm, Resolver } from "react-hook-form";
-import { Country } from "../../../Models/dbTypes";
-import { createNewCountry } from "../../../Services/countryServices";
-import { UploadButton } from "../../../../helpers/uploadthing";
+import { Country } from "@/app/Models/dbTypes";
+import { createNewCountry } from "@/app/Services/countryServices";
+
 import axios from "axios";
 import { ChangeEvent, useState } from "react";
-import { countryList } from "../../../../helpers/country-list";
+import { countryList } from "@/helpers/country-list";
 import { Button } from "@/app/Styles/Components/Buttons";
 import {
   InputContainer,
@@ -22,9 +22,8 @@ import { useSession } from "next-auth/react";
 import { FormContainer } from "@/app/Styles/Components/Containers";
 import { FormTitle } from "@/app/Styles/Components/Fonts";
 import PageWrapper from "@/app/Components/PageWrapper";
-import { UploadDropzone } from "@uploadthing/react";
+import { UploadButton } from "@/helpers/uploadthing";
 
-// eslint-disable-next-line @next/next/no-async-client-component
 export default function CountryForm() {
   const [selectedCountry, setSelectedCountry] = useState("");
   let [uploadingProgress, setUploadingProgress] = useState(0);
@@ -125,21 +124,14 @@ export default function CountryForm() {
             </InputContainer>
             <InputContainer>
               <InputLabel htmlFor="imageUrl">Image</InputLabel>
-              {/*// @ts-expect-error */}
-              <UploadDropzone<OurFileRouter>
+              <UploadButton
                 endpoint="imageUploader"
                 onClientUploadComplete={handleUploadComplete}
                 onUploadError={handleUploadError}
-                config={{ mode: "auto" }}
                 onUploadProgress={(number: number) =>
                   setUploadingProgress(number)
                 }
               />
-              {uploadingProgress < 100 ? (
-                <small>{uploadingProgress} %</small>
-              ) : (
-                <small>done!</small>
-              )}
             </InputContainer>
 
             <InputContainer>
