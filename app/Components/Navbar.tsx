@@ -22,6 +22,7 @@ import open from "../../public/menu.svg";
 import close from "../../public/close.svg";
 import { LoginButton } from "./Auth";
 import { useWindowSize } from "../hooks/useWindowSize";
+import UserAvatar from "./UserAvatar";
 
 type Link = {
   href: string;
@@ -93,17 +94,7 @@ const Navbar = () => {
                   />
                 )}
                 {link.label === "my pages" ? (
-                  <Image
-                    style={{
-                      borderRadius: 50,
-                      maxHeight: 50,
-                      objectFit: "cover",
-                    }}
-                    src={session?.user?.image as string}
-                    width={50}
-                    height={50}
-                    alt={session?.user?.firstname as string}
-                  />
+                  <UserAvatar width={50} height={50} />
                 ) : (
                   link.label
                 )}
