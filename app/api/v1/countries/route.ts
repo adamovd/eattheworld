@@ -58,17 +58,44 @@ export const GET = async () => {
   }
 };
 
+export const UPDATE = async (req: Request) => {
+  const query = new URL(req.url).searchParams;
+  const id = query.get("id") as string;
+  const updatedData = req.body;
+
+  console.log(id + "kommer in");
+
+  try {
+    if (updatedData) {
+      const updatedCountry = await prisma.country.update({
+        where: { id },
+        data: updatedData,
+      });
+      return NextResponse.json(updatedCountry);
+    }
+  } catch (error) {
+    console.error("Error updating country:", error);
+    return NextResponse.json(
+      {
+        error: "Failed to update country",
+      },
+      {
+        status: 500,
+      }
+    );
+  }
+};
+
 export const DELETE = async (req: Request) => {
   const query = new URL(req.url).searchParams;
   const id = query.get("id") as string;
   try {
-    const deletedPost = await prisma.country.delete({
+    const deletedCountry = await prisma.country.delete({
       where: {
         id,
       },
     });
-
-    return NextResponse.json(deletedPost);
+    return NextResponse.json(deletedCountry);
   } catch {
     return NextResponse.json(
       {
