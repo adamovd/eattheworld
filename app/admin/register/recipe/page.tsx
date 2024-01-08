@@ -161,6 +161,32 @@ export default function RecipeForm() {
                 ))}
               </DropdownSelect>
             </InputContainer>
+            <InputContainer>
+              <InputLabel htmlFor="from">Where is the recipe from?</InputLabel>
+
+              <InputField
+                {...register("from")}
+                bgcolor="--Light"
+                textcolor="--Dark"
+                fontSize="1rem"
+                placeholder="Website or cookbook..."
+                id="from"
+                name="from"
+              />
+            </InputContainer>
+            <InputContainer>
+              <InputLabel htmlFor="link">Link to the recipe</InputLabel>
+
+              <InputField
+                {...register("link")}
+                bgcolor="--Light"
+                textcolor="--Dark"
+                fontSize="1rem"
+                placeholder="Url to recipe..."
+                id="link"
+                name="link"
+              />
+            </InputContainer>
 
             <InputContainer>
               <InputLabel htmlFor="about">Description</InputLabel>
@@ -275,7 +301,6 @@ export default function RecipeForm() {
                         //@ts-ignore
                         `ingredients.${index}.value` as const,
                         {
-                          valueAsNumber: true,
                           required: true,
                         }
                       )}

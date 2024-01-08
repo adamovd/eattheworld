@@ -23,4 +23,14 @@ export const getRecipe = async (id: string) => {
   return response.json();
 };
 
+export const getRecipeById = async (id: string) => {
+  const response = await fetch(`${recipeUrl}/${id}`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch recipe by ID");
+  }
+
+  return response.json();
+};
+
 export const deleteRecipesById = async (id: string) => {};
