@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import LandingPage from "./Components/LandingPage";
 import DescriptionPage from "./Components/Description";
 import PageWrapper from "./Components/PageWrapper";
+import LandingVideo from "./Components/LandingVideo";
 
 const Home = () => {
   useEffect(() => {
@@ -16,6 +17,7 @@ const Home = () => {
     <PageWrapper>
       <LandingPage />
       <DescriptionPage />
+      <LandingVideo />
     </PageWrapper>
   );
 };

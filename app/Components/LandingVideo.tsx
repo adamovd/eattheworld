@@ -1,16 +1,14 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLayoutEffect } from "react";
+import { VideoContainer } from "../Styles/Components/Containers";
 
 const LandingVideo = () => {
-  useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
-      gsap.registerPlugin(ScrollTrigger);
-    });
-    return () => ctx.revert();
-  }, []);
-
-  return;
+  return (
+    <VideoContainer
+      src="https://utfs.io/f/6ae7e849-092f-4c65-b919-7a64f8072989-my3ix4.mp4"
+      autoPlay
+      muted
+      loop
+    ></VideoContainer>
+  );
 };
 
 export default LandingVideo;

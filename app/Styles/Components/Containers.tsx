@@ -91,6 +91,7 @@ export const TextContainer = styled(motion.section)`
   align-items: flex-start;
   padding: 2rem;
   padding-top: 4rem;
+  padding-bottom: 4rem;
   font-size: 0.8rem;
   a {
     color: var(--DarkGreen);
@@ -249,7 +250,6 @@ export const ReviewTopSection = styled.article`
   @media ${devices.tablet} {
     flex-direction: row;
     align-items: flex-start;
-    gap: 2rem;
   }
 `;
 
@@ -261,4 +261,15 @@ export const ReviewBottomSection = styled.article`
   justify-content: flex-start;
   align-items: center;
   padding-top: 0.5rem;
+`;
+
+export const VideoContainer = styled.video`
+  right: 0;
+  bottom: 0;
+  width: 92vw;
+  height: 75vh;
+  object-fit: cover;
+  object-position: center;
+  border-top: 1px solid var(--Dark);
+  border-bottom: 1px solid var(--Dark);
 `;
