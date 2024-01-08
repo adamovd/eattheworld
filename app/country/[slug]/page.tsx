@@ -13,6 +13,7 @@ import { Spotify } from "react-spotify-embed";
 import RecipeCard from "@/app/Components/RecipeCard";
 import RadioButton from "@/app/Components/RadioButton";
 import PageWrapper from "@/app/Components/PageWrapper";
+import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
 
 type params = { slug: string };
 
@@ -22,6 +23,7 @@ const PresentCountry = () => {
   const [recipeId, setRecipeId] = useState("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
+  const [loading, setLoading] = useState(false);
   const categories = [
     {
       label: "Meat",
@@ -42,7 +44,17 @@ const PresentCountry = () => {
   };
 
   useEffect(() => {
-    getCountryById(params.slug).then((country) => setCountry(country));
+    setLoading(true);
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    getCountryById(params.slug).then((country) => {
+      setCountry(country);
+    });
   }, []);
 
   useEffect(() => {
@@ -85,77 +97,81 @@ const PresentCountry = () => {
 
   return (
     <>
-      {country && (
-        <PageWrapper>
-          <ImageContainer
-            url={country?.imageUrl as string}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
-            exit={{ opacity: 0, x: 20 }}
-          ></ImageContainer>
-          <InfoContainer>
-            <TitleCard
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
-              exit={{ opacity: 0, x: -20 }}
-            >{`Welcome to ${country?.name}`}</TitleCard>
-            <TextContainer
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
-              exit={{ opacity: 0, y: 20 }}
-            >
-              <span>{country?.description}</span>
-            </TextContainer>
-            <TextContainer
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
-              exit={{ opacity: 0, y: -20 }}
-            >
-              <p>
-                <b>Capital:</b> {country?.capital}
-              </p>
-              <p>
-                <b>Population:</b>{" "}
-                {country?.population
-                  .toString()
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
-              </p>
-              <p>
-                <b>Size:</b>{" "}
-                {country?.area
-                  ? country.area
-                      .toString()
-                      .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-                  : "N/A"}{" "}
-                km&sup2;
-              </p>
+      <PageWrapper>
+        {loading ? (
+          <LoadingContainer />
+        ) : (
+          <>
+            <ImageContainer
+              url={country?.imageUrl as string}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
+              exit={{ opacity: 0, x: 20 }}
+            ></ImageContainer>
+            <InfoContainer>
+              <TitleCard
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
+                exit={{ opacity: 0, x: -20 }}
+              >{`Welcome to ${country?.name}`}</TitleCard>
+              <TextContainer
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+                exit={{ opacity: 0, y: 20 }}
+              >
+                <span>{country?.description}</span>
+              </TextContainer>
+              <TextContainer
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+                exit={{ opacity: 0, y: -20 }}
+              >
+                <p>
+                  <b>Capital:</b> {country?.capital}
+                </p>
+                <p>
+                  <b>Population:</b>{" "}
+                  {country?.population
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}
+                </p>
+                <p>
+                  <b>Size:</b>{" "}
+                  {country?.area
+                    ? country.area
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, " ")
+                    : "N/A"}{" "}
+                  km&sup2;
+                </p>
 
-              <p>
-                <b>Continent:</b> {country?.continent}
-              </p>
-            </TextContainer>
-          </InfoContainer>
-          <InfoContainer
-            style={{ position: "relative" }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: 3 } }}
-            exit={{ opacity: 0, y: 30 }}
-          >
-            <RadioButton options={categories} onSelect={handleOptionSelect} />
+                <p>
+                  <b>Continent:</b> {country?.continent}
+                </p>
+              </TextContainer>
+            </InfoContainer>
+            <InfoContainer
+              style={{ position: "relative" }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0, transition: { delay: 3 } }}
+              exit={{ opacity: 0, y: 30 }}
+            >
+              <RadioButton options={categories} onSelect={handleOptionSelect} />
 
-            {filteredRecipe && <RecipeCard {...filteredRecipe} />}
-          </InfoContainer>
-          <InfoContainer>
-            {country?.playlistUrl && (
-              <Spotify
-                style={{ borderRadius: 0 }}
-                wide
-                link={country?.playlistUrl as string}
-              />
-            )}
-          </InfoContainer>
-        </PageWrapper>
-      )}
+              {filteredRecipe && <RecipeCard {...filteredRecipe} />}
+            </InfoContainer>
+            <InfoContainer>
+              {country?.playlistUrl && (
+                <Spotify
+                  style={{ borderRadius: 0 }}
+                  wide
+                  link={country?.playlistUrl as string}
+                />
+              )}
+            </InfoContainer>
+          </>
+        )}
+      </PageWrapper>
     </>
   );
 };
