@@ -8,15 +8,18 @@ export const InfoTile = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  &:nth-child(1) {
-    border-bottom: 1px solid var(--Dark);
+  border-bottom: 1px solid var(--Dark);
+  &:hover {
+    background-color: var(--Red);
+    color: var(--Light);
   }
+
   @media ${devices.tablet} {
-    width: 50vw;
+    width: 46vw;
     height: width;
+    border-bottom: 1px solid var(--Dark);
     &:nth-child(1) {
       border-right: 1px solid var(--Dark);
-      border-bottom: none;
     }
   }
 `;
