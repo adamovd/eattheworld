@@ -15,7 +15,6 @@ export async function GET(
         },
         include: {
           reviews: true,
-          recipes: true,
         },
       });
 
