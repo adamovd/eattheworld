@@ -33,3 +33,12 @@ export const getReviewsOnRecipe = async (id: string) => {
 
   return response.json();
 };
+export const getReviewsOnUser = async (id: string) => {
+  const url = `${reviewUrl}/user/${id}`;
+  const response = await fetch(url, {
+    method: "GET",
+    cache: "reload",
+  });
+
+  return response.json();
+};
