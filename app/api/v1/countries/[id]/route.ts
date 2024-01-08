@@ -43,7 +43,7 @@ export async function GET(
     }
   } else {
     return NextResponse.json(
-      { error: "No ID parameter provided hahahaha" },
+      { error: "No ID parameter provided" },
       {
         status: 400,
       }
