@@ -63,7 +63,7 @@ export const PUT = async (req: Request) => {
   const id = query.get("id") as string;
   const updatedData = req.body;
 
-  console.log(id + "kommer in");
+  console.log(id);
 
   try {
     if (updatedData) {
