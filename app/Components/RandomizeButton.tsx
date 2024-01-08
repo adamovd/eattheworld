@@ -58,7 +58,7 @@ const RandomizeButton = () => {
 
   return (
     <Button
-      bgcolor="--Yellow"
+      bgcolor="--Light"
       textcolor="--Dark"
       fontSize="1rem"
       onClick={randomizeCountry}
