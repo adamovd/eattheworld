@@ -31,4 +31,45 @@ export const getCountryById = async (id: string) => {
   return response.json();
 };
 
-export const deleteCountryById = async (id: string) => {};
+export const updateCountryById = async (
+  id: string,
+  updatedData: Partial<Country>
+) => {
+  const updateUrl = `${url}?id=${id}`;
+  try {
+    const response = await fetch(updateUrl, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update country");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error updating country:", error);
+    throw new Error("Failed to update country");
+  }
+};
+
+export const deleteCountryById = async (id: string) => {
+  const deleteUrl = `${url}?id=${id}`;
+  try {
+    const response = await fetch(deleteUrl, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete country");
+    }
+
+    return response.json();
+  } catch (error) {
+    console.error("Error deleting country:", error);
+    throw new Error("Failed to delete country");
+  }
+};
