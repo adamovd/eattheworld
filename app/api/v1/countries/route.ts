@@ -58,7 +58,7 @@ export const GET = async () => {
   }
 };
 
-export const UPDATE = async (req: Request) => {
+export const PUT = async (req: Request) => {
   const query = new URL(req.url).searchParams;
   const id = query.get("id") as string;
   const updatedData = req.body;
