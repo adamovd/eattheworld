@@ -14,12 +14,13 @@ import RecipeIngredients from "@/app/Components/RecipeIngredients";
 import Link from "next/link";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { StyledBody } from "@/app/Styles/Components/Body";
-import { Button } from "@/app/Styles/Components/Buttons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faStar } from "@fortawesome/free-solid-svg-icons";
 import ReviewForm from "@/app/Components/ReviewForm";
 import { useSession } from "next-auth/react";
 import PresentReviews from "@/app/Components/PresentReviews";
+import { Button } from "@/app/Styles/Components/Buttons";
+import { addRecipeToUser } from "@/app/Services/userServices";
 
 type params = { id: string };
 
@@ -40,6 +41,10 @@ const PresentRecipe = () => {
     ratings.length > 0
       ? ratings.reduce((total, rating) => total + rating, 0) / ratings.length
       : 0;
+
+  const saveRecipe = async () => {
+    await addRecipeToUser(session?.user?.id as string, recipe?.id as string);
+  };
 
   return (
     <>
@@ -82,6 +87,18 @@ const PresentRecipe = () => {
                   <FontAwesomeIcon icon={faStar} />
                   <small>({ratings.length})</small>
                 </p>
+                {session ? (
+                  <Button
+                    bgcolor="--Red"
+                    textcolor="--Light"
+                    fontSize="1rem"
+                    onClick={saveRecipe}
+                  >
+                    Save recipe <FontAwesomeIcon icon={faHeart} />
+                  </Button>
+                ) : (
+                  <Link href={`/sign-in`}>Log in to save recipe</Link>
+                )}
               </TextContainer>
             </InfoContainer>
             <InfoContainer>

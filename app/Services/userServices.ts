@@ -1,12 +1,17 @@
 import { Country, User } from "../Models/dbTypes";
 
-const url =
+const registerUrl =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000/api/v1/register"
     : "https://www.eattheworld.se/api/v1/register";
 
+const userUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000/api/v1/users"
+    : "https://www.eattheworld.se/api/v1/users";
+
 export const registerNewUser = async (data: User) => {
-  fetch(url, {
+  fetch(registerUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ...data }),
@@ -14,7 +19,7 @@ export const registerNewUser = async (data: User) => {
 };
 
 export const getAllUsers = async () => {
-  const response = await fetch(url, {
+  const response = await fetch(registerUrl, {
     cache: "reload",
   });
 
@@ -22,13 +27,8 @@ export const getAllUsers = async () => {
 };
 
 export const addCountryToUser = async (userId: string, countryId: string) => {
-  const url =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/v1/users"
-      : "https://www.eattheworld.se/api/v1/users";
-
   try {
-    const response = await fetch(url, {
+    const response = await fetch(userUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId, countryId }),
@@ -44,16 +44,28 @@ export const addCountryToUser = async (userId: string, countryId: string) => {
 };
 
 export const getUserById = async (id: string) => {
-  const url =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/api/v1/users"
-      : "https://www.eattheworld.se/api/v1/users";
-
-  const response = await fetch(`${url}/${id}`);
+  const response = await fetch(`${userUrl}/${id}`);
 
   if (!response.ok) {
     throw new Error("Failed to fetch user by ID");
   }
 
   return response.json();
+};
+
+export const addRecipeToUser = async (userId: string, recipeId: string) => {
+  try {
+    const response = await fetch(`${userUrl}/${userId}/like`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recipeId }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    throw new Error(`Could not associate recipe with user`);
+  }
 };

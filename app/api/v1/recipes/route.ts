@@ -47,7 +47,6 @@ export const POST = async (request: NextRequest) => {
       link,
       imageUrl,
       reviews,
-      userId,
       countryId: findCountryId,
     },
   });
