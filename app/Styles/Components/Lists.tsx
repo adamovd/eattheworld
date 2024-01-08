@@ -29,3 +29,19 @@ export const IngredientsList = styled.li`
   gap: 1rem;
   width: 100%;
 `;
+
+export const CountryList = styled.li`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 1rem;
+  width: 92vw;
+  border-bottom: 1px solid var(--Dark);
+  text-align: center;
+  section {
+    justify-content: start;
+    &:nth-last-child() {
+      justify-content: center;
+    }
+  }
+`;
