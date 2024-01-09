@@ -20,7 +20,7 @@ const RandomizeButton = () => {
     });
   }, []);
 
-  useMemo(() => {
+  useEffect(() => {
     if (session) {
       getUserById(session?.user?.id as string).then((response) => {
         setUser(response);
