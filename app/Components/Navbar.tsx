@@ -12,16 +12,14 @@ import {
   OpenLinksButton,
   NavbarLinkExtended,
 } from "@/app/Styles/Components/Header";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import logo from "../../public/logo.png";
 import open from "../../public/menu.svg";
 import close from "../../public/close.svg";
-import { LoginButton } from "./Auth";
-import { useWindowSize } from "../hooks/useWindowSize";
+import { useSessionData } from "@/helpers/session-utils";
 import UserAvatar from "./UserAvatar";
 
 type Link = {
@@ -29,47 +27,22 @@ type Link = {
   label: string;
 };
 const Navbar = () => {
-  const { data: session } = useSession();
   const path = usePathname();
   const [extendNavbar, setExtendNavbar] = useState(false);
-  let links: Link[];
-  const windowSize = useWindowSize();
-  const isPortrait = useMemo(
-    () => windowSize.width < windowSize.height,
-    [windowSize]
-  );
-
-  if (session) {
-    links = [
-      { href: "/", label: "home" },
-      { href: "/about", label: "about" },
-      { href: "/contact", label: "contact" },
-      { href: `/user/${session?.user?.id as string}`, label: "my pages" },
-    ];
-    if (session?.user?.role === "admin") {
-      links = [
-        { href: "/", label: "home" },
-        { href: "/admin/dashboard", label: "dashboard" },
-        { href: "/admin/register/country", label: "add country" },
-        { href: "/admin/register/recipe", label: "add recipe" },
-        { href: `/user/${session?.user?.id as string}`, label: "my pages" },
-      ];
-    }
-  } else {
-    links = [
-      { href: "/", label: "home" },
-      { href: "/about", label: "about" },
-      { href: "/contact", label: "contact" },
-      { href: "/sign-in", label: "sign in" },
-    ];
-  }
+  const links = useSessionData();
 
   return (
     <NavbarContainer extendnavbar={extendNavbar}>
       <NavbarInnerContainer>
         <LeftContainer>
           <Link href="/">
-            <Logo src={logo} alt="Eat the World logo" />
+            <Logo
+              src={logo}
+              alt="Eat the World logo"
+              priority
+              width={120}
+              height={70}
+            />
           </Link>
         </LeftContainer>
         <RightContainer>
