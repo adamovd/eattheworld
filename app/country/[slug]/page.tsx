@@ -5,8 +5,11 @@ import { Country, Recipe } from "@/app/Models/dbTypes";
 import { getCountryById } from "@/app/Services/countryServices";
 import { TitleCard } from "@/app/Styles/Components/TitleCard";
 import {
+  CountryMap,
   ImageContainer,
   InfoContainer,
+  MapContainer,
+  SpotifyContainer,
   TextContainer,
 } from "@/app/Styles/Components/Containers";
 import { Spotify } from "react-spotify-embed";
@@ -14,6 +17,12 @@ import RecipeCard from "@/app/Components/RecipeCard";
 import RadioButton from "@/app/Components/RadioButton";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
+import getRadioStations from "@/helpers/radio-api";
+import { IRadio } from "@/app/Models/IRadio";
+import { RadioPlayer } from "@/app/Styles/Components/Radio";
+import Flickity from "react-flickity-component";
+import Map, { Marker, ViewStateChangeEvent } from "react-map-gl";
+import Image from "next/image";
 
 type params = { slug: string };
 
@@ -24,6 +33,7 @@ const PresentCountry = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(false);
+  const [radioStations, setRadioStations] = useState<IRadio[]>();
   const categories = [
     {
       label: "Meat",
@@ -83,17 +93,36 @@ const PresentCountry = () => {
     });
   }, [country]);
 
-  const filteredRecipes = useMemo(() => {
-    if (!selectedOption) {
-      return country?.recipes || [];
-    }
+  // useEffect(() => {
+  //   getRadioStations(country?.name as string).then((response) => {
+  //     console.log(response);
+  //     setRadioStations(response);
+  //   });
+  // }, [country]);
 
-    return (
-      country?.recipes.filter((recipe) => {
-        return recipe.category === selectedOption;
-      }) || []
-    );
-  }, [country, selectedOption]);
+  // const Carousel = () => {
+  //   if (radioStations !== undefined && radioStations?.length > 0) {
+  //     return (
+  //       <Flickity
+  //         className={"carousel"} // default ''
+  //         elementType={"section"} // default 'div'
+  //         disableImagesLoaded={false} // default false
+  //         reloadOnUpdate // default false
+  //         static // default false
+  //       >
+  //         {radioStations?.map((station, index) => (
+  //           <RadioPlayer key={index}>
+  //             <p>{station.name}</p>
+  //             <audio controls>
+  //               <source src={station.url_resolved} type="audio/mp3" />
+  //               <p>{station.name}</p>
+  //             </audio>
+  //           </RadioPlayer>
+  //         ))}
+  //       </Flickity>
+  //     );
+  //   }
+  // };
 
   return (
     <>
@@ -160,14 +189,25 @@ const PresentCountry = () => {
 
               {filteredRecipe && <RecipeCard {...filteredRecipe} />}
             </InfoContainer>
-            <InfoContainer>
-              {country?.playlistUrl && (
-                <Spotify
-                  style={{ borderRadius: 0 }}
-                  wide
-                  link={country?.playlistUrl as string}
+            <InfoContainer style={{ borderBottom: 0 }}>
+              <CountryMap>
+                <Map
+                  initialViewState={{
+                    longitude: country?.lng,
+                    latitude: country?.lat,
+                    zoom: 4,
+                  }}
+                  mapboxAccessToken="pk.eyJ1IjoiYWRtb3ZkIiwiYSI6ImNscXc1ZHdqazNzdDEyanA5NHAybnp2cGEifQ.2PO4qpYX1CYEYqUawGcioQ"
+                  mapStyle="mapbox://styles/admovd/clr65ygz801id01qr8tyycw4f"
+                  minZoom={2}
+                  style={{ borderRight: 1 }}
                 />
-              )}
+              </CountryMap>
+              <SpotifyContainer>
+                {country?.playlistUrl && (
+                  <Spotify link={country?.playlistUrl as string} />
+                )}
+              </SpotifyContainer>
             </InfoContainer>
           </>
         )}
