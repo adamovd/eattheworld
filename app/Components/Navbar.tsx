@@ -38,15 +38,6 @@ const Navbar = () => {
     () => windowSize.width < windowSize.height,
     [windowSize]
   );
-  const signInButton = useMemo(
-    () =>
-      isPortrait ? (
-        <NavbarLink href="/sign-in">sign in</NavbarLink>
-      ) : (
-        <LoginButton bgcolor="--DarkGreen" textcolor="--Light" />
-      ),
-    [isPortrait]
-  );
 
   if (session) {
     links = [
@@ -74,11 +65,11 @@ const Navbar = () => {
   }
 
   return (
-    <NavbarContainer extendnavbar={extendNavbar}>
+    <NavbarContainer extendnavbar={extendNavbar ? "true" : "false"}>
       <NavbarInnerContainer>
         <LeftContainer>
           <Link href="/">
-            <Logo src={logo} alt="Eat the World logo" />
+            <Logo priority src={logo} alt="Eat the World logo" />
           </Link>
         </LeftContainer>
         <RightContainer>
@@ -116,7 +107,7 @@ const Navbar = () => {
       </NavbarInnerContainer>
       {links.map((link, index) => (
         <NavbarExtendedContainer key={index}>
-          {extendNavbar && (
+          {extendNavbar ? (
             <>
               <NavbarLinkExtended
                 href={link.href}
@@ -127,7 +118,7 @@ const Navbar = () => {
                 {link.label}
               </NavbarLinkExtended>
             </>
-          )}
+          ) : null}
         </NavbarExtendedContainer>
       ))}
     </NavbarContainer>
