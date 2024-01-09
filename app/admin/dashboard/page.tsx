@@ -3,7 +3,6 @@ import CountriesTable from "@/app/Components/CountriesTable";
 import PageWrapper from "@/app/Components/PageWrapper";
 import Custom403 from "@/app/error/403/page";
 import { useSession } from "next-auth/react";
-import { Analytics } from "@vercel/analytics/react";
 
 const Dashboard = () => {
   const { data: session } = useSession();
@@ -16,7 +15,6 @@ const Dashboard = () => {
             <CountriesTable />
           </div>
         </section>
-        <Analytics />
       </PageWrapper>
     );
   } else {

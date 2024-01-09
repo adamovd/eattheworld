@@ -7,6 +7,8 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 import NextAuthProvider from "./Context/Providers";
 import Navbar from "./Components/Navbar";
 import Footer from "./Components/Footer";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Eat The World",
@@ -25,6 +27,8 @@ export default function RootLayout({
         <NextAuthProvider>
           <Navbar />
           {children}
+          <Analytics />
+          <SpeedInsights />
           <Footer />
         </NextAuthProvider>
       </body>
