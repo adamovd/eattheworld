@@ -7,12 +7,12 @@ import PageWrapper from "./Components/PageWrapper";
 import LandingVideo from "./Components/LandingVideo";
 
 const Home = () => {
-  useEffect(() => {
-    (async () => {
-      const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
-    })();
-  });
+  // useEffect(() => {
+  //   (async () => {
+  //     const LocomotiveScroll = (await import("locomotive-scroll")).default;
+  //     const locomotiveScroll = new LocomotiveScroll();
+  //   })();
+  // });
   return (
     <PageWrapper>
       <LandingPage />
