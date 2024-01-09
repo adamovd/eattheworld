@@ -4,7 +4,7 @@ import Image from "next/image";
 import { devices } from "../breakpoints";
 
 interface NavProps {
-  extendnavbar: boolean | string;
+  extendnavbar: boolean;
 }
 
 export const NavbarContainer = styled.nav<NavProps>`

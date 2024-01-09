@@ -65,11 +65,11 @@ const Navbar = () => {
   }
 
   return (
-    <NavbarContainer extendnavbar={extendNavbar ? "true" : "false"}>
+    <NavbarContainer extendnavbar={extendNavbar}>
       <NavbarInnerContainer>
         <LeftContainer>
           <Link href="/">
-            <Logo priority src={logo} alt="Eat the World logo" />
+            <Logo src={logo} alt="Eat the World logo" />
           </Link>
         </LeftContainer>
         <RightContainer>
