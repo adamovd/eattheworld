@@ -1,7 +1,7 @@
 "use client";
 import { PageFooter } from "@/app/Styles/Components/Footer";
-import { InputField } from "../Styles/Components/InputFields";
 import Link from "next/link";
+import Newsletter from "./Newsletter";
 const Footer = () => {
   return (
     <PageFooter>
@@ -11,15 +11,7 @@ const Footer = () => {
         <Link href="/contact">Contact</Link>
       </section>
       <section>
-        Join our newsletter:
-        <InputField
-          bgcolor="--Light"
-          textcolor="--Dark"
-          fontSize="1rem"
-          width="300px"
-          type="email"
-          placeholder="Your email..."
-        />
+        <Newsletter />
       </section>
       <section></section>
     </PageFooter>
