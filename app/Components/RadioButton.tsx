@@ -5,22 +5,29 @@ import { CategoryButton, CategoryLabel } from "../Styles/Components/Buttons";
 const RadioButton = ({
   options,
   onSelect,
+  initialSelectedOption,
 }: {
   options: { label: any; value: any }[];
   onSelect: (value: any | null) => void;
+  initialSelectedOption: string | null;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedOption, setSelectedOption] = useState<string | null>(
+    initialSelectedOption
+  );
 
   const handleOptionChange = (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
     const value = event.target.value;
     setSelectedOption(value);
     onSelect(value === selectedOption ? null : value);
   };
 
   useEffect(() => {
-    setSelectedOption(null);
-  }, [options]);
+    onSelect(selectedOption);
+  }, [selectedOption, onSelect]);
+
+  useEffect(() => {
+    setSelectedOption(initialSelectedOption);
+  }, [initialSelectedOption]);
 
   return (
     <ButtonContainer>
@@ -45,6 +52,7 @@ const RadioButton = ({
             textcolor={option.value === "FISH" ? "--Dark" : "--Light"}
             fontSize="1rem"
             htmlFor={option.value}
+            isselected={selectedOption === option.value}
           >
             {option.label}
           </CategoryLabel>

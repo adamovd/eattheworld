@@ -185,7 +185,11 @@ const PresentCountry = () => {
               animate={{ opacity: 1, y: 0, transition: { delay: 3 } }}
               exit={{ opacity: 0, y: 30 }}
             >
-              <RadioButton options={categories} onSelect={handleOptionSelect} />
+              <RadioButton
+                options={categories}
+                onSelect={handleOptionSelect}
+                initialSelectedOption={selectedOption}
+              />
 
               {filteredRecipe && <RecipeCard {...filteredRecipe} />}
             </InfoContainer>

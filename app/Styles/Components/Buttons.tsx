@@ -1,9 +1,11 @@
-import styled from "styled-components";
+import styled from "@emotion/styled";
 import { devices } from "../breakpoints";
+
 interface ButtonProps {
   bgcolor: string;
   textcolor: string;
   fontSize: string;
+  isselected?: boolean;
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -46,6 +48,17 @@ export const CategoryLabel = styled.label<ButtonProps>`
   border: 1px solid var(--Dark);
   font-size: 0.8rem;
   cursor: pointer;
+  text-decoration: none;
+
+  ${(props: ButtonProps) =>
+    props.isselected &&
+    `
+    font-weight: bold;
+    border-width: 2px;
+    text-decoration: underline; 
+    border-radius: 2px;
+  `}
+
   @media ${devices.tablet} {
     font-size: 1rem;
     padding: 1rem;
