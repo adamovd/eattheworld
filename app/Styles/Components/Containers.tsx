@@ -273,3 +273,41 @@ export const VideoContainer = styled.video`
   border-top: 1px solid var(--Dark);
   border-bottom: 1px solid var(--Dark);
 `;
+
+export const CountryMap = styled.section`
+  width: 92vw;
+  height: 70vh;
+  overflow: hidden;
+  padding: 0;
+  border-left: 1px solid var(--Dark);
+  border-right: 1px solid var(--Dark);
+  border-bottom: 1px solid var(--Dark);
+
+  @media ${devices.tablet} {
+    height: 50vh;
+    width: 52vw;
+    border-bottom: none;
+  }
+  @media ${devices.laptop} {
+    width: 62vw;
+  }
+`;
+
+export const SpotifyContainer = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 92vw;
+  height: 50vh;
+  overflow: hidden;
+  padding-top: 2rem;
+
+  @media ${devices.tablet} {
+    width: 40vw;
+    padding-top: 0;
+  }
+  @media ${devices.laptop} {
+    width: 30vw;
+  }
+`;
