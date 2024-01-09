@@ -7,6 +7,7 @@ const LandingVideo = () => {
       autoPlay
       muted
       loop
+      playsInline
     ></VideoContainer>
   );
 };
