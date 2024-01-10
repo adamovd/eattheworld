@@ -20,7 +20,8 @@ import ReviewForm from "@/app/Components/ReviewForm";
 import { useSession } from "next-auth/react";
 import PresentReviews from "@/app/Components/PresentReviews";
 import { Button } from "@/app/Styles/Components/Buttons";
-import { addRecipeToUser } from "@/app/Services/userServices";
+import { addRecipeToUser, getUserById } from "@/app/Services/userServices";
+import { User } from "@prisma/client";
 
 type params = { id: string };
 
@@ -29,6 +30,8 @@ const PresentRecipe = () => {
   const [recipe, setRecipe] = useState<Recipe>();
   const { data: session } = useSession();
   const [updateReviews, setReviewUpdate] = useState(false);
+  const [user, setUser] = useState<User>();
+  const [recipeSaved, setRecipeSaved] = useState(false);
 
   useEffect(() => {
     getRecipe(params.id).then((recipe) => setRecipe(recipe));
@@ -39,11 +42,32 @@ const PresentRecipe = () => {
   const ratings = recipe?.reviews.map((review) => review.rating) || [];
   const averageRating =
     ratings.length > 0
-      ? ratings.reduce((total, rating) => total + rating, 0) / ratings.length
+      ? Math.round(
+          ratings.reduce((total, rating) => total + rating, 0) / ratings.length
+        )
       : 0;
 
+  useEffect(() => {
+    if (session) {
+      getUserById(session?.user?.id as string).then((response) => {
+        setUser(response);
+      });
+    }
+  }, [session]);
+
+  useEffect(() => {
+    if (user?.likedRecipeIds?.includes(recipe?.id as string)) {
+      setRecipeSaved(true);
+    }
+  }, [user]);
+
   const saveRecipe = async () => {
-    await addRecipeToUser(session?.user?.id as string, recipe?.id as string);
+    if (recipeSaved === false) {
+      await addRecipeToUser(session?.user?.id as string, recipe?.id as string);
+      setRecipeSaved(true);
+    } else {
+      console.log("Recipe already saved");
+    }
   };
 
   return (
@@ -93,8 +117,10 @@ const PresentRecipe = () => {
                     textcolor="--Light"
                     fontSize="1rem"
                     onClick={saveRecipe}
+                    disabled={recipeSaved ? true : false}
                   >
-                    Save recipe <FontAwesomeIcon icon={faHeart} />
+                    {recipeSaved ? "Recipe saved" : "Save recipe"}
+                    <FontAwesomeIcon icon={faHeart} />
                   </Button>
                 ) : (
                   <Link href={`/sign-in`}>Log in to save recipe</Link>
@@ -113,7 +139,9 @@ const PresentRecipe = () => {
                 onReviewSubmit={handleSubmittedReview}
               />
             ) : (
-              <div>Log in to write a review</div>
+              <Link href={`/sign-in`}>
+                <h4>Log in to write a review</h4>
+              </Link>
             )}
             <PresentReviews
               recipeId={recipe.id}

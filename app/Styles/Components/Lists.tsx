@@ -3,6 +3,7 @@ import { devices } from "../breakpoints";
 
 export const InstructionList = styled.li`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   text-align: start;
@@ -22,6 +23,7 @@ export const InstructionList = styled.li`
 
 export const IngredientsList = styled.li`
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   text-align: start;

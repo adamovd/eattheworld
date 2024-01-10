@@ -1,9 +1,9 @@
 "use client";
-import { signIn } from "next-auth/react";
+import { SignInResponse, signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useForm, Resolver } from "react-hook-form";
-import React from "react";
+import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import { User } from "../../Models/dbTypes";
 import {
   InputContainer,
@@ -17,6 +17,8 @@ import PageWrapper from "@/app/Components/PageWrapper";
 
 const SignInForm = () => {
   const router = useRouter();
+  const [previousPage, setPreviousPage] = useState<string | null>(null);
+  const [error, setError] = useState<SignInResponse>();
   const {
     register,
     handleSubmit,
@@ -25,16 +27,33 @@ const SignInForm = () => {
   } = useForm<User>();
   const onSubmit = handleSubmit(async (data) => {
     try {
-      signIn("credentials", {
+      const result = await signIn("credentials", {
         ...data,
         redirect: false,
       });
+
+      if (result?.error) {
+        console.error("Error while logging in", result.error);
+        setError(result);
+
+        return;
+      }
+
       reset();
-      router.push("/");
+
+      if (previousPage) {
+        router.push(previousPage);
+      } else {
+        router.push("/");
+      }
     } catch (error) {
-      console.error("Error while login in", error);
+      console.error("Error while logging in", error);
     }
   });
+
+  useEffect(() => {
+    setPreviousPage(JSON.stringify(history.back));
+  }, []);
 
   return (
     <PageWrapper>
@@ -43,12 +62,7 @@ const SignInForm = () => {
 
         <form onSubmit={onSubmit}>
           <InputContainer>
-            <InputLabel
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Email address
-            </InputLabel>
+            <InputLabel htmlFor="email">Email address</InputLabel>
 
             <InputField
               {...register("email")}
@@ -60,17 +74,11 @@ const SignInForm = () => {
               type="email"
               autoComplete="email"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
 
           <InputContainer>
-            <InputLabel
-              htmlFor="password"
-              className="block text-sm font-medium leading-6 text-gray-900"
-            >
-              Password
-            </InputLabel>
+            <InputLabel htmlFor="password">Password</InputLabel>
 
             <InputField
               {...register("password")}
@@ -82,7 +90,6 @@ const SignInForm = () => {
               type="password"
               autoComplete="current-password"
               required
-              className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </InputContainer>
           <InputContainer>
@@ -94,6 +101,9 @@ const SignInForm = () => {
             >
               Sign in
             </Button>
+            <span style={{ alignSelf: "center", marginTop: "1rem" }}>
+              {error ? "Wrong email or password." : null}
+            </span>
           </InputContainer>
         </form>
         {/* <div className="my-4 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">

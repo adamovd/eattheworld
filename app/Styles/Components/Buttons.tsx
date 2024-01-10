@@ -24,6 +24,11 @@ export const Button = styled.button<ButtonProps>`
   &:hover {
     box-shadow: 5px 5px 0px 0px var(--Dark);
   }
+  &:disabled {
+    box-shadow: none;
+    fill-opacity: 0.7;
+    background-color: var(--LightGreen);
+  }
   svg {
     padding-top: 4px;
   }
