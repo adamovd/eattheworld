@@ -41,18 +41,14 @@ const SignInForm = () => {
 
       reset();
 
-      if (previousPage) {
-        router.push(previousPage);
-      } else {
-        router.push("/");
-      }
+      history.back();
     } catch (error) {
       console.error("Error while logging in", error);
     }
   });
 
   useEffect(() => {
-    setPreviousPage(JSON.stringify(history.back));
+    setPreviousPage(document.referrer);
   }, []);
 
   return (
