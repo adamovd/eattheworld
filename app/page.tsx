@@ -1,10 +1,10 @@
 "use client";
-
 import { useEffect } from "react";
 import LandingPage from "./Components/LandingPage";
-import DescriptionPage from "./Components/Description";
+import DescriptionPage from "./Components/LandingDescription";
 import PageWrapper from "./Components/PageWrapper";
 import LandingVideo from "./Components/LandingVideo";
+import LandingSteps from "./Components/LandingSteps";
 
 const Home = () => {
   useEffect(() => {
@@ -18,6 +18,7 @@ const Home = () => {
       <LandingPage />
       <DescriptionPage />
       <LandingVideo />
+      {/* <LandingSteps /> */}
     </PageWrapper>
   );
 };

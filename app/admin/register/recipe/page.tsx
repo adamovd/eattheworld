@@ -302,6 +302,7 @@ export default function RecipeForm() {
                         `ingredients.${index}.value` as const,
                         {
                           required: true,
+                          valueAsNumber: true,
                         }
                       )}
                       className={

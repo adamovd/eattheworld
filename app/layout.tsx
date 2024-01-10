@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/Styles/globals.scss";
+import "@uploadthing/react/styles.css";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
