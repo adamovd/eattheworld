@@ -111,7 +111,7 @@ const UserPage = () => {
             alt={`Profile picture of ${user?.firstname} ${user?.lastname}`}
             width={100}
             height={100}
-            style={{ borderRadius: "50%" }}
+            style={{ borderRadius: 50 }}
           />
 
           <p>

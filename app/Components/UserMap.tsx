@@ -5,9 +5,20 @@ import { Country } from "@prisma/client";
 import { MapContainer } from "../Styles/Components/Containers";
 
 const UserMap = ({ countries }: { countries: Country[] }) => {
-  const [lng, setLng] = useState(countries[0].lng);
-  const [lat, setLat] = useState(countries[0].lat);
+  const [lng, setLng] = useState(8);
+  const [lat, setLat] = useState(10);
   const [zoom, setZoom] = useState(1.2);
+
+  useEffect(() => {
+    console.log(countries);
+
+    if (countries.length > 0) {
+      setLng(countries[0].lng);
+      setLat(countries[0].lat);
+    } else {
+      return;
+    }
+  });
 
   return (
     <MapContainer>
@@ -27,13 +38,14 @@ const UserMap = ({ countries }: { countries: Country[] }) => {
           borderTop: "1px solid black",
         }}
       >
-        {countries.map((country) => (
-          <Marker
-            key={country.id}
-            latitude={country.lat}
-            longitude={country.lng}
-          ></Marker>
-        ))}
+        {countries &&
+          countries.map((country) => (
+            <Marker
+              key={country.id}
+              latitude={country.lat}
+              longitude={country.lng}
+            ></Marker>
+          ))}
         Visited countries
       </Map>
     </MapContainer>

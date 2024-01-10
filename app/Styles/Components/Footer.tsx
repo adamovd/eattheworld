@@ -20,6 +20,7 @@ export const PageFooter = styled.footer`
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    text-align: start;
     width: 100%;
     font-family: var(--Heading);
     gap: 2rem;
