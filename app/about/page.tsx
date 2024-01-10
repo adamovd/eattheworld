@@ -4,6 +4,8 @@ import { PageContainer, PageSection } from "../Styles/Components/Containers";
 import Image from "next/image";
 import { FormTitle } from "../Styles/Components/Fonts";
 
+const phrases = [];
+
 const AboutPage = () => {
   return (
     <PageWrapper>
@@ -31,15 +33,15 @@ const AboutPage = () => {
             culinary journey right from your kitchen.
           </span>
           <span>
-            Eat The World is not just a website its a celebration of flavors,
-            cultures, and the joy of discovering new cuisines. Explore recipes
-            that suit your taste,skill level, and time constraints. Our platform
-            is a space where culinary enthusiasts, families, and friends can
-            come together to share in the joy of diverse cuisines.
+            Eat The World is not just a website, it&apos;s a celebration of
+            flavors, cultures, and the joy of discovering new cuisines. Explore
+            recipes that suit your taste, skill level, and time constraints. Our
+            platform is a space where culinary enthusiasts, families, and
+            friends can come together to share in the joy of diverse cuisines.
           </span>
           <span>
-            Thank you for joining us on this flavorful journey. Let's Eat The
-            World together, one recipe at a time!
+            Thank you for joining us on this flavorful journey. Let&apos;s Eat
+            The World together, one recipe at a time!
           </span>
         </PageSection>
       </PageContainer>

@@ -40,8 +40,8 @@ const ContactPage = () => {
           </span>
           <span>
             <h4>Submit Your Recipes:</h4>
-            Have a fantastic recipe you'd love to share with our community? We'd
-            love to hear from you! Send your culinary creations to:
+            Have a fantastic recipe you&apos;d love to share with our community?
+            We&apos;d love to hear from you! Send your culinary creations to:
             <Link
               href="mailto: recipes@eattheworld.se"
               style={{ color: "#46684c" }}
@@ -53,8 +53,8 @@ const ContactPage = () => {
           <span>
             <h4>We Love Hearing From You:</h4>
             At Eat The World, we value your thoughts and contributions. Whether
-            it's a recipe idea, partnership proposal, or just to say hello, we
-            look forward to hearing from you!
+            it&apos;s a recipe idea, partnership proposal, or just to say hello,
+            we look forward to hearing from you!
           </span>
         </PageSection>
       </PageContainer>
