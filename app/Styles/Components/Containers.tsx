@@ -93,6 +93,13 @@ export const TextContainer = styled(motion.section)`
   padding-top: 4rem;
   padding-bottom: 4rem;
   font-size: 0.8rem;
+  button {
+    margin-top: 1rem;
+    align-self: center;
+    @media ${devices.tablet} {
+      align-self: flex-start;
+    }
+  }
   a {
     color: var(--DarkGreen);
     &:hover {
@@ -107,12 +114,13 @@ export const TextContainer = styled(motion.section)`
   }
   @media ${devices.tablet} {
     font-size: 1rem;
+    flex: 1;
     &:nth-child(2) {
-      border-right: 1px solid var(--Dark);
       width: 60%;
       border-bottom: none;
     }
     &:nth-child(3) {
+      border-left: 1px solid var(--Dark);
       width: 40%;
       padding-top: 4rem;
     }
@@ -226,7 +234,7 @@ export const ReviewContainer = styled(motion.section)`
   box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   margin-bottom: 1rem;
   @media ${devices.tablet} {
-    width: 70vw;
+    width: 50vw;
   }
   @media ${devices.laptop} {
     width: 40vw;
@@ -238,7 +246,7 @@ export const ReviewTopSection = styled.article`
   flex-direction: column;
   width: 100%;
   height: fit-content;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px dashed var(--Dark);
   padding-bottom: 0.5rem;
