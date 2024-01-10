@@ -1,13 +1,21 @@
 import styled from "styled-components";
-import Image from "next/image";
 
-interface AvatarProps {
+interface AvatarWrapperProps {
   width: number;
   height: number;
 }
 
-export const Avatar = styled(Image)<AvatarProps>`
-  height: ${(props: AvatarProps) => props.height || 50};
-  width: ${(props: AvatarProps) => props.width || 50};
-  border-radius: 50%;
+export const Avatar = styled.section<AvatarWrapperProps>`
+  height: ${(props: AvatarWrapperProps) => props.height || "50px"};
+  width: ${(props: AvatarWrapperProps) => props.width || "50px"};
+  clip-path: circle(50%);
+  overflow: hidden;
+  position: relative;
+
+  &img {
+    height: ${(props: AvatarWrapperProps) => props.height || "50px"};
+    width: ${(props: AvatarWrapperProps) => props.width || "50px"};
+    object-fit: cover;
+    object-position: center center;
+  }
 `;
