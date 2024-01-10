@@ -1,10 +1,16 @@
 "use client";
 import { Country } from "@prisma/client";
 import { useState, useEffect } from "react";
-import { getAllCountries } from "../Services/countryServices";
+import {
+  deleteCountryById,
+  getAllCountries,
+} from "../Services/countryServices";
 import Image from "next/image";
 import { format } from "date-fns";
 import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Button } from "../Styles/Components/Buttons";
 
 const CountriesTable = () => {
   const [countries, setCountries] = useState<Country[]>([]);
@@ -14,12 +20,17 @@ const CountriesTable = () => {
       console.log(response);
     });
   }, []);
+
   return (
     <section className="my-5 w-full h-full overflow-y-scroll">
-      <ul role="list" className="divide-y w-full max-h-5 pb-10 mb-16 ">
+      <ul
+        style={{ width: "80vw", height: "100vh" }}
+        role="list"
+        className="divide-y w-full max-h-5 pb-10 mb-16 "
+      >
         {countries.map((country) => (
           <Link href={`/admin/edit/${country.id}`} key={country.id}>
-            <li key={country.id} className="flex justify-between gap-x-6 py-5">
+            <li key={country.id} className="flex justify-around gap-x-6 py-5">
               <div className="flex min-w-0 gap-x-4">
                 <Image
                   className="flex-none h-8 w-12"
@@ -46,6 +57,14 @@ const CountriesTable = () => {
                   ).toString()}
                 </p>
               </div>
+              <Button
+                bgcolor="--Red"
+                textcolor="--Light"
+                fontSize="1rem"
+                onClick={() => deleteCountryById(country.id)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
             </li>
           </Link>
         ))}
