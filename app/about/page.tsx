@@ -31,7 +31,7 @@ const AboutPage = () => {
             culinary journey right from your kitchen.
           </span>
           <span>
-            Eat The World is not just a website; it's a celebration of flavors,
+            Eat The World is not just a website its a celebration of flavors,
             cultures, and the joy of discovering new cuisines. Explore recipes
             that suit your taste,skill level, and time constraints. Our platform
             is a space where culinary enthusiasts, families, and friends can
