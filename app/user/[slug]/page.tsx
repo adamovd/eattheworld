@@ -8,7 +8,7 @@ import {
   TileContainer,
 } from "@/app/Styles/Components/Containers";
 import { InfoTile } from "@/app/Styles/Components/Tiles";
-import { Country, Review, User } from "@prisma/client";
+import { Country, Recipe, Review, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -20,11 +20,14 @@ import {
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
 import getDistanceFromLatLonInKm from "@/helpers/calculate-distance";
-import { TileTitle } from "@/app/Styles/Components/Fonts";
+import { FormTitle, TileTitle } from "@/app/Styles/Components/Fonts";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { getReviewsOnUser } from "@/app/Services/reviewServices";
 import UserAvatar from "@/app/Components/UserAvatar";
 import VisitedCountries from "@/app/Components/VisitedCountries";
+import { getRecipeById } from "@/app/Services/recipeServices";
+import RecipeCard from "@/app/Components/RecipeCard";
+import SavedRecipes from "@/app/Components/SavedRecipes";
 
 const UserPage = () => {
   const { data: session } = useSession();
@@ -32,7 +35,8 @@ const UserPage = () => {
   const [countries, setCountries] = useState<Country[]>();
   const [visitedCountries, setVisitedCountries] = useState<Country[]>();
   const [totalDistance, setTotalDistance] = useState<number>(0);
-  const [reviews, setReviews] = useState<Review[]>();
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const params: params = useParams();
   type params = { slug: string };
 
@@ -41,6 +45,20 @@ const UserPage = () => {
       setUser(response);
     });
   }, []);
+
+  useEffect(() => {
+    if (user?.likedRecipeIds && user.likedRecipeIds.length > 0) {
+      const fetchLikedRecipes = async () => {
+        const promises = user.likedRecipeIds.map((recipeId) =>
+          getRecipeById(recipeId)
+        );
+        const fetchedRecipes = await Promise.all(promises);
+        setRecipes(fetchedRecipes);
+      };
+
+      fetchLikedRecipes();
+    }
+  }, [user]);
 
   useEffect(() => {
     getAllCountries().then((response) => {
@@ -80,70 +98,84 @@ const UserPage = () => {
 
   useEffect(() => {
     getReviewsOnUser(user?.id as string).then((response) => {
-      console.log(response);
-
       setReviews(response);
     });
   }, [user]);
 
   return (
     <PageWrapper>
-      {session?.user?.id === params.slug ? (
-        <>
-          <SingleContainer>
-            <UserAvatar width={100} height={100} />
+      <>
+        <SingleContainer>
+          <Image
+            src={user?.image as string}
+            alt={`Profile picture of ${user?.firstname} ${user?.lastname}`}
+            width={100}
+            height={100}
+            style={{ borderRadius: "50%" }}
+          />
 
+          <p>
+            <b>
+              {user?.firstname} {""} {user?.lastname}
+            </b>
+          </p>
+          <section
+            style={{ display: "flex", gap: "2rem", marginBottom: "2rem" }}
+          >
             <p>
-              <b>
-                {user?.firstname} {""} {user?.lastname}
-              </b>
+              <FontAwesomeIcon icon={faLocationDot} /> {user?.nationality}
             </p>
-            <section
-              style={{ display: "flex", gap: "2rem", marginBottom: "2rem" }}
-            >
-              <p>
-                <FontAwesomeIcon icon={faLocationDot} /> {user?.nationality}
-              </p>
-              <p>
-                <FontAwesomeIcon icon={faCalendarDays} /> {""}Joined{" "}
-                {user
-                  ? format(
-                      new Date(user?.createdAt as Date),
-                      "MMMM yyyy"
-                    ).toString()
-                  : null}
-              </p>
-            </section>
-            <LogoutButton />
-          </SingleContainer>
-          <SingleContainer>
-            {visitedCountries && <UserMap countries={visitedCountries} />}
-          </SingleContainer>
-          <TileContainer>
-            <InfoTile>
-              <span>Countries visited</span>
-              <TileTitle>{user?.countryIDs?.length}</TileTitle>
-            </InfoTile>
-            <InfoTile>
-              <span>Distance travelled</span>
-              <TileTitle>{totalDistance.toFixed(0)} km</TileTitle>
-            </InfoTile>
-          </TileContainer>
-          <TileContainer>
-            <InfoTile>
-              <span>Saved recipes</span>
-              <TileTitle>{user?.likedRecipeIds?.length}</TileTitle>
-            </InfoTile>
-            <InfoTile>
-              <span>Reviews written</span>
-              <TileTitle>{reviews?.length}</TileTitle>
-            </InfoTile>
-          </TileContainer>
+            <p>
+              <FontAwesomeIcon icon={faCalendarDays} /> {""}Joined{" "}
+              {user
+                ? format(
+                    new Date(user?.createdAt as Date),
+                    "MMMM yyyy"
+                  ).toString()
+                : null}
+            </p>
+          </section>
+          <section
+            style={{ width: "70vw", padding: "1rem", textAlign: "center" }}
+          >
+            <span>{user?.bio}</span>
+          </section>
+          {session?.user?.id === params.slug ? <LogoutButton /> : null}
+        </SingleContainer>
+        <SingleContainer>
+          {visitedCountries && <UserMap countries={visitedCountries} />}
+        </SingleContainer>
+        <TileContainer>
+          <InfoTile>
+            <span>Countries visited</span>
+            <TileTitle>{user?.countryIDs?.length}</TileTitle>
+          </InfoTile>
+          <InfoTile>
+            <span>Distance travelled</span>
+            <TileTitle>{totalDistance.toFixed(0)} km</TileTitle>
+          </InfoTile>
+        </TileContainer>
+        <TileContainer>
+          <InfoTile>
+            <span>Saved recipes</span>
+            <TileTitle>{user?.likedRecipeIds?.length}</TileTitle>
+          </InfoTile>
+          <InfoTile>
+            <span>Reviews written</span>
+            <TileTitle>{reviews?.length}</TileTitle>
+          </InfoTile>
+        </TileContainer>
+        <SingleContainer style={{ marginTop: 0 }}>
+          <FormTitle>Visited countries</FormTitle>
           {visitedCountries ? (
             <VisitedCountries countries={visitedCountries} />
           ) : null}
-        </>
-      ) : null}
+        </SingleContainer>
+        <SingleContainer style={{ marginTop: 0 }}>
+          <FormTitle>Saved recipes</FormTitle>
+          {recipes ? <SavedRecipes recipes={recipes} /> : null}
+        </SingleContainer>
+      </>
     </PageWrapper>
   );
 };
