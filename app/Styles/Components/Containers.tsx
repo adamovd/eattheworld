@@ -7,7 +7,7 @@ interface ImageProps {
   url: string;
 }
 
-export const Container = styled(motion.div)`
+export const Container = styled(motion.main)`
   display: flex;
   position: relative;
   flex-direction: column;
@@ -317,5 +317,41 @@ export const SpotifyContainer = styled.section`
   }
   @media ${devices.laptop} {
     width: 30vw;
+  }
+`;
+
+export const PageContainer = styled(motion.section)`
+  display: flex;
+  flex-direction: column;
+  width: 92vw;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  @media ${devices.tablet} {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: start;
+  }
+`;
+
+export const PageSection = styled(motion.section)`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  @media ${devices.tablet} {
+    min-height: 100vh;
+  }
+  img {
+    margin-top: 6rem;
+  }
+  h4 {
+    padding-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 700;
   }
 `;
