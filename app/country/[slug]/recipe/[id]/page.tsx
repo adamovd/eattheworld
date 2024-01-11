@@ -22,6 +22,8 @@ import PresentReviews from "@/app/Components/PresentReviews";
 import { Button } from "@/app/Styles/Components/Buttons";
 import { addRecipeToUser, getUserById } from "@/app/Services/userServices";
 import { User } from "@prisma/client";
+import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
+import Image from "next/image";
 
 type params = { id: string };
 
@@ -32,9 +34,13 @@ const PresentRecipe = () => {
   const [updateReviews, setReviewUpdate] = useState(false);
   const [user, setUser] = useState<User>();
   const [recipeSaved, setRecipeSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getRecipe(params.id).then((recipe) => setRecipe(recipe));
+    getRecipe(params.id).then((recipe) => {
+      setRecipe(recipe);
+      setLoading(false);
+    });
   }, []);
   const handleSubmittedReview = () => {
     setReviewUpdate((prev) => !prev);
@@ -85,68 +91,102 @@ const PresentRecipe = () => {
           }
         >
           <PageWrapper>
-            <ImageContainer url={recipe?.imageUrl as string}></ImageContainer>
-            <InfoContainer>
-              <TitleCard>{recipe?.title}</TitleCard>
-              <TextContainer>
-                <span>{recipe?.description}</span>
-              </TextContainer>
-              <TextContainer>
-                <p>
-                  <b>Cooking time:</b> {recipe?.time}
-                </p>
-                <p>
-                  <b>Servings:</b> {recipe?.servings}
-                </p>
-                <p>
-                  <b>Recipe from:</b>{" "}
-                  {recipe?.link && (
-                    <Link href={recipe?.link as string} target="_blank">
-                      {recipe?.from as string}
-                    </Link>
-                  )}
-                </p>
-                <p>
-                  <b>Rating:</b> {averageRating}{" "}
-                  <FontAwesomeIcon icon={faStar} />
-                  <small>({ratings.length})</small>
-                </p>
-                {session ? (
-                  <Button
-                    bgcolor="--Red"
-                    textcolor="--Light"
-                    fontSize="1rem"
-                    onClick={saveRecipe}
-                    disabled={recipeSaved ? true : false}
-                  >
-                    {recipeSaved ? "Recipe saved" : "Save recipe"}
-                    <FontAwesomeIcon icon={faHeart} />
-                  </Button>
-                ) : (
-                  <Link href={`/sign-in`}>Log in to save recipe</Link>
-                )}
-              </TextContainer>
-            </InfoContainer>
-            <InfoContainer>
-              <RecipeIngredients ingredients={recipe?.ingredients || []} />
-
-              <RecipeInstructions instructions={recipe?.instructions || []} />
-            </InfoContainer>
-            {session ? (
-              <ReviewForm
-                userId={session?.user?.id as string}
-                recipeId={recipe.id}
-                onReviewSubmit={handleSubmittedReview}
-              />
+            {loading ? (
+              <LoadingContainer>
+                <Image
+                  src="https://utfs.io/f/6eedf646-a7bf-42a7-be22-f6c7ca634338-1zbfv.svg"
+                  width={100}
+                  height={100}
+                  alt="Logo"
+                />
+              </LoadingContainer>
             ) : (
-              <Link href={`/sign-in`}>
-                <h4>Log in to write a review</h4>
-              </Link>
+              <>
+                <ImageContainer
+                  url={recipe?.imageUrl as string}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
+                  exit={{ opacity: 0, x: -20 }}
+                ></ImageContainer>
+                <InfoContainer>
+                  <TitleCard
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0, transition: { delay: 2 } }}
+                    exit={{ opacity: 0, x: 20 }}
+                  >
+                    {recipe?.title}
+                  </TitleCard>
+                  <TextContainer
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+                    exit={{ opacity: 0, y: 20 }}
+                  >
+                    <span>{recipe?.description}</span>
+                  </TextContainer>
+                  <TextContainer
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0, transition: { delay: 2.5 } }}
+                    exit={{ opacity: 0, y: -20 }}
+                  >
+                    <p>
+                      <b>Cooking time:</b> {recipe?.time}
+                    </p>
+                    <p>
+                      <b>Servings:</b> {recipe?.servings}
+                    </p>
+                    <p>
+                      <b>Recipe from:</b>{" "}
+                      {recipe?.link && (
+                        <Link href={recipe?.link as string} target="_blank">
+                          {recipe?.from as string}
+                        </Link>
+                      )}
+                    </p>
+                    <p>
+                      <b>Rating:</b> {averageRating}{" "}
+                      <FontAwesomeIcon icon={faStar} />
+                      <small>({ratings.length})</small>
+                    </p>
+                    {session ? (
+                      <Button
+                        bgcolor="--Red"
+                        textcolor="--Light"
+                        fontSize="1rem"
+                        onClick={saveRecipe}
+                        disabled={recipeSaved ? true : false}
+                      >
+                        {recipeSaved ? "Recipe saved" : "Save recipe"}
+                        <FontAwesomeIcon icon={faHeart} />
+                      </Button>
+                    ) : (
+                      <Link href={`/sign-in`}>Log in to save recipe</Link>
+                    )}
+                  </TextContainer>
+                </InfoContainer>
+                <InfoContainer>
+                  <RecipeIngredients ingredients={recipe?.ingredients || []} />
+
+                  <RecipeInstructions
+                    instructions={recipe?.instructions || []}
+                  />
+                </InfoContainer>
+                {session ? (
+                  <ReviewForm
+                    userId={session?.user?.id as string}
+                    recipeId={recipe.id}
+                    onReviewSubmit={handleSubmittedReview}
+                  />
+                ) : (
+                  <Link href={`/sign-in`}>
+                    <h4>Log in to write a review</h4>
+                  </Link>
+                )}
+                <PresentReviews
+                  recipeId={recipe.id}
+                  updateReviews={updateReviews}
+                />
+              </>
             )}
-            <PresentReviews
-              recipeId={recipe.id}
-              updateReviews={updateReviews}
-            />
           </PageWrapper>
         </StyledBody>
       )}
