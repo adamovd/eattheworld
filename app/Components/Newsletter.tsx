@@ -4,7 +4,7 @@ import { InputField } from "../Styles/Components/InputFields";
 
 const Newsletter = () => {
   return (
-    <section>
+    <section style={{ marginTop: "2rem", marginBottom: "2rem" }}>
       <h2>Join our newsletter:</h2>
       <InputField
         bgcolor="--Light"
