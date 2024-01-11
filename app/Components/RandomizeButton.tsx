@@ -37,7 +37,7 @@ const RandomizeButton = () => {
     } else {
       setUserCountries(countries);
     }
-  }, [user, session]);
+  }, [user, countries]);
 
   const randomizeCountry = () => {
     if (session) {
@@ -54,7 +54,7 @@ const RandomizeButton = () => {
       addCountryToUser(session?.user?.id as string, country.id);
       router.push(`/country/${country.id}`);
     }
-  }, [country, router]);
+  }, [country, session, router]);
 
   return (
     <Button
