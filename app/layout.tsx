@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full">
-      <body className="h-full flex-col justify-evenly">
+    <html lang="en">
+      <body>
         <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
         <NextAuthProvider>
           <Navbar />
