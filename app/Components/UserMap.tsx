@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
-import Map, { Marker, ViewStateChangeEvent } from "react-map-gl";
+import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { Country } from "@prisma/client";
 import { MapContainer } from "../Styles/Components/Containers";
+import { useRouter } from "next/navigation";
 
 const UserMap = ({ countries }: { countries: Country[] }) => {
   const [lng, setLng] = useState(8);
   const [lat, setLat] = useState(10);
   const [zoom, setZoom] = useState(1.2);
-
+  const router = useRouter();
   useEffect(() => {
     console.log(countries);
 
@@ -44,6 +45,7 @@ const UserMap = ({ countries }: { countries: Country[] }) => {
               key={country.id}
               latitude={country.lat}
               longitude={country.lng}
+              onClick={() => router.push(`/country/${country.id}`)}
             ></Marker>
           ))}
         Visited countries
