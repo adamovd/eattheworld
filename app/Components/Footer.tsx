@@ -8,6 +8,7 @@ import {
   faInstagram,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import SocialsContainer from "./SocialsContainer";
 const Footer = () => {
   return (
     <PageFooter>
@@ -20,15 +21,7 @@ const Footer = () => {
         <Newsletter />
       </section>
       <section>
-        <Link href="https://facebook.com">
-          <FontAwesomeIcon icon={faFacebook} /> Facebook
-        </Link>
-        <Link href="https://instagram.com">
-          <FontAwesomeIcon icon={faInstagram} /> Instagram
-        </Link>
-        <Link href="https://twitter.com">
-          <FontAwesomeIcon icon={faXTwitter} /> X
-        </Link>
+        <SocialsContainer />
       </section>
     </PageFooter>
   );

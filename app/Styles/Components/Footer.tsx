@@ -11,6 +11,8 @@ export const PageFooter = styled.footer`
   width: 100%;
   height: auto;
   min-height: 25rem;
+  padding: 5rem;
+  gap: 2rem;
 
   @media ${devices.tablet} {
     flex-direction: row;
