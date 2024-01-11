@@ -30,20 +30,23 @@ const PresentCountry = () => {
   const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const categories = [
-    {
-      label: "Meat",
-      value: "MEAT",
-    },
-    {
-      label: "Fish",
-      value: "FISH",
-    },
-    {
-      label: "Vegetarian",
-      value: "VEGETARIAN",
-    },
-  ];
+  const categories = useMemo(
+    () => [
+      {
+        label: "Meat",
+        value: "MEAT",
+      },
+      {
+        label: "Fish",
+        value: "FISH",
+      },
+      {
+        label: "Vegetarian",
+        value: "VEGETARIAN",
+      },
+    ],
+    []
+  );
 
   const handleOptionSelect = (value: string | null) => {
     setSelectedOption(value);
