@@ -12,7 +12,7 @@ const AboutPage = () => {
       <PageContainer>
         <PageSection
           initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 1 } }}
+          animate={{ opacity: 1, x: 0, transition: { delay: 0.5 } }}
           exit={{ opacity: 0, x: -50 }}
         >
           <Image
@@ -24,7 +24,7 @@ const AboutPage = () => {
         </PageSection>
         <PageSection
           initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 1.5 } }}
+          animate={{ opacity: 1, x: 0, transition: { delay: 0.5 } }}
           exit={{ opacity: 0, x: 50 }}
         >
           <FormTitle>About Eat The World</FormTitle>
