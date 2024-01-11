@@ -4,6 +4,7 @@ import LandingPage from "./Components/LandingPage";
 import DescriptionPage from "./Components/LandingDescription";
 import PageWrapper from "./Components/PageWrapper";
 import LandingVideo from "./Components/LandingVideo";
+// import InstructionsPage from "./Components/LandingInstructions";
 
 const Home = () => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const Home = () => {
       <LandingPage />
       <DescriptionPage />
       <LandingVideo />
+      {/* <InstructionsPage /> */}
     </PageWrapper>
   );
 };
