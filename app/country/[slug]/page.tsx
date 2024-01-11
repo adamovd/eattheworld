@@ -49,14 +49,6 @@ const PresentCountry = () => {
     setSelectedOption(value);
   };
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const timer = setTimeout(() => {
-  //     setLoading(false);
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, []);
-
   useEffect(() => {
     getCountryById(params.slug).then((country) => {
       setCountry(country);
