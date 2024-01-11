@@ -59,8 +59,8 @@ const LandingPage = () => {
         <Image
           src={imageUrl}
           alt="Image of fruits on a market"
-          priority={true}
           fill={true}
+          priority={true}
         />
       </BackgroundImage>
       <IntroContainer>

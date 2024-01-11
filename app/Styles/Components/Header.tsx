@@ -81,6 +81,7 @@ export const NavbarLinkExtended = styled(Link)`
 export const Logo = styled(Image)`
   margin: 10px;
   max-width: 100px;
+  width: auto;
   height: auto;
   @media ${devices.tablet} {
     max-width: 150px;

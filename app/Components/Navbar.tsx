@@ -71,9 +71,21 @@ const Navbar = () => {
             }}
           >
             {extendNavbar ? (
-              <Image src={close} alt="Close menu" width={50} height={50} />
+              <Image
+                src={close}
+                alt="Close menu"
+                width={40}
+                height={40}
+                style={{ width: "auto", height: "auto", paddingRight: "1rem" }}
+              />
             ) : (
-              <Image src={open} alt="Open menu" width={50} height={50} />
+              <Image
+                src={open}
+                alt="Open menu"
+                width={40}
+                height={40}
+                style={{ width: "auto", height: "auto", paddingRight: "1rem" }}
+              />
             )}
           </OpenLinksButton>
         </RightContainer>

@@ -20,6 +20,7 @@ const AboutPage = () => {
             alt="Two women cooking together"
             width={400}
             height={650}
+            priority={true}
           />
         </PageSection>
         <PageSection

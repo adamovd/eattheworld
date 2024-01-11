@@ -19,6 +19,7 @@ const ContactPage = () => {
             alt="Hand sprinkeling sesame seeds on Edamame beans"
             width={400}
             height={650}
+            priority={true}
           />
         </PageSection>
         <PageSection
