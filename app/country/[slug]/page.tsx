@@ -17,7 +17,6 @@ import RecipeCard from "@/app/Components/RecipeCard";
 import RadioButton from "@/app/Components/RadioButton";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
-import { IRadio } from "@/app/Models/IRadio";
 import Map from "react-map-gl";
 import Image from "next/image";
 
@@ -29,7 +28,7 @@ const PresentCountry = () => {
   const [recipeId, setRecipeId] = useState("");
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const categories = [
     {
@@ -50,17 +49,18 @@ const PresentCountry = () => {
     setSelectedOption(value);
   };
 
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 5000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   useEffect(() => {
     getCountryById(params.slug).then((country) => {
       setCountry(country);
+      setLoading(false);
     });
   }, []);
 
