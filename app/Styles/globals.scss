@@ -24,6 +24,12 @@
   --Desktop: 1200px;
 }
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+}
 html {
   background-color: var(--Yellow);
 }
@@ -50,10 +56,4 @@ a,
 li,
 :placeholder-shown {
   font-family: var(--Text);
-}
-
-audio::-webkit-media-controls-play-button,
-audio::-webkit-media-controls-panel {
-  background-color: var(--Light);
-  color: var(--DarkGreen);
 }
