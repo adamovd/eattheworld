@@ -10,7 +10,6 @@ interface NavProps {
 export const NavbarContainer = styled.nav<NavProps>`
   width: 100%;
   height: ${(props: NavProps) => (props.extendnavbar ? "100vh" : "4rem")};
-  border-bottom: 1px solid var(--Dark);
   background: var(--Light);
   display: flex;
   flex-direction: column;
@@ -20,6 +19,7 @@ export const NavbarContainer = styled.nav<NavProps>`
   @media ${devices.tablet} {
     height: 4rem;
     flex-direction: row;
+    border-bottom: 1px solid var(--Dark);
   }
 `;
 
@@ -48,6 +48,10 @@ export const NavbarInnerContainer = styled.section`
   width: 100%;
   height: 4rem;
   display: flex;
+  border-bottom: 1px solid var(--Dark);
+  @media ${devices.tablet} {
+    border-bottom: none;
+  }
 `;
 
 export const NavbarLinkContainer = styled.li`
