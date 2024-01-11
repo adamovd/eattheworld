@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export const TitleCard = styled(motion.section)`
   position: absolute;
   top: -10vh;
-  left: 2rem;
+  left: 1rem;
   display: flex;
   width: fit-content;
   height: 15vh;
@@ -18,6 +18,7 @@ export const TitleCard = styled(motion.section)`
   box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   font-family: var(--Heading);
   font-size: 1.5rem;
+  z-index: 50;
   @media ${devices.tablet} {
     font-size: 2rem;
     padding: 1.5 1.5rem 1.5 2rem;
