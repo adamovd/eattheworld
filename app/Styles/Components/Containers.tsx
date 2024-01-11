@@ -46,9 +46,10 @@ export const InfoContainer = styled(motion.section)`
   font-size: 0.8rem;
 
   @media ${devices.tablet} {
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: flex-start;
+    display: table;
+    table-layout: fixed;
+
+    margin: 0 auto;
     font-size: 1rem;
     ol,
     ul {
@@ -86,6 +87,7 @@ export const TileContainer = styled.section`
 
 export const TextContainer = styled(motion.section)`
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
@@ -93,6 +95,7 @@ export const TextContainer = styled(motion.section)`
   padding-top: 4rem;
   padding-bottom: 4rem;
   font-size: 0.8rem;
+
   button {
     margin-top: 1rem;
     align-self: center;
@@ -114,15 +117,16 @@ export const TextContainer = styled(motion.section)`
   }
   @media ${devices.tablet} {
     font-size: 1rem;
-    flex: 1;
+    display: table-cell;
     &:nth-child(2) {
       width: 60%;
       border-bottom: none;
+      border-right: 1px solid var(--Dark);
     }
     &:nth-child(3) {
-      border-left: 1px solid var(--Dark);
       width: 40%;
       padding-top: 4rem;
+      padding-bottom: 6rem;
     }
   }
 `;
@@ -137,6 +141,7 @@ export const RecipeImageContainer = styled.article<ImageProps>`
   overflow: hidden;
   border-bottom: 1px solid var(--Dark);
   @media ${devices.tablet} {
+    display: table-cell;
     border-bottom: none;
     border-right: 1px solid var(--Dark);
     width: 50%;
@@ -155,7 +160,40 @@ export const RecipeTextContainer = styled.article`
     font-size: 2rem;
   }
   @media ${devices.tablet} {
+    display: table-cell;
     width: 70%;
+  }
+`;
+
+export const RecipeInstructionsContainer = styled(motion.section)`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  font-size: 0.8rem;
+
+  &:nth-child(1) {
+    border-bottom: 1px solid var(--Dark);
+  }
+  &:nth-child(2) {
+    padding-top: 2rem;
+  }
+  @media ${devices.tablet} {
+    font-size: 1rem;
+    display: table-cell;
+    &:nth-child(1) {
+      width: 50%;
+      border-bottom: none;
+      border-right: 1px solid var(--Dark);
+    }
+    &:nth-child(2) {
+      width: 50%;
+      padding-top: 4rem;
+      padding-bottom: 6rem;
+    }
   }
 `;
 
@@ -282,14 +320,29 @@ export const VideoContainer = styled.video`
   border-bottom: 1px solid var(--Dark);
 `;
 
+export const CountryBottomContainer = styled(motion.section)`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+
+  @media ${devices.tablet} {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    font-size: 1rem;
+  }
+`;
 export const CountryMap = styled.section`
   width: 92vw;
-  height: 70vh;
+  height: 60vh;
   overflow: hidden;
   padding: 0;
-  border-left: 1px solid var(--Dark);
   border-right: 1px solid var(--Dark);
   border-bottom: 1px solid var(--Dark);
+  border-left: 1px solid var(--Dark);
 
   @media ${devices.tablet} {
     height: 50vh;
@@ -308,12 +361,12 @@ export const SpotifyContainer = styled.section`
   align-items: center;
   width: 92vw;
   height: 50vh;
-  overflow: hidden;
   padding-top: 2rem;
+  padding-bottom: 2rem;
 
   @media ${devices.tablet} {
     width: 40vw;
-    padding-top: 0;
+    padding-top: 1rem;
   }
   @media ${devices.laptop} {
     width: 30vw;
@@ -354,4 +407,13 @@ export const PageSection = styled(motion.section)`
     font-size: 1.1rem;
     font-weight: 700;
   }
+`;
+
+export const FlagContainer = styled(motion.section)<ImageProps>`
+  width: 92vh;
+  height: 100%;
+  position: relative;
+  background-image: url(${(props: ImageProps) => props.url});
+  background-size: cover;
+  background-position: center;
 `;
