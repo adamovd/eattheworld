@@ -4,7 +4,7 @@ import { Country } from "@/app/Models/dbTypes";
 import { createNewCountry } from "@/app/Services/countryServices";
 
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { countryList } from "@/helpers/country-list";
 import { Button } from "@/app/Styles/Components/Buttons";
 import {
@@ -24,7 +24,7 @@ import { FormTitle } from "@/app/Styles/Components/Fonts";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { UploadButton } from "@/helpers/uploadthing";
 
-const CountryForm = ({ countryId }: { countryId?: string }) => {
+const CountryForm = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   let [uploadingProgress, setUploadingProgress] = useState(0);
   const { data: session } = useSession();
@@ -47,35 +47,6 @@ const CountryForm = ({ countryId }: { countryId?: string }) => {
     }
   });
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (countryId) {
-        try {
-          const response = await axios.get(`/api/v1/countries/${countryId}`);
-
-          if (response.data) {
-            const countryData = response.data;
-            setValue("name", countryData.name);
-            setValue("description", countryData.description);
-            setValue("population", countryData.population);
-            setValue("area", countryData.area);
-            setValue("lat", countryData.lat);
-            setValue("lng", countryData.lng);
-            setValue("capital", countryData.capital);
-            setValue("imageUrl", countryData.imageUrl);
-            setValue("playlistUrl", countryData.playlistUrl);
-            setValue("flag", countryData.flag);
-            setValue("continent", countryData.continent);
-          }
-        } catch (error) {
-          console.error("Error fetching country data:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [countryId]);
-
   const handleCountryChange = async (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedCountryValue = e.target.value;
     setSelectedCountry(selectedCountryValue);
@@ -83,6 +54,8 @@ const CountryForm = ({ countryId }: { countryId?: string }) => {
     const country = countryList.find(
       (country) => country.name === selectedCountryValue
     );
+    console.log(country?.code);
+
     try {
       const response = await axios.get(
         `https://restcountries.com/v3.1/alpha/${country?.code}?fields=latlng,population,capital,continents,area,flags`
