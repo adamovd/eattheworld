@@ -37,7 +37,7 @@ const UserPage = () => {
   const [totalDistance, setTotalDistance] = useState<number>(0);
   const [reviews, setReviews] = useState<Review[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const params: params = useParams();
   type params = { slug: string };
 
@@ -47,13 +47,13 @@ const UserPage = () => {
     });
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const timer = setTimeout(() => {
+  //     setLoading(false);
+  //   }, 2000);
+  //   return () => clearTimeout(timer);
+  // }, []);
 
   useEffect(() => {
     if (user?.likedRecipeIds && user.likedRecipeIds.length > 0) {
@@ -63,6 +63,7 @@ const UserPage = () => {
         );
         const fetchedRecipes = await Promise.all(promises);
         setRecipes(fetchedRecipes);
+        setLoading(false);
       };
 
       fetchLikedRecipes();

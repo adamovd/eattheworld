@@ -83,6 +83,7 @@ export const Description = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-top: 1rem;
   background-color: var(--DarkGreen);
   border-left: 1px solid var(--Dark);
   border-right: 1px solid var(--Dark);

@@ -26,7 +26,7 @@ const LandingPage = () => {
   );
   const imageUrl = useMemo(
     () =>
-      isPortrait ? "/images/background_mobile.webp" : "/images/background.jpg",
+      isPortrait ? "/images/background_mobile.webp" : "/images/background.webp",
     [isPortrait]
   );
 
