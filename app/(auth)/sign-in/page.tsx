@@ -41,7 +41,7 @@ const SignInForm = () => {
 
       reset();
 
-      history.back();
+      router.push("/");
     } catch (error) {
       console.error("Error while logging in", error);
     }
