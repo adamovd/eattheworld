@@ -11,6 +11,7 @@ import {
 } from "../Styles/Components/Containers";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 const PresentReviews = ({
   recipeId,
@@ -61,15 +62,17 @@ const PresentReviews = ({
             >
               <ReviewTopSection>
                 <section style={{ position: "relative" }}>
-                  <Image
-                    src={user[review.userId as string]?.image as string}
-                    alt={`Profile picture of ${
-                      user[review.userId as string]?.firstname
-                    }`}
-                    width={40}
-                    height={40}
-                    style={{ borderRadius: 50, position: "relative" }}
-                  />
+                  <Link href={`/user/${user[review.userId as string]?.id}`}>
+                    <Image
+                      src={user[review.userId as string]?.image as string}
+                      alt={`Profile picture of ${
+                        user[review.userId as string]?.firstname
+                      }`}
+                      width={40}
+                      height={40}
+                      style={{ borderRadius: 50, position: "relative" }}
+                    />
+                  </Link>
                   <Image
                     src={user[review.userId as string]?.flag as string}
                     alt={`Flag of ${
