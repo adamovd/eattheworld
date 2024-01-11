@@ -5,10 +5,10 @@ import { Country, Recipe } from "@/app/Models/dbTypes";
 import { getCountryById } from "@/app/Services/countryServices";
 import { TitleCard } from "@/app/Styles/Components/TitleCard";
 import {
+  CountryBottomContainer,
   CountryMap,
   ImageContainer,
   InfoContainer,
-  MapContainer,
   SpotifyContainer,
   TextContainer,
 } from "@/app/Styles/Components/Containers";
@@ -17,11 +17,8 @@ import RecipeCard from "@/app/Components/RecipeCard";
 import RadioButton from "@/app/Components/RadioButton";
 import PageWrapper from "@/app/Components/PageWrapper";
 import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
-import getRadioStations from "@/helpers/radio-api";
 import { IRadio } from "@/app/Models/IRadio";
-import { RadioPlayer } from "@/app/Styles/Components/Radio";
-import Flickity from "react-flickity-component";
-import Map, { Marker, ViewStateChangeEvent } from "react-map-gl";
+import Map from "react-map-gl";
 import Image from "next/image";
 
 type params = { slug: string };
@@ -33,7 +30,7 @@ const PresentCountry = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [filteredRecipe, setFilteredRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(false);
-  const [radioStations, setRadioStations] = useState<IRadio[]>();
+
   const categories = [
     {
       label: "Meat",
@@ -93,42 +90,18 @@ const PresentCountry = () => {
     });
   }, [country]);
 
-  // useEffect(() => {
-  //   getRadioStations(country?.name as string).then((response) => {
-  //     console.log(response);
-  //     setRadioStations(response);
-  //   });
-  // }, [country]);
-
-  // const Carousel = () => {
-  //   if (radioStations !== undefined && radioStations?.length > 0) {
-  //     return (
-  //       <Flickity
-  //         className={"carousel"} // default ''
-  //         elementType={"section"} // default 'div'
-  //         disableImagesLoaded={false} // default false
-  //         reloadOnUpdate // default false
-  //         static // default false
-  //       >
-  //         {radioStations?.map((station, index) => (
-  //           <RadioPlayer key={index}>
-  //             <p>{station.name}</p>
-  //             <audio controls>
-  //               <source src={station.url_resolved} type="audio/mp3" />
-  //               <p>{station.name}</p>
-  //             </audio>
-  //           </RadioPlayer>
-  //         ))}
-  //       </Flickity>
-  //     );
-  //   }
-  // };
-
   return (
     <>
       <PageWrapper>
         {loading ? (
-          <LoadingContainer />
+          <LoadingContainer>
+            <Image
+              src="https://utfs.io/f/6eedf646-a7bf-42a7-be22-f6c7ca634338-1zbfv.svg"
+              width={100}
+              height={100}
+              alt="Logo"
+            />
+          </LoadingContainer>
         ) : (
           <>
             <ImageContainer
@@ -193,7 +166,7 @@ const PresentCountry = () => {
 
               {filteredRecipe && <RecipeCard {...filteredRecipe} />}
             </InfoContainer>
-            <InfoContainer style={{ borderBottom: 0 }}>
+            <CountryBottomContainer>
               <CountryMap>
                 <Map
                   initialViewState={{
@@ -204,7 +177,7 @@ const PresentCountry = () => {
                   mapboxAccessToken="pk.eyJ1IjoiYWRtb3ZkIiwiYSI6ImNscXc1ZHdqazNzdDEyanA5NHAybnp2cGEifQ.2PO4qpYX1CYEYqUawGcioQ"
                   mapStyle="mapbox://styles/admovd/clr65ygz801id01qr8tyycw4f"
                   minZoom={2}
-                  style={{ borderRight: 1 }}
+                  style={{ borderRight: 1, height: "60vh" }}
                 />
               </CountryMap>
               <SpotifyContainer>
@@ -212,7 +185,7 @@ const PresentCountry = () => {
                   <Spotify link={country?.playlistUrl as string} />
                 )}
               </SpotifyContainer>
-            </InfoContainer>
+            </CountryBottomContainer>
           </>
         )}
       </PageWrapper>
