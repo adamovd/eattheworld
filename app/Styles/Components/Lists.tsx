@@ -42,11 +42,11 @@ export const CountryList = styled.li`
   width: 92vw;
   border-bottom: 1px solid var(--Dark);
   text-align: end;
-  section {
-    &:nth-last-child() {
-      border-bottom: none;
-    }
+  &:hover {
+    background-color: var(--DarkGreen);
+    color: var(--Light);
   }
+
   @media ${devices.tablet} {
     justify-content: space-around;
   }
