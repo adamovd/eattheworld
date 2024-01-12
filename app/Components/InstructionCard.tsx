@@ -11,6 +11,7 @@ import {
   CardSection,
   InnerCardImage,
 } from "../Styles/Components/LandingInstructions";
+import Link from "next/link";
 
 const InstructionsCard = ({
   i,
@@ -48,7 +49,7 @@ const InstructionsCard = ({
         <h2>{title}</h2>
         <CardBody>
           <CardDescription>
-            <p>{description}</p>
+            <Link href={url}>{description}</Link>
           </CardDescription>
 
           <CardImage>

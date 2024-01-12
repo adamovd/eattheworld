@@ -66,14 +66,15 @@ export const CardDescription = styled.section`
   justify-content: center;
   position: relative;
   text-align: center;
-  p {
+  a {
     font-family: var(--Heading);
     font-size: 1rem;
+    text-decoration: none;
   }
 
   @media ${devices.tablet} {
     width: 50%;
-    p {
+    a {
       font-size: 2.5rem;
     }
   }
