@@ -30,6 +30,7 @@ export const CardSection = styled(motion.section)<CardProps>`
   padding: 50px;
   transform-origin: top;
   border: 1px solid var(--Dark);
+  box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   background: var(${(props: CardProps) => props.bgcolor || "--Light"});
 
   h2 {
@@ -81,7 +82,8 @@ export const CardImage = styled.section`
   position: relative;
   width: 100%;
   height: 100%;
-  border-radius: 25px;
+  border: 1px solid var(--Dark);
+  box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 1);
   overflow: hidden;
   img {
     object-fit: cover;
