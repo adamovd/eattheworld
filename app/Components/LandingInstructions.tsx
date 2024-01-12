@@ -12,7 +12,7 @@ const infoCards: Card[] = [
     title: "#1",
     description: "Sign up and log in",
     url: "/sign-in",
-    src: "https://utfs.io/f/b5fe7428-937b-4734-afe7-39f7396ae766-4nvj7o.webp",
+    src: "https://utfs.io/f/b9a2195c-3a8c-47a6-8cca-741a20779410-1exksd.jpg",
     color: "--Red",
   },
   {
@@ -24,16 +24,16 @@ const infoCards: Card[] = [
   },
   {
     title: "#3",
-    description: "Choose a recipe and cook it",
+    description: "Choose a recipe",
     url: "/sign-in",
-    src: "https://utfs.io/f/08a9ea82-ff1c-4f48-b6e8-1a6a309abdca-75c6oh.jpg",
+    src: "https://utfs.io/f/ed3d6283-897a-4ed3-a5aa-a2f619b28f43-kg2th.jpg",
     color: "--Blue",
   },
   {
     title: "#4",
-    description: "Go to your pages and see your stats",
+    description: "Cook it and share it with people you love",
     url: "/sign-in",
-    src: "https://utfs.io/f/5e7f7fa7-8308-41e8-92d5-91f23ce1cce5-1tchi7.png",
+    src: "https://utfs.io/f/08a9ea82-ff1c-4f48-b6e8-1a6a309abdca-75c6oh.jpg",
     color: "--LightGreen",
   },
 ];

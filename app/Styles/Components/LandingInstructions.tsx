@@ -30,6 +30,7 @@ export const CardSection = styled(motion.section)<CardProps>`
   padding: 50px;
   transform-origin: top;
   border: 1px solid var(--Dark);
+  border-radius: 1.5rem;
   box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   background: var(${(props: CardProps) => props.bgcolor || "--Light"});
 
