@@ -16,9 +16,11 @@ import Link from "next/link";
 const PresentReviews = ({
   recipeId,
   updateReviews,
+  containerRef,
 }: {
   recipeId: string;
   updateReviews: boolean;
+  containerRef: React.RefObject<HTMLDivElement>;
 }) => {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [user, setUser] = useState<{ [key: string]: User }>({});
@@ -50,7 +52,7 @@ const PresentReviews = ({
   }, [recipeId, updateReviews]);
 
   return (
-    <>
+    <div ref={containerRef}>
       {reviews && user ? (
         <>
           {" "}
@@ -108,7 +110,7 @@ const PresentReviews = ({
           ))}
         </>
       ) : null}
-    </>
+    </div>
   );
 };
 

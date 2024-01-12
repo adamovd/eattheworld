@@ -17,10 +17,12 @@ const ReviewForm = ({
   userId,
   recipeId,
   onReviewSubmit,
+  containerRef,
 }: {
   userId: string;
   recipeId: string;
-  onReviewSubmit: () => void;
+  containerRef: React.RefObject<HTMLDivElement>;
+  onReviewSubmit: (containerRef: React.RefObject<HTMLDivElement>) => void;
 }) => {
   const {
     register,
@@ -49,7 +51,8 @@ const ReviewForm = ({
     try {
       await createNewReview(data, userId, recipeId);
       reset();
-      onReviewSubmit();
+      onReviewSubmit(containerRef);
+      containerRef.current?.scrollIntoView({ behavior: "smooth" });
     } catch (error) {
       console.error("Error while register", error);
     }

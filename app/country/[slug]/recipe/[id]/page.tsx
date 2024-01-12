@@ -24,6 +24,7 @@ import { addRecipeToUser, getUserById } from "@/app/Services/userServices";
 import { User } from "@prisma/client";
 import { LoadingContainer } from "@/app/Styles/Components/LoadingContainer";
 import Image from "next/image";
+import { useRef } from "react";
 
 type params = { id: string };
 
@@ -35,6 +36,7 @@ const PresentRecipe = () => {
   const [user, setUser] = useState<User>();
   const [recipeSaved, setRecipeSaved] = useState(false);
   const [loading, setLoading] = useState(true);
+  const reviewsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     getRecipe(params.id).then((recipe) => {
@@ -42,8 +44,11 @@ const PresentRecipe = () => {
       setLoading(false);
     });
   }, []);
-  const handleSubmittedReview = () => {
+  const handleSubmittedReview = (
+    containerRef: React.RefObject<HTMLDivElement>
+  ) => {
     setReviewUpdate((prev) => !prev);
+    containerRef.current?.scrollIntoView({ behavior: "smooth" });
   };
   const ratings = recipe?.reviews.map((review) => review.rating) || [];
   const averageRating =
@@ -174,7 +179,10 @@ const PresentRecipe = () => {
                   <ReviewForm
                     userId={session?.user?.id as string}
                     recipeId={recipe.id}
-                    onReviewSubmit={handleSubmittedReview}
+                    onReviewSubmit={() =>
+                      handleSubmittedReview(reviewsContainerRef)
+                    }
+                    containerRef={reviewsContainerRef}
                   />
                 ) : (
                   <Link href={`/sign-in`}>
@@ -184,6 +192,7 @@ const PresentRecipe = () => {
                 <PresentReviews
                   recipeId={recipe.id}
                   updateReviews={updateReviews}
+                  containerRef={reviewsContainerRef}
                 />
               </>
             )}
