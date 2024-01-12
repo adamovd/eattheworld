@@ -49,9 +49,17 @@ export const CategoryLabel = styled.label<ButtonProps>`
   background: var(${(props: ButtonProps) => props.bgcolor || "--Light"});
   color: var(${(props: ButtonProps) => props.textcolor || "--Dark"});
   font-size: ${(props: ButtonProps) => props.fontSize || "1rem"};
-  padding: 0.5rem;
+  display: flex;
+  width: fit-content;
+  height: 4rem;
+  padding: 1rem 1.5rem 1rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 1rem;
   border: 1px solid var(--Dark);
-  font-size: 0.8rem;
+  box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
+  font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
 
@@ -59,13 +67,13 @@ export const CategoryLabel = styled.label<ButtonProps>`
     props.isselected &&
     `
     font-weight: bold;
-    border-width: 2px;
     text-decoration: underline; 
     border-radius: 2px;
   `}
 
   @media ${devices.tablet} {
     font-size: 1rem;
+    height: 3rem;
     padding: 1rem;
   }
 `;

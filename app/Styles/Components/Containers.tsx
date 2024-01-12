@@ -37,6 +37,7 @@ export const ImageContainer = styled(motion.div)<ImageProps>`
 `;
 
 export const InfoContainer = styled(motion.section)`
+  transform-style: preserve-3d;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -48,7 +49,7 @@ export const InfoContainer = styled(motion.section)`
   @media ${devices.tablet} {
     display: table;
     table-layout: fixed;
-
+    transform-style: preserve-3d;
     margin: 0 auto;
     font-size: 1rem;
     ol,
@@ -119,14 +120,22 @@ export const TextContainer = styled(motion.section)`
     font-size: 1rem;
     display: table-cell;
     &:nth-child(2) {
-      width: 60%;
+      width: 52vw;
       border-bottom: none;
       border-right: 1px solid var(--Dark);
     }
     &:nth-child(3) {
-      width: 40%;
+      width: 40vw;
       padding-top: 4rem;
       padding-bottom: 6rem;
+    }
+  }
+  @media ${devices.laptop} {
+    &:nth-child(2) {
+      width: 62vw;
+    }
+    &:nth-child(3) {
+      width: 30vw;
     }
   }
 `;
@@ -198,16 +207,18 @@ export const RecipeInstructionsContainer = styled(motion.section)`
 `;
 
 export const ButtonContainer = styled.section`
+  transform: translateZ(-10px);
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   position: absolute;
-  top: -10px;
-  right: 40px;
+  top: -45px;
+  right: 6vw;
+  z-index: -1;
 
   @media ${devices.tablet} {
-    top: -15px;
-    right: 10px;
+    right: 4vw;
+    top: -30px;
     gap: 1rem;
   }
 `;
