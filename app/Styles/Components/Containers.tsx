@@ -207,14 +207,12 @@ export const RecipeInstructionsContainer = styled(motion.section)`
 `;
 
 export const ButtonContainer = styled.section`
-  transform: translateZ(-10px);
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   position: absolute;
-  top: -45px;
+  top: -30px;
   right: 6vw;
-  z-index: -1;
 
   @media ${devices.tablet} {
     right: 4vw;
