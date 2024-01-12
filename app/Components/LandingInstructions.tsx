@@ -13,14 +13,14 @@ const infoCards: Card[] = [
     description: "Sign up and log in",
     url: "/sign-in",
     src: "https://utfs.io/f/b5fe7428-937b-4734-afe7-39f7396ae766-4nvj7o.webp",
-    color: "--DarkGreen",
+    color: "--Red",
   },
   {
     title: "#2",
     description: "Get a random country",
     url: "/",
-    src: "https://utfs.io/f/7a6040b4-1e29-40ce-8604-a0bf332aa9cf-cg5z88.41.40.png",
-    color: "--Red",
+    src: "https://utfs.io/f/8dd1fd70-faee-483e-906a-9a7654434d7a-wir9iz.jpg",
+    color: "--Yellow",
   },
   {
     title: "#3",
@@ -34,7 +34,7 @@ const infoCards: Card[] = [
     description: "Go to your pages and see your stats",
     url: "/sign-in",
     src: "https://utfs.io/f/5e7f7fa7-8308-41e8-92d5-91f23ce1cce5-1tchi7.png",
-    color: "--Yellow",
+    color: "--LightGreen",
   },
 ];
 
