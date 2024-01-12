@@ -212,7 +212,7 @@ export const ButtonContainer = styled.section`
   gap: 0.5rem;
   position: absolute;
   top: -30px;
-  right: 6vw;
+  right: 8vw;
 
   @media ${devices.tablet} {
     right: 4vw;
@@ -369,12 +369,13 @@ export const SpotifyContainer = styled.section`
   justify-content: center;
   align-items: center;
   width: 92vw;
-  height: 50vh;
+  height: 70vh;
   padding-top: 2rem;
   padding-bottom: 2rem;
 
   @media ${devices.tablet} {
     width: 40vw;
+    height: 50vh;
     padding-top: 1rem;
   }
   @media ${devices.laptop} {
