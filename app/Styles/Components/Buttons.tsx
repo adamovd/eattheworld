@@ -11,7 +11,7 @@ interface ButtonProps {
 export const Button = styled.button<ButtonProps>`
   background: var(${(props: ButtonProps) => props.bgcolor || "--Yellow"});
   color: var(${(props: ButtonProps) => props.textcolor || "--Dark"});
-  font-size: 0.8rem;
+  font-size: 1rem;
   display: flex;
   padding: 0.5rem 1rem;
   align-items: flex-start;
@@ -36,7 +36,7 @@ export const Button = styled.button<ButtonProps>`
     line-height: 2rem;
   }
   @media ${devices.tablet} {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 `;
 
@@ -51,8 +51,8 @@ export const CategoryLabel = styled.label<ButtonProps>`
   font-size: ${(props: ButtonProps) => props.fontSize || "1rem"};
   display: flex;
   width: fit-content;
-  height: 4rem;
-  padding: 1rem 1.5rem 1rem 1.5rem;
+  height: 3rem;
+  padding: 1rem 1rem 1rem 1rem;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
