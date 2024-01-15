@@ -7,6 +7,8 @@ const Newsletter = () => {
     <section style={{ marginTop: "2rem", marginBottom: "2rem" }}>
       <h2>Join our newsletter:</h2>
       <InputField
+        id="newsletter"
+        name="newsletter"
         bgcolor="--Light"
         textcolor="--Dark"
         fontSize="1rem"
