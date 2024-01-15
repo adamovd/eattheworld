@@ -45,6 +45,7 @@ const LandingPage = () => {
 
       timeline.from(background.current, {
         clipPath: `inset(35%)`,
+        backgroundPosition: "0px 0px",
       });
     });
     return () => ctx.revert();
