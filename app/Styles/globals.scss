@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Roboto+Mono:ital,wght@0,200;0,300;0,400;1,100&display=swap");
+@import "node_modules/locomotive-scroll/dist/locomotive-scroll";
 
 @font-face {
   font-family: "Analogist";
@@ -24,8 +24,8 @@
   --DarkGreen: #46684c;
   --BodyColor: var(--Light);
 
-  --Heading: "Analogist", "Playfair Display", "Times", serif;
-  --Text: "Roboto Mono", "Roboto Mono", "Arial", sans-serif;
+  --Heading: "Analogist", "Times", serif;
+  --Text: "Roboto Mono", "Arial", sans-serif;
 
   --Mobile: 576px;
   --Tablet: 768px;
