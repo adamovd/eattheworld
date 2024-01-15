@@ -63,7 +63,6 @@ const UserPage = () => {
         );
         const fetchedRecipes = await Promise.all(promises);
         setRecipes(fetchedRecipes);
-        setLoading(false);
       };
 
       fetchLikedRecipes();
@@ -73,6 +72,7 @@ const UserPage = () => {
   useEffect(() => {
     getAllCountries().then((response) => {
       setCountries(response);
+      setLoading(false);
     });
   }, []);
 
