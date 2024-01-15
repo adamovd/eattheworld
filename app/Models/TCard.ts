@@ -7,6 +7,7 @@ export type Card = {
   src: string;
   url: string;
   color: string;
+  bgcolor: string;
   progress?: MotionValue<number>;
   range?: number[];
   targetScale?: number;
