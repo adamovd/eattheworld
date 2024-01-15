@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 
 interface CardProps {
   bgcolor: string;
+  color: string;
 }
 
 export const CardContainer = styled.section`
@@ -33,6 +34,7 @@ export const CardSection = styled(motion.section)<CardProps>`
   border-radius: 1.5rem;
   box-shadow: 2px 5px 2px 0px rgba(0, 0, 0, 0.25);
   background: var(${(props: CardProps) => props.bgcolor || "--Light"});
+  color: var(${(props: CardProps) => props.color || "--Dark"});
 
   h2 {
     text-align: center;

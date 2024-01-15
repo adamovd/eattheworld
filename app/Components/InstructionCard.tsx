@@ -19,6 +19,7 @@ const InstructionsCard = ({
   description,
   src,
   url,
+  bgcolor,
   color,
   progress,
   range,
@@ -40,7 +41,8 @@ const InstructionsCard = ({
   return (
     <CardContainer ref={container}>
       <CardSection
-        bgcolor={color}
+        bgcolor={bgcolor}
+        color={color}
         style={{
           scale,
           top: `calc(-5vh + ${(i as number) * 25}px)`,
