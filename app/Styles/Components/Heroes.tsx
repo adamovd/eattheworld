@@ -101,7 +101,7 @@ export const DescriptionContainer = styled.article`
   margin-top: 30vw;
   margin-left: 5vw;
   padding-bottom: 2rem;
-  h4 {
+  h2 {
     margin: 0px;
     position: relative;
   }

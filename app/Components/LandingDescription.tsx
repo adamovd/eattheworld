@@ -65,7 +65,7 @@ function AnimatedText({ children }: { children: React.ReactNode }) {
     return () => ctx.revert();
   }, []);
 
-  return <h4 ref={text}>{children}</h4>;
+  return <h2 ref={text}>{children}</h2>;
 }
 
 export default DescriptionPage;
