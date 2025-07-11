@@ -1,5 +1,3 @@
-@import "node_modules/locomotive-scroll/dist/locomotive-scroll";
-
 @font-face {
   font-family: "Analogist";
   src: url("../../public/fonts/Analogist.ttf");
@@ -10,9 +8,24 @@
   src: url("../../public/fonts/RobotoMono-Regular.ttf");
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  width: 100%;
+  scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
 
 :root {
   --Light: #f8f8e9;
@@ -34,7 +47,7 @@
 }
 
 html {
-  background-color: var(--Yellow);
+  background-color: var(--BodyColor);
 }
 
 body {

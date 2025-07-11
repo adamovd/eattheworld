@@ -15,10 +15,12 @@ export const Container = styled(motion.main)`
   justify-content: center;
   width: 92vw;
   min-height: 96vh;
-  margin-left: 4vw;
+  margin: 0 auto;
   border-left: 1px solid var(--Dark);
   border-right: 1px solid var(--Dark);
   background-color: var(--Light);
+  max-width: 100vw;
+  overflow-x: hidden;
 `;
 
 export const ImageContainer = styled(motion.div)<ImageProps>`

@@ -24,7 +24,8 @@ const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials.password) {
           return null;
         }
-        const user = prisma.user.findUnique({
+
+        const user = await prisma.user.findUnique({
           where: {
             email: credentials.email,
           },
@@ -32,26 +33,36 @@ const authOptions: NextAuthOptions = {
 
         if (!user) {
           console.log("No user");
-
           return null;
         }
 
         const matchingPasswords = await bcrypt.compare(
           credentials.password,
-          await user.then((user) => {
-            return user?.hashedPassword as string;
-          })
+          user.hashedPassword
         );
+
         if (!matchingPasswords) {
           console.log("Wrong Password");
-
           return null;
         }
-        return user;
+
+        return {
+          id: user.id,
+          email: user.email,
+          firstname: user.firstname,
+          lastname: user.lastname,
+          image: user.image,
+          role: user.role,
+          countryIDs: user.countryIDs,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+          nationality: user.nationality,
+          password: user.hashedPassword,
+        };
       },
     }),
   ],
-  secret: process.env.NEXT_PUBLIC_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
 
   pages: {
     signIn: "/sign-in",

@@ -1,7 +1,7 @@
 "use client";
 import { useScroll } from "framer-motion";
 import { useEffect, useRef } from "react";
-import Lenis from "@studio-freight/lenis";
+import Lenis from "lenis";
 import InstructionsCard from "./InstructionCard";
 import { Card } from "../Models/TCard";
 import { Main } from "../Styles/Components/LandingInstructions";
@@ -50,15 +50,27 @@ const LandingInstructions = () => {
   });
 
   useEffect(() => {
-    const lenis = new Lenis();
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+      infinite: false,
+      gestureOrientation: "vertical",
+    });
 
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
-  });
+    const rafId = requestAnimationFrame(raf);
+
+    // Cleanup function
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <Main ref={container}>

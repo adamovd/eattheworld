@@ -9,17 +9,20 @@ interface NavProps {
 
 export const NavbarContainer = styled.nav<NavProps>`
   width: 100%;
+  max-width: 100vw;
   height: ${(props: NavProps) => (props.extendnavbar ? "100vh" : "4rem")};
   background: var(--Light);
   display: flex;
   flex-direction: column;
   position: fixed;
   z-index: 999;
+  overflow: ${(props: NavProps) => (props.extendnavbar ? "auto" : "hidden")};
 
   @media ${devices.tablet} {
     height: 4rem;
     flex-direction: row;
     border-bottom: 1px solid var(--Dark);
+    overflow: hidden;
   }
 `;
 
@@ -29,6 +32,7 @@ export const LeftContainer = styled.article`
   align-items: center;
   justify-content: flex-start;
   padding-left: 10px;
+  overflow: hidden;
   @media ${devices.tablet} {
     padding-left: 4vw;
   }
@@ -39,6 +43,7 @@ export const RightContainer = styled.ul`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  overflow: hidden;
   @media ${devices.tablet} {
     padding-right: 4vw;
   }
@@ -46,6 +51,7 @@ export const RightContainer = styled.ul`
 
 export const NavbarInnerContainer = styled.section`
   width: 100%;
+  max-width: 100vw;
   height: 4rem;
   display: flex;
   border-bottom: 1px solid var(--Dark);
@@ -111,6 +117,7 @@ export const NavbarExtendedContainer = styled.section`
   flex-direction: column;
   align-items: center;
   margin-bottom: 1px solid var(--Dark);
+  overflow: hidden;
 
   @media ${devices.tablet} {
     display: none;

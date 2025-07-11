@@ -22,7 +22,7 @@ declare module "next-auth" {
     firstname: string;
     lastname: string;
     password?: string | null;
-    imageUrl?: string | null;
+    image?: string | null;
     bio?: string | null;
     nationality: string | null;
     role: string;
